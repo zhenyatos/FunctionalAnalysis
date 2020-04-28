@@ -1,0 +1,106 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage{hyperref}
+\usepackage{amsthm,amssymb,amsfonts,amsmath}
+\usepackage{xcolor}
+
+\theoremstyle{definition}
+\newtheorem{theorem}{Теорема}
+\newtheorem{definition}{Определение}[section]
+\newtheorem{corollarydf}{Замечание}[definition]
+\newtheorem{corollaryth}{Замечание}[theorem]
+
+\newcommand{\Real}{\mathbb{R}}
+\newcommand{\Cmplx}{\mathbb{C}}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\setbuild}[2]{\{#1\:|\:#2\}}
+\DeclareMathOperator{\Lin}{Lin}
+\newcommand{\tick}[1]{#1^{\prime}}
+\newcommand{\dtick}[1]{#1^{\prime\prime}}
+\newcommand{\bounded}[2]{\textrm{B}(#1, #2)}
+\newcommand{\linear}[2]{\textrm{L}(#1, #2)}
+
+%opening
+\title{Линейные функционалы}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+	Конспект лекций по данному разделу, читаемых Сергеем Валерьевичем Лупуляком в СПбПУ. Видеозаписи:
+	\begin{enumerate}
+		\item \url{https://www.youtube.com/watch?v=NyO3tRUWof0}
+		\item \url{https://www.youtube.com/watch?v=FkBqjrC1pjI}
+	\end{enumerate}
+	
+\end{abstract}
+
+\newpage
+\section{Теорема Хана-Банаха}
+
+\begin{definition}
+	Пусть $X$ - н.п. над $\Real(\Cmplx)$, пространством \textcolor{red}{сопряженным к $X$} называем $X^*=\bounded{X}{\Real}(\bounded{X}{\Cmplx})$. Причем $f\in X^*\Rightarrow D(f)=X$
+\end{definition}
+
+\begin{corollarydf}
+	Ключевая в этом параграфе теорема даст своего рода обоснование указанному в определении равенству $X^*=\bounded{X}{\Real}$, хотя более строго следовало бы написать $X^*=\setbuild{f\in \bounded{X}{\Real}}{D(f)=X}$ т.к. область определения ограниченного линейного функционала вообще говоря может быть произвольным линейным многообразием
+\end{corollarydf}
+
+\begin{corollarydf}
+	Как известно если $Y$ - б.п., то $\bounded{X}{Y}$ - б.п. относительно нормы оператора $$\norm{f}_{X^*}=\sup_{\norm{x}\leq1}|f(x)|$$, а значит каким бы не было н.п. $X$, $X^*$ всегда б.п. (т.к. $\Real,\Cmplx$ - б.п.)
+\end{corollarydf}
+
+\begin{theorem}[\textbf{Хана-Банаха}]
+	Пусть 
+	\begin{enumerate}
+		\item $X$ - н.п.
+		\item $L\subset X$ - линейное многообразие
+		\item $f\in \bounded{X}{\Real}, D(f) = L$
+	\end{enumerate}
+	тогда $\exists F\in X^*$ такой что
+	\begin{enumerate}
+		\item $F$ - продолжение $f$
+		\item $\norm{F}_{X^*} = \norm{f}_{\bounded{X}{\Real}}$
+	\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+	Докажем только для частного случая когда $X$ - сепарабельно. \newline \newline
+	
+	\textbf{1.} Пусть $x_0 \notin L$ (если такого не существует, то $L=X$ и утверждение тривиально) и пусть $P_0 = \Lin{\{x_0\}} = 
+	\setbuild{x\in X}{\exists\alpha\in\Real: x=\alpha x_0}$ (прямая натянутая на $x_0$). Пусть $L_0 = L + P_0$. \newline
+	\newline
+	
+	\textbf{2.} Докажем что $L_0 = L\oplus P_0$. \newline
+	Пусть $0=y_0 + tx_0$, где $y_0\in L$. Если $t\neq0$, то $x_0 = -\frac{y_0}{t} \in L$ - противоречие. Значит $t=0$ и соответственно $y_0 = 0$. Представление нуля единственно $0 = 0 + 0$, откуда теперь замечаем что если для некоторого $x\in L_0$: $x = y_1 + t_1 x_0 = y_2 + t_2 x_0$, то $0 = (y_1 - y_2) + (t_1 - t_2) x_0$ и очевидно $y_1 - y_2 \in L$, $(t_1 - t_2)x_0 \in P_0$ так что $y_1 = y_2 \wedge t_1 = t_2$. \newline
+	\newpage
+	
+	\textbf{3.} Будем производить некоторые преобразования и оценки. Хоть и сложно сходу понять зачем, но увидим. Пусть $\tick{x}, \dtick{x} \in L$, тогда \newline\newline
+	$f(\tick{x}) - f(\dtick{x}) = 
+	f(\tick{x} - \dtick{x}) \leq |f(\tick{x} - \dtick{x})| \leq
+	\norm{f}\norm{\tick{x} - \dtick{x}} = 
+	\norm{f}\norm{\tick{x} \pm x_0 - \dtick{x}} \leq$ \newline
+	$\leq \norm{f}\norm{\tick{x} + x_0} + \norm{f}\norm{x_0 + \dtick{x}}$ \newline
+	Итого 
+	$$f(\tick{x}) - \norm{f}\norm{\tick{x} + x_0} \leq  f(\dtick{x}) + \norm{f}\norm{\dtick{x} + x_0}, \forall \tick{x},\dtick{x} \in L$$ 
+	откуда
+	$$\exists C \in \Real: \sup_{y \in L}{(f(y) - \norm{f}\norm{y + x_0})} \leq C \leq
+	\inf_{y \in L}{(f(y) + \norm{f}\norm{y + x_0})}$$ \newline
+	для последнего перехода важно было что в левой части только $\tick{x}$, а в правой только $\dtick{x}$, наконец замечаем
+	$$f(y) - \norm{f}\norm{y + x_0} \leq C \leq f(y) + \norm{f}\norm{y + x_0}, \forall y \in L$$
+	что равносильно
+	$$|f(y) - C| \leq \norm{f}\norm{y + x_0}, \forall y \in L$$
+	\newline
+	
+	\textbf{4.} Пусть $x \in L_0$, тогда из \textbf{2} $\exists!{y \in L, t \in \Real}: x = y + tx_0$, соответственно можно задать $F(x) = f(y) - t$, покажем что $F \in \linear{L_0, \Real}$
+	
+\end{proof}
+
+\begin{corollaryth}
+	Возвращаясь к теории линейных операторов - ограниченный оператор можно было продлить со всюду-плотного линейного многообразия, а ограниченный функционал с произвольного. Однако, уже не единственным образом.
+\end{corollaryth}
+
+\end{document}

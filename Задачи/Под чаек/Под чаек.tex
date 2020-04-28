@@ -6,8 +6,14 @@
 
 \theoremstyle{definition}
 \newtheorem{exercise}{Задача}[section]
-\newtheorem{solution}{Решение}[section]
-\newtheorem{note}{Примечание}[section]
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Решение]}
+{\end{proof}}
+
+\newenvironment{note}
+{\renewcommand\qedsymbol{}\begin{proof}[Примечание]}
+	{\end{proof}}
 
 \newcommand{\Real}{\mathbb{R}}
 \newcommand{\Cmplx}{\mathbb{C}}
@@ -33,6 +39,7 @@
 		$(X, \norm{\cdot}_1)$ будет банаховым пространством т.к. $\norm{\cdot}_1 \sim \norm{\cdot}$. Действительно $\norm{x}_1 = \norm{x} + \norm{Ax} \leq \norm{x} + \norm{A}\norm{x} = (1 + \norm{A})\norm{x}$ и очевидно $\norm{x}_1 \geq \norm{x}$ так что
 		$\forall x\in X : \norm{x} \leq \norm{x}_1 \leq (1 + \norm{A})\norm{x}$.
 	\end{solution}
+
 	\begin{note}
 		В решении не использовал банаховость $X$, только нормированность, банаховость $Y$ вероятно нужна для того чтобы оператор $A$ можно было считать заданным на всем пространстве $X$, с учетом теоремы о продолжении оператора. Иначе указанное равенство вообще будет определено не для всех $x$ и разумеется это не норма.
 	\end{note}
