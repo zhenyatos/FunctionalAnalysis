@@ -13,6 +13,7 @@
 
 \newcommand{\Real}{\mathbb{R}}
 \newcommand{\Cmplx}{\mathbb{C}}
+\newcommand{\Natural}{\mathbb{N}}
 \newcommand{\norm}[1]{\left\lVert#1\right\rVert}
 \newcommand{\setbuild}[2]{\{#1\:|\:#2\}}
 \DeclareMathOperator{\Lin}{Lin}
@@ -20,6 +21,14 @@
 \newcommand{\dtick}[1]{#1^{\prime\prime}}
 \newcommand{\bounded}[2]{\textrm{B}(#1, #2)}
 \newcommand{\linear}[2]{\textrm{L}(#1, #2)}
+\newcommand{\seq}[2]{\{#1\}_{#2}}
+
+\hypersetup{
+	colorlinks   = true, 
+	urlcolor     = blue, 
+	linkcolor    = blue, 
+	citecolor   = red
+}
 
 %opening
 \title{Линейные функционалы}
@@ -70,20 +79,20 @@
 \begin{proof}
 	Докажем только для частного случая когда $X$ - сепарабельно. \newline \newline
 	
-	\textbf{1.} Пусть $x_0 \notin L$ (если такого не существует, то $L=X$ и утверждение тривиально) и пусть $P_0 = \Lin{\{x_0\}} = 
-	\setbuild{x\in X}{\exists\alpha\in\Real: x=\alpha x_0}$ (прямая натянутая на $x_0$). Пусть $L_0 = L + P_0$. \newline
+	\textbf{1.} Пусть $x_0 \notin L$ (если такого не существует, то $L=X$ и утверждение тривиально) и пусть $P_{x_0} = \Lin{\{x_0\}} = 
+	\setbuild{x\in X}{\exists\alpha\in\Real: x=\alpha x_0}$ (прямая натянутая на $x_0$). Пусть $L_0 = L + P_{x_0}$. \newline
 	\newline
 	
-	\textbf{2.} Докажем что $L_0 = L\oplus P_0$. \newline
-	Пусть $0=y_0 + tx_0$, где $y_0\in L$. Если $t\neq0$, то $x_0 = -\frac{y_0}{t} \in L$ - противоречие. Значит $t=0$ и соответственно $y_0 = 0$. Представление нуля единственно $0 = 0 + 0$, откуда теперь замечаем что если для некоторого $x\in L_0$: $x = y_1 + t_1 x_0 = y_2 + t_2 x_0$, то $0 = (y_1 - y_2) + (t_1 - t_2) x_0$ и очевидно $y_1 - y_2 \in L$, $(t_1 - t_2)x_0 \in P_0$ так что $y_1 = y_2 \wedge t_1 = t_2$. \newline
+	\textbf{2.} Докажем что $L_0 = L\oplus P_{x_0}$. \newline
+	Пусть $0=y_0 + tx_0$, где $y_0\in L$. Если $t\neq0$, то $x_0 = -\frac{y_0}{t} \in L$ - противоречие. Значит $t=0$ и соответственно $y_0 = 0$. Представление нуля единственно $0 = 0 + 0$, откуда теперь замечаем что если для некоторого $x\in L_0$: $x = y_1 + t_1 x_0 = y_2 + t_2 x_0$, то $0 = (y_1 - y_2) + (t_1 - t_2) x_0$ и очевидно $y_1 - y_2 \in L$, $(t_1 - t_2)x_0 \in P_{x_0}$ так что $y_1 = y_2 \wedge t_1 = t_2$. \newline
 	\newpage
 	
 	\textbf{3.} Будем производить некоторые преобразования и оценки. Хоть и сложно сходу понять зачем, но увидим. Пусть $\tick{x}, \dtick{x} \in L$, тогда \newline\newline
 	$f(\tick{x}) - f(\dtick{x}) = 
 	f(\tick{x} - \dtick{x}) \leq |f(\tick{x} - \dtick{x})| \leq
-	\norm{f}\norm{\tick{x} - \dtick{x}} = 
-	\norm{f}\norm{\tick{x} \pm x_0 - \dtick{x}} \leq$ \newline
-	$\leq \norm{f}\norm{\tick{x} + x_0} + \norm{f}\norm{x_0 + \dtick{x}}$ \newline
+	\norm{f}\norm{\tick{x} - \dtick{x}} =$ \newline 
+	$= \norm{f}\norm{\tick{x} \pm x_0 - \dtick{x}} \leq
+	\norm{f}\norm{\tick{x} + x_0} + \norm{f}\norm{x_0 + \dtick{x}}$ \newline
 	Итого 
 	$$f(\tick{x}) - \norm{f}\norm{\tick{x} + x_0} \leq  f(\dtick{x}) + \norm{f}\norm{\dtick{x} + x_0}, \forall \tick{x},\dtick{x} \in L$$ 
 	откуда
@@ -92,15 +101,41 @@
 	для последнего перехода важно было что в левой части только $\tick{x}$, а в правой только $\dtick{x}$, наконец замечаем
 	$$f(y) - \norm{f}\norm{y + x_0} \leq C \leq f(y) + \norm{f}\norm{y + x_0}, \forall y \in L$$
 	что равносильно
-	$$|f(y) - C| \leq \norm{f}\norm{y + x_0}, \forall y \in L$$
+	\begin{equation}
+		|f(y) - C| \leq \norm{f}\norm{y + x_0}, \forall y \in L \label{eq:1}
+	\end{equation}
 	\newline
 	
-	\textbf{4.} Пусть $x \in L_0$, тогда из \textbf{2} $\exists!{y \in L, t \in \Real}: x = y + tx_0$, соответственно можно задать $F(x) = f(y) - t$, покажем что $F \in \linear{L_0, \Real}$
+	\textbf{4.} Пусть $x \in L_0$, тогда из \textbf{2} $\exists!{y \in L, t \in \Real}: x = y + tx_0$, соответственно можно задать $$F(x) = f(y) - tC$$, покажем что $F \in \linear{L_0, \Real}$. Действительно для $x_1, x_2 \in L_0$ имеем \newline $x_1 = y_1 + t_1 x_0, x_2 = y_2 + t_2 x_0$, где $y_1, y_2 \in L$ и $t_1, t_2 \in \Real$, тогда
+	\begin{align*}
+		\alpha_1 x_1 + \alpha_2 x_2 &= \alpha_1 (y_1 + t_1 x_0) + \alpha_2 (y_2 + t_2 x_0), \forall \alpha_1, \alpha_2 \in \Real  \\
+		&\Leftrightarrow \\
+		\alpha_1 x_1 + \alpha_2 x_2 &= (\alpha_1 y_1 + \alpha_2 y_2) + (\alpha_1 t_1 + \alpha_2 t_2)x_0, \forall \alpha_1, \alpha_2 \in \Real
+	\end{align*}
+	 Заметим что в $\alpha_1 y_1 + \alpha_2 y_2 \in L$ т.к. $L$ - линейное многообразие \newline и $\alpha_1 t_1 + \alpha_2 t_2 \in \Real$ так что с учетом того что $L_0 = L \oplus P_{x_0}$ и из определения $F$ получаем
+	\begin{align*}
+		F(\alpha_1 x_1 + \alpha_2 x_2) &= f(\alpha_1 y_1 + \alpha_2 y_2) - (\alpha_1 t_1 + \alpha_2 t_2)C, \forall \alpha_1, \alpha_2 \in \Real \\ &\Leftrightarrow \\    
+		F(\alpha_1 x_1 + \alpha_2 x_2) &= \alpha_1 f(y_1) + \alpha_2 f(y_2) - \alpha_1 t_1 C - \alpha_2 t_2 C, \forall \alpha_1, \alpha_2 \in \Real \\ &\Leftrightarrow \\
+		F(\alpha_1 x_1 + \alpha_2 x_2) &= \alpha_1 (f(y_1) - t_1 C) + \alpha_2 (f(y_2) - t_2 C), \forall \alpha_1, \alpha_2 \in \Real \\ &\Leftrightarrow \\
+		F(\alpha_1 x_1 + \alpha_2 x_2) &= \alpha_1 F(x_1) + \alpha_2 F(x_2), \forall \alpha_1, \alpha_2 \in \Real
+	\end{align*}
+	Пусть $x\in L$, тогда $x = x + 0x_0 \in L_0$ и $F(x) = f(x) - 0C = f(x)$, так что $F$ - действительно продолжение $f$. Далее пусть $x \notin L$, тогда $t \neq 0$ и 
+	$|F(x)| = |f(y) - tC| = |t||f(\frac{y}{t}) - C| \leq^{\text{\eqref{eq:1}}} |t|\norm{f}\norm{\frac{y}{t} + x_0} = \\ = \norm{f}\norm{y + tx_0} = \norm{f}\norm{x}$, так что вообще $\forall x \in L_0: \norm{F(x)} \leq \norm{f}\norm{x}$. Мы доказали что $F \in \bounded{L_0}{\Real}$, причем $\norm{F} \leq \norm{f} \Rightarrow \norm{F} = \norm{f}$ т.к. норма продолжения $f$ всегда не меньше нормы $f$.
+	\newline
 	
+	\textbf{5.} По условию $X$ - сепарабельно т.е. $\exists \seq{x_k}{k \in \Natural} \subset X: X = \overline{\seq{x_k}{k \in \Natural}}$. \newline
+	
+	\noindent Пусть $x_1 \notin L, L_1 = L \oplus P_{x_1}$ и воспользовавшись \textbf{1-4} построим $f_1$ - продолжение $f$ на $L_1$ ($f_1 \in \bounded{L_1}{\Real}, \norm{f_1} = \norm{f}$). \newline
+	
+	\noindent Пусть $x_2 \notin L_1, L_2 = L_1 \oplus P_{x_2}$ и аналогично построим $f_2$ - продолжение $f_1$ на $L_2$. \newline
+	
+	\noindent Процесс продолжения приводит к последовательности вложенных линейных многообразий $L \subset L_1 \subset L_2 \subset ... \subset L_k \subset ...$. Если начиная с некоторого $K \in \Natural$ имеем $L_k = X, \forall k \geq K$, то теорема доказана. В противном случае пусть $$X_0 = \bigcup_{k=1}^{\infty}{L_k}$$, тогда заметим что $\seq{x_k}{k \in \Natural} \subset X_0$ и соответственно $\overline{X_0} = X$. \newline
+	
+	\noindent $x \in X_0 \Rightarrow \exists k \in \Natural: x \in L_k$, пусть $F(x) = f_k (x)$ и видим что \newline $|F(x)| = |f_k (x)| \leq \norm{f_k}\norm{x} = \norm{f}\norm{x}$ т.е. $F \in \bounded{X_0}{\Real}$, а значит можно воспользоваться теоремой о продолжении ограниченного линейного отображения со всюду плотной областью определения и теорема доказана. 
 \end{proof}
 
 \begin{corollaryth}
-	Возвращаясь к теории линейных операторов - ограниченный оператор можно было продлить со всюду-плотного линейного многообразия, а ограниченный функционал с произвольного. Однако, уже не единственным образом.
+	Возвращаясь к теории линейных операторов - ограниченный оператор можно было продлить со всюду-плотного линейного многообразия, а ограниченный функционал можно с произвольного. Однако, уже не единственным образом.
 \end{corollaryth}
 
 \end{document}
