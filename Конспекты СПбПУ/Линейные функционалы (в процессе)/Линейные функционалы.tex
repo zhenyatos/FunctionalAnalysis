@@ -4,12 +4,15 @@
 \usepackage{hyperref}
 \usepackage{amsthm,amssymb,amsfonts,amsmath}
 \usepackage{xcolor}
+\usepackage[left=3cm,right=3cm,
+top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 
 \theoremstyle{definition}
 \newtheorem{theorem}{Теорема}
 \newtheorem{definition}{Определение}[section]
 \newtheorem{corollarydf}{Замечание}[definition]
 \newtheorem{corollaryth}{Замечание}[theorem]
+\newtheorem{corollary}{Следствие}[theorem]
 
 \newcommand{\Real}{\mathbb{R}}
 \newcommand{\Cmplx}{\mathbb{C}}
@@ -50,6 +53,7 @@
 \newpage
 \section{Теорема Хана-Банаха}
 
+% Определение сопряженного пространства
 \begin{definition}
 	Пусть $X$ - н.п. над $\Real(\Cmplx)$, пространством \textcolor{red}{сопряженным к $X$} называем $X^*=\bounded{X}{\Real}(\bounded{X}{\Cmplx})$. Причем $f\in X^*\Rightarrow D(f)=X$
 \end{definition}
@@ -62,6 +66,7 @@
 	Как известно если $Y$ - б.п., то $\bounded{X}{Y}$ - б.п. относительно нормы оператора $$\norm{f}_{X^*}=\sup_{\norm{x}\leq1}|f(x)|$$, а значит каким бы не было н.п. $X$, $X^*$ всегда б.п. (т.к. $\Real,\Cmplx$ - б.п.)
 \end{corollarydf}
 
+% Теорема Хана-Банаха
 \begin{theorem}[\textbf{Хана-Банаха}]
 	Пусть 
 	\begin{enumerate}
@@ -75,7 +80,6 @@
 		\item $\norm{F}_{X^*} = \norm{f}_{\bounded{X}{\Real}}$
 	\end{enumerate}
 \end{theorem}
-
 \begin{proof}
 	Докажем только для частного случая когда $X$ - сепарабельно. \newline \newline
 	
@@ -90,9 +94,9 @@
 	\textbf{3.} Будем производить некоторые преобразования и оценки. Хоть и сложно сходу понять зачем, но увидим. Пусть $\tick{x}, \dtick{x} \in L$, тогда \newline\newline
 	$f(\tick{x}) - f(\dtick{x}) = 
 	f(\tick{x} - \dtick{x}) \leq |f(\tick{x} - \dtick{x})| \leq
-	\norm{f}\norm{\tick{x} - \dtick{x}} =$ \newline 
-	$= \norm{f}\norm{\tick{x} \pm x_0 - \dtick{x}} \leq
-	\norm{f}\norm{\tick{x} + x_0} + \norm{f}\norm{x_0 + \dtick{x}}$ \newline
+	\norm{f}\norm{\tick{x} - \dtick{x}} =
+	\norm{f}\norm{\tick{x} \pm x_0 - \dtick{x}} \leq \\
+	\leq \norm{f}\norm{\tick{x} + x_0} + \norm{f}\norm{x_0 + \dtick{x}}$ \newline
 	Итого 
 	$$f(\tick{x}) - \norm{f}\norm{\tick{x} + x_0} \leq  f(\dtick{x}) + \norm{f}\norm{\dtick{x} + x_0}, \forall \tick{x},\dtick{x} \in L$$ 
 	откуда
@@ -120,7 +124,7 @@
 		F(\alpha_1 x_1 + \alpha_2 x_2) &= \alpha_1 F(x_1) + \alpha_2 F(x_2), \forall \alpha_1, \alpha_2 \in \Real
 	\end{align*}
 	Пусть $x\in L$, тогда $x = x + 0x_0 \in L_0$ и $F(x) = f(x) - 0C = f(x)$, так что $F$ - действительно продолжение $f$. Далее пусть $x \notin L$, тогда $t \neq 0$ и 
-	$|F(x)| = |f(y) - tC| = |t||f(\frac{y}{t}) - C| \leq^{\text{\eqref{eq:1}}} |t|\norm{f}\norm{\frac{y}{t} + x_0} = \\ = \norm{f}\norm{y + tx_0} = \norm{f}\norm{x}$, так что вообще $\forall x \in L_0: \norm{F(x)} \leq \norm{f}\norm{x}$. Мы доказали что $F \in \bounded{L_0}{\Real}$, причем $\norm{F} \leq \norm{f} \Rightarrow \norm{F} = \norm{f}$ т.к. норма продолжения $f$ всегда не меньше нормы $f$.
+	$$|F(x)| = |f(y) - tC| = |t||f(\frac{y}{t}) - C| \leq^{\text{\eqref{eq:1}}} |t|\norm{f}\norm{\frac{y}{t} + x_0} = \norm{f}\norm{y + tx_0} = \norm{f}\norm{x}$$, так что вообще $\forall x \in L_0: \norm{F(x)} \leq \norm{f}\norm{x}$. Мы доказали что $F \in \bounded{L_0}{\Real}$, причем $\norm{F} \leq \norm{f} \Rightarrow \norm{F} = \norm{f}$ т.к. норма продолжения $f$ всегда не меньше нормы $f$.
 	\newline
 	
 	\textbf{5.} По условию $X$ - сепарабельно т.е. $\exists \seq{x_k}{k \in \Natural} \subset X: X = \overline{\seq{x_k}{k \in \Natural}}$. \newline
@@ -131,11 +135,36 @@
 	
 	\noindent Процесс продолжения приводит к последовательности вложенных линейных многообразий $L \subset L_1 \subset L_2 \subset ... \subset L_k \subset ...$. Если начиная с некоторого $K \in \Natural$ имеем $L_k = X, \forall k \geq K$, то теорема доказана. В противном случае пусть $$X_0 = \bigcup_{k=1}^{\infty}{L_k}$$, тогда заметим что $\seq{x_k}{k \in \Natural} \subset X_0$ и соответственно $\overline{X_0} = X$. \newline
 	
-	\noindent $x \in X_0 \Rightarrow \exists k \in \Natural: x \in L_k$, пусть $F(x) = f_k (x)$ и видим что \newline $|F(x)| = |f_k (x)| \leq \norm{f_k}\norm{x} = \norm{f}\norm{x}$ т.е. $F \in \bounded{X_0}{\Real}$, а значит можно воспользоваться теоремой о продолжении ограниченного линейного отображения со всюду плотной областью определения и теорема доказана. 
+	\noindent $x \in X_0 \Rightarrow \exists k \in \Natural: x \in L_k$, пусть $F(x) = f_k (x)$ и видим что $$|F(x)| = |f_k (x)| \leq \norm{f_k}\norm{x} = \norm{f}\norm{x}$$ т.е. $F \in \bounded{X_0}{\Real}$, а значит можно воспользоваться теоремой о продолжении ограниченного линейного отображения со всюду плотной областью определения и теорема доказана. 
 \end{proof}
 
 \begin{corollaryth}
 	Возвращаясь к теории линейных операторов - ограниченный оператор можно было продлить со всюду-плотного линейного многообразия, а ограниченный функционал можно с произвольного. Однако, уже не единственным образом.
 \end{corollaryth}
+
+% Следствие 3
+\begin{corollary}
+	Пусть $x_0 \neq 0$, тогда \\ $\exists f\in X^*: (\norm{f}_{X^*} = 1) \wedge (f(x_0) = \norm{x_0})$
+\end{corollary}
+\begin{proof}
+	Пусть $P_{x_0} = \setbuild{x\in X}{\exists t\in\Real: x = tx_0}$ и пусть $x\in P_{x_0}$, тогда $x=tx_0$ для некоторого $t$ и положим $f(x)=t\norm{x_0}$. Получили $f:P_{x_0} \to \Real$, теперь докажем что $f(x)\in \linear{P_{x_0}}{\Real}$ \\
+	
+	Действительно если $x_1,x_2 \in P_{x_0}$, то $\exists t_1,t_2\in\Real: (x_1 = t_1 x_0) \wedge (x_2 = t_2 x_0)$, а значит $$\alpha_1 x_1 + \alpha_2 x_2 = \alpha_1 t_1 x_0 + \alpha_2 t_2 x_0 = (\alpha_1 t_1 + \alpha_2 t_2)  x_0 \in P_{x_0}$$, и $$f(\alpha_1 x_1 + \alpha_2 x_2) = (\alpha_1 t_1 + \alpha_2 t_2)\norm{x_0} = \alpha_1 (t_1 \norm{x_0}) + \alpha_2 (t_2 \norm{x_0}) = \alpha_2 f(x_1) + \alpha_2 f(x_2)$$ \\
+	
+	Теперь заметим что $$|f(x)| = |t|\norm{x_0} = \norm{tx_0} = \norm{x}, \forall x \in P_{x_0}$$ таким образом мы доказали что $f\in\bounded{X}{\Real}$, $D(f) = P_{x_0}$ и $\norm{f} = 1$, а также как не трудно видеть $x_0 = 1\cdot x_0$ т.е. $f(x_0) = \norm{x_0}$ по определению. Все необходимые нам свойства выполнены, но этот функционал задан только на одномерном линейном многообразии. Вот теперь мы и применяем теорему Хана-Банаха, продляя его на все пространство и мы получили искомый $f\in X^*$
+\end{proof}
+
+% Следствие 2
+\begin{corollary}
+	Пусть $x\in X$ и $\forall f \in X^* : f(x)=0$, тогда $x = 0$
+\end{corollary}
+\begin{proof}
+	Внимательно смотрим на предыдущее следствие. Если $x \neq 0$, то $\exists f \in X^*: f(x) = \norm{x} \neq 0$ что противоречит условию.
+\end{proof}
+
+% Следствие 3
+\begin{corollary}
+	
+\end{corollary}
 
 \end{document}
