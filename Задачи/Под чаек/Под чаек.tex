@@ -16,10 +16,35 @@
 	{\end{proof}}
 
 \newcommand{\Real}{\mathbb{R}}
-\newcommand{\Cmplx}{\mathbb{C}}
+\newcommand{\Complex}{\mathbb{C}}
+\newcommand{\Natural}{\mathbb{N}}
 \newcommand{\norm}[1]{\left\lVert#1\right\rVert}
 
 \begin{document}
+	\section{Теория меры}
+	
+	\begin{exercise}
+		Применить теорему Егорова к последовательности функций $f_n(x) = x^n$ на отрезке $[0,1]$.
+	\end{exercise}
+	\begin{solution}
+		Проверим каждое из условий теоремы Егорова, $f(x) = 0$:
+		\begin{enumerate}
+			\item $[0,1]$ - измеримо как замкнутый параллелепипед в $\Real$, причем \newline $\mu([0,1]) = v([0,1]) = 1-0 = 1 < +\infty$
+			
+			\item $\forall n \in \Natural: f_n \text{ - непрерывна на } [0,1]$, а мы уже показали что $[0,1]$ - измеримо, так что $\forall n \in \Natural: f_n \text{ - измерима на } [0,1]$
+			
+			\item $\forall x \in [0, 1]: (|f_n(x)| = x^n \leq 1 < +\infty) \wedge (|f(x)| = 0 < +\infty)$ т.е. $f_n, f$ - конечны на $[0,1]$
+			
+			\item Наконец, заметим что $\forall x \in [0,1): f_n(x) = x^n \to 0 = f(x)$ при $n \to \infty$ и $\mu(\{1\}) = 0$, а $[0,1] \setminus [0,1) = \{1\}$ т.е. $f_n \to f$ почти всюду на $[0,1]$
+		\end{enumerate}
+	
+		Условия теоремы выполнены и мы получаем следующий вывод: $$\forall \varepsilon > 0 \: \exists E_{\varepsilon} \text{ - измеримое}: (E_{\varepsilon} \subset [0,1]) \wedge (\mu([0,1]\setminus E_{\varepsilon}) < \varepsilon) \wedge (x^n \rightrightarrows 0 \text{ на } E_{\varepsilon})$$ т.е. существует сколь угодно "близкое" по мере к $E$ измеримое подмножество на котором сходимость равномерная. 
+	\end{solution}
+	\begin{note}
+		По существу результат довольно смешной т.к. в данном случае такое подмножество можно предъявить непосредственно, к примеру $[0, 1 - \frac{\delta}{2}], \delta = \min\{\varepsilon, 1\}$. Тем не менее задача полезна методически для понимания условий теоремы Егорова.
+	\end{note}
+	
+
 	\section{Линейные операторы}
 	
 	\begin{exercise}
