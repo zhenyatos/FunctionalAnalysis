@@ -22,11 +22,13 @@ top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 \newcommand{\setbuild}[2]{\{#1\:|\:#2\}}
 \DeclareMathOperator{\Lin}{Lin}
 \DeclareMathOperator{\dist}{dist}
+\DeclareMathOperator{\sign}{sign}
 \newcommand{\tick}[1]{#1^{\prime}}
 \newcommand{\dtick}[1]{#1^{\prime\prime}}
 \newcommand{\bounded}[2]{\textrm{B}(#1, #2)}
 \newcommand{\linear}[2]{\textrm{L}(#1, #2)}
 \newcommand{\seq}[2]{\{#1\}_{#2}}
+\newcommand{\conj}[1]{\left(#1\right)^*}
 
 \hypersetup{
 	colorlinks   = true, 
@@ -48,6 +50,7 @@ top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 	\begin{enumerate}
 		\item \url{https://www.youtube.com/watch?v=NyO3tRUWof0}
 		\item \url{https://www.youtube.com/watch?v=FkBqjrC1pjI}
+		\item \url{https://www.youtube.com/watch?v=zlR53CFNsS8}
 	\end{enumerate}
 	
 \end{abstract}
@@ -106,8 +109,8 @@ top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 	для последнего перехода важно было что в левой части только $\tick{x}$, а в правой только $\dtick{x}$, наконец замечаем
 	$$f(y) - \norm{f}\norm{y + x_0} \leq C \leq f(y) + \norm{f}\norm{y + x_0}, \forall y \in L$$
 	что равносильно
-	\begin{equation}
-		|f(y) - C| \leq \norm{f}\norm{y + x_0}, \forall y \in L \label{eq:1}
+	\begin{equation}\label{eq:1}
+		|f(y) - C| \leq \norm{f}\norm{y + x_0}, \forall y \in L 
 	\end{equation}
 	\newline
 	
@@ -125,7 +128,7 @@ top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 		F(\alpha_1 x_1 + \alpha_2 x_2) &= \alpha_1 F(x_1) + \alpha_2 F(x_2), \forall \alpha_1, \alpha_2 \in \Real
 	\end{align*}
 	Пусть $x\in L$, тогда $x = x + 0x_0 \in L_0$ и $F(x) = f(x) - 0C = f(x)$, так что $F$ - действительно продолжение $f$. Далее пусть $x \notin L$, тогда $t \neq 0$ и 
-	$$|F(x)| = |f(y) - tC| = |t||f(\frac{y}{t}) - C| \leq^{\text{\eqref{eq:1}}} |t|\norm{f}\norm{\frac{y}{t} + x_0} = \norm{f}\norm{y + tx_0} = \norm{f}\norm{x}$$, так что вообще $\forall x \in L_0: \norm{F(x)} \leq \norm{f}\norm{x}$. Мы доказали что $F \in \bounded{L_0}{\Real}$, причем $\norm{F} \leq \norm{f} \Rightarrow \norm{F} = \norm{f}$ т.к. норма продолжения $f$ всегда не меньше нормы $f$.
+	$$|F(x)| = |f(y) - tC| = |t||f(\frac{y}{t}) - C| \overset{~\eqref{eq:1}}{\leq} |t|\norm{f}\norm{\frac{y}{t} + x_0} = \norm{f}\norm{y + tx_0} = \norm{f}\norm{x}$$, так что вообще $\forall x \in L_0: \norm{F(x)} \leq \norm{f}\norm{x}$. Мы доказали что $F \in \bounded{L_0}{\Real}$, причем $\norm{F} \leq \norm{f} \Rightarrow \norm{F} = \norm{f}$ т.к. норма продолжения $f$ всегда не меньше нормы $f$.
 	\newline
 	
 	\textbf{5.} По условию $X$ - сепарабельно т.е. $\exists \seq{x_k}{k \in \Natural} \subset X: X = \overline{\seq{x_k}{k \in \Natural}}$. \newline
@@ -192,7 +195,7 @@ top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 \section{Общий вид функционалов в различных пространствах}
 
 % Теорема Рисса об общем виде
-\begin{theorem}[\textbf{Рисса об общем виде}]
+\begin{theorem}[\textbf{Рисса об общем виде}]\label{th:Rietz_general} 
 	Пусть $H$ - г.п.
 	\begin{enumerate}
 		\item $(u \in H)\wedge(f(v)=(v,u), \forall v\in H) \Rightarrow (f\in H^*) \wedge (\norm{f}_{H^*}=\norm{u}_H)$
@@ -200,7 +203,8 @@ top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 	\end{enumerate}
 \end{theorem}
 \begin{proof}
-	$ $\newline
+	$ $ \\
+	
 	\textbf{1.} $f(v)=(v,u) \Rightarrow f\in L(H,\Real)$ т.к. по аксиомам скалярного произведения 
 	$$(\alpha_1 v_1 + \alpha_2 v2, u) = (\alpha_1 v_1, u) + (\alpha_2 v_2, u) = \alpha_1 (v_1, u) + \alpha_2 (v_2, u)$$
 	Из неравенства Коши-Буняковского получаем:
@@ -247,6 +251,97 @@ top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 \end{corollaryth}
 \begin{corollaryth}
 	Тем не менее, её смысл куда глубже, он заключается в том что $H^*$ изометрически изоморфно $H$. Действительно: пусть $F: H^* \to H$ определяемое как $f \xrightarrow{F} u, \text{ где } u \in H: f(v) = (v,u)$ вывод теоремы \textbf{1} о том что это отображение сюръективно, а \textbf{2} о том что оно инъективно, а значит оно взаимно-однозначно. Изометричность видно из соотношений $\norm{f}_{H^*} = \norm{u}_H$ в обоих выводах теоремы, это значит что $\norm{f}_{H^*} = \norm{F(f)}_H$. Линейность $F$ очевидна и теперь можно считать что $H^* \sim H$
+\end{corollaryth}
+
+% Теорема Рисса в l^p
+\begin{theorem}[\textbf{Рисса в $l^p$}]
+	Пусть $1 < p < \infty, q = \frac{p}{p-1}$ ($q$ - т.н. \textit{сопряженный показатель} т.е. такой что $\frac{1}{p} + \frac{1}{q} = 1$)
+	
+	\begin{enumerate}
+		\item $(\xi \in l^p) \wedge \left(f(x) = \sum\limits_{k=1}^{\infty}{x_k \xi_k}, \forall x \in l^p\right) \Rightarrow
+		(f \in \conj{l^p}) \wedge \left(\norm{f}_{\conj{l^p}} = \norm{\xi}_{l^q}\right)$
+		\item $(f \in \conj{l^p}) \Rightarrow 
+		\exists!\xi\in l^q: (f(x) = \sum\limits_{k=1}^{\infty}{x_k \xi_k}, \forall x \in l^p) \wedge \left(\norm{f}_{\conj{l^p}} = \norm{\xi}_{l^q}\right)$
+	\end{enumerate}
+\end{theorem}
+\begin{proof}
+	$ $ \\
+	
+	\textbf{1.} Первым делом покажем что $f$ определен для любого $x \in l^p$:
+	$$f(x) = \sum\limits_{k=1}^{\infty}{x_k \xi_k} \leq \sum\limits_{k=1}^{\infty}{|x_k \xi_k|} \overset{\text{н-во Гельдера}}{\leq} 
+	\left(\sum\limits_{k=1}^{\infty}{|x_k|^p}\right)^\frac{1}{p} \left(\sum\limits_{k=1}^{\infty}{|\xi_k|^q}\right)^\frac{1}{q} = \norm{x}_{l^p} \norm{\xi}_{l^q} $$
+	Линейность очевидна по определению, оценкой выше доказывается ограниченность т.к. доказали что 
+	$$|f(x)| \leq \norm{\xi}_{l^q} \norm{x}_{l^p}, \forall x \in l^p \Rightarrow
+	(f \in \conj{l^p}) \wedge (\norm{f}_{\conj{l^p}} \leq \norm{\xi}_{l^q})$$
+	, отдельно отметим неравенство
+	\begin{equation}\label{eq:2}
+		\norm{f}_{\conj{l^p}} \leq \norm{\xi}_{l^q}
+	\end{equation}
+	и докажем что имеет место строгое равенство, для этого нам потребуется специальный элемент:
+	$$\tilde{x} = (\tilde{x}_1, ..., \tilde{x}_k, ...), \text{ где } 
+	\tilde{x}_k = \frac{\sign{\xi_k} |\xi_k|^{q-1}}{\norm{\xi}_{l^q}^{\frac{q}{p}}}, \forall k \in \Natural$$
+	Следует заметить что для данного определения предполагаем $\xi \neq 0$ т.к. случай $\xi = 0$ соответствует нулевому функционалу и тривиален. Убедимся что $\tilde{x} \in l^p$:
+	$$|\tilde{x}_k|^p = \frac{|\xi_k|^{(q-1)p \ = \ q}}{\norm{\xi}_{l^q}^q}, \forall k \in \Natural \Rightarrow \sum\limits_{k=1}^{\infty}{|\tilde{x}_k|^p} =  \frac{\sum\limits_{k=1}^{\infty}{|\xi_k|^q}}{\norm{\xi}_{l^q}^q} = 1$$
+	, т.е. действительно $\tilde{x} \in l^p$ и $\norm{\tilde{x}}_{l^p} = 1$, наконец с учетом того что $x\sign{x} = |x|$, получаем:
+	\begin{align*}
+		&f(\tilde{x}) \leq \norm{f}_{\conj{l^p}}\norm{\tilde{x}}_{l^p} = \norm{f}_{\conj{l^p}} \\ 
+		&f(\tilde{x}) = \frac{\sum\limits_{k=1}^{\infty}{\sign{\xi_k}|\xi_k|^{q-1}\xi_k}}{\norm{\xi}_{l^q}^{\frac{q}{p}}} = \frac{\sum\limits_{k=1}^{\infty}{|\xi_k|^q}}{\norm{\xi}_{l^q}^{\frac{q}{p}}} = \frac{\norm{\xi}_{l^q}^q}{\norm{\xi}_{l^q}^{\frac{q}{p}}} = \norm{\xi}_{l^q}^{q(1 - \frac{1}{p}) \ = \ 1} = \norm{\xi}_{l^q}
+	\end{align*}
+	, т.е. $\norm{\xi}_{l^q} \leq \norm{f}_{\conj{l^p}}$ и с учетом \eqref{eq:2} имеем $\norm{\xi}_{l^q} = \norm{f}_{\conj{l^p}}$ т.е. первая часть полностью доказана.
+	\\
+	
+	\textbf{2.} Пусть $f \in \conj{l^p}$ и пусть $e^k = (0, ..., 0, 1, 0, ...)$, где $1$ стоит на $k$-ой позиции, возьмем $\xi_k = f(e^k), \forall k \in \Natural$. Рассмотрим
+	$$x = (x_1, ..., x_n, x_{n+1}, ...) \in l^p \text{ и пусть } x^{(n)} = (x_1, ..., x_n, 0, ...) = \sum_{k=1}^{n}{x_k e^k}$$
+	, если теперь обозначить $\xi^{(n)} = (\xi_1, ..., \xi_n, 0, ...)$, то получим
+	$$f(x^{(n)}) = \sum_{k=1}^{n}{x_k f(e^k)} = \sum_{k=1}^{n}{x_k \xi_k} = \sum_{k=1}^{\infty}{ x^{(n)}_k \xi^{(n)}_k }$$
+	Аналогично первой части рассмотрим: $\tilde{x}^{(n)}, \forall n \in \Natural$
+	\begin{equation}\label{eq:3}
+		\tilde{x}_k^{(n)} = \frac{\sign{\xi_k^{(n)}} \left|\xi_k^{(n)}\right|^{q-1}}{\norm{\xi^{(n)}}_{l^q}^{\frac{q}{p}}}, \text{ и соотв. } \norm{\tilde{x}^{(n)}}_{l^p} = 1
+	\end{equation}
+	, и наконец (опять таки аналогично предыдущей части)
+	\begin{align*}
+		&\sum_{k=1}^{\infty}{ \tilde{x}^{(n)}_k \xi^{(n)}_k } = \norm{\xi^{(n)}}_{l^q} \\
+		&\sum_{k=1}^{\infty}{ \tilde{x}^{(n)}_k \xi^{(n)}_k } = 
+		\sum_{k=1}^{n}{ \tilde{x}^{(n)}_k \xi^{(n)}_k } = f(x^{(n)}) \leq 
+		\norm{f}_{\conj{l^p}} \norm{\tilde{x}^{(n)}}_{l^p} \overset{~\eqref{eq:3}}{=} \norm{f}_{\conj{l^p}}
+	\end{align*}
+	, таким образом
+	$$\norm{\xi^{(n)}}_{l^q}^q = \sum_{k=1}^{\infty}{|\xi_k^{(n)}|^q} \overset{\text{по опред. } \xi^{(n)}}{=} \sum_{k=1}^{n}{|\xi_k|^q} \leq \norm{f}_{\conj{l^p}}^q$$
+	т.е. частичные суммы ряда оцениваются одним и тем же числом, соответственно ряд сходится и $\xi \in l^q$, причем 
+	$$\norm{\xi}_{l^q} \leq \norm{f}_{\conj{l^p}}$$
+	Заметим что т.к. $f \in \conj{l^p}$, то он непрерывен (поскольку ограничен)
+	\begin{align*}
+	f(x^{(n)}) &\to f(x) \\ &\wedge \\
+	\sum_{k=1}^{n}{x_k \xi_k} &\to \sum_{k=1}^{\infty}{x_k \xi_k} \\ 
+	\text{ (сходится абсолютно т.к. } &x \in l^p, \xi \in l^q \text{ + н-во Гельдера}) \\
+	&\Rightarrow \\
+	f(x) &= \sum_{k=1}^{\infty}{x_k \xi_k}, \forall x \in l^p
+	\end{align*}
+	Равенство норм доказывается аналогично первой части. Докажем единственность: пусть существует еще один
+	$$\eta \in l^q: f(x) = \sum_{k=1}^{\infty}{x_k \eta_k}, \forall x \in l^p$$
+	, тогда по построению $\xi$:
+	$$\xi_j = f(e^j) = \sum_{k=1}^{\infty}{e^j_k \eta_k} = \eta_j, \forall j \in \Natural$$
+	что и означает $\xi = \eta$, теорема доказана.
+	
+\end{proof}
+\begin{corollaryth}
+	Теорема устанавливает следующий изометрический изоморфизм: $\conj{l^p} \sim l^q$. Это оправдывает то, что мы назвали $q$ - сопряженным показателем. Если в \hyperref[th:Rietz_general]{предыдущей теореме}, в случае гильбертовых пространств - $H^* \sim H$ т.е. сопряженное изоморфно самому ему, то в этой теореме Рисса уже другому пространству. Здесь следует заметить что среди $l^p$ гильбертовым является лишь $l^2$ и предыдущая теорема Рисса пересекается с этой т.к. если $p = q = 2$, то $\conj{l^2} \sim l^2$ уже по текущей теореме.
+\end{corollaryth}
+
+
+% Теорема Рисса в L^p
+\begin{theorem}[\textbf{Рисса в $L^p$}]
+	Пусть $1 < p < \infty, q = \frac{p}{p-1}$
+	\begin{enumerate}
+		\item $(g \in L^q (E)) \wedge \left(l(f) = \int\limits_{E}{fg dx}, \forall f \in L^p (E)\right) \Rightarrow \\ \Rightarrow \left(l \in \conj{L^p (E)}\right) \wedge \left(\norm{l}_{ \conj{L^p (E)} } = \norm{g}_{L^q (E)} \right)$
+		\item $\left(l \in \conj{L^p (E)}\right) \Rightarrow \\ \Rightarrow \exists!g \in L^q (E): \left( l(f) = \int\limits_{E}{fg dx}, \forall f \in L^p (E)\right) \wedge \left(\norm{g}_{L^q (E)} = \norm{l}_{\conj{L^p (E)}} \right)$
+	\end{enumerate}
+\end{theorem}
+\begin{proof}
+	Без доказательства т.к. требуются свойства интеграла Лебега нам неизвестные.
+\end{proof}
+\begin{corollaryth}
+	Теорема устанавливает следующий изометрический изоморфизм: $\conj{L^p (E)} \sim L^q$. На самом деле для всех используемых пространств имеются теоремы в духе теоремы Рисса (об общем виде) и каждая рассматривается отдельно.
 \end{corollaryth}
 
 \newpage
