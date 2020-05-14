@@ -22,6 +22,7 @@ top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 \newcommand{\setbuild}[2]{\{#1\:|\:#2\}}
 \DeclareMathOperator{\Lin}{Lin}
 \DeclareMathOperator{\dist}{dist}
+\DeclareMathOperator*\lowlim{\underline{lim}}
 \DeclareMathOperator{\sign}{sign}
 \newcommand{\tick}[1]{#1^{\prime}}
 \newcommand{\dtick}[1]{#1^{\prime\prime}}
@@ -52,6 +53,8 @@ top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 		\item \url{https://www.youtube.com/watch?v=NyO3tRUWof0}
 		\item \url{https://www.youtube.com/watch?v=FkBqjrC1pjI}
 		\item \url{https://www.youtube.com/watch?v=zlR53CFNsS8}
+		\item \url{https://www.youtube.com/watch?v=ZxErqaR8mHU}
+		\item \url{https://www.youtube.com/watch?v=Oeaqzm3VUxs}
 	\end{enumerate}
 	
 \end{abstract}
@@ -147,7 +150,7 @@ top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 \end{corollaryth}
 
 % Следствие 1
-\begin{corollary}
+\begin{corollary}\label{corll:1}
 	Пусть $x_0 \neq 0$, тогда \\ $\exists f\in X^*: (\norm{f}_{X^*} = 1) \wedge (f(x_0) = \norm{x_0})$
 \end{corollary}
 \begin{proof}
@@ -393,7 +396,37 @@ top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 	Т.к. $x_k \weakto x$, то $f(x_k) \to f(x)$ т.е. для $x_k = \sum\limits_{i=1}^{n}{\alpha_{ki} e_i}$ имеем покоординатную сходимость $\alpha_{ki} \to \alpha_i, \forall i \in \{1, ..., n\}$, а в $\Real^n$ это и означает сильную сходимость $x_k \to x$, ч.т.д.
 \end{proof}
 
+% Слабая сходимость образов
+\begin{theorem}[о слабой сходимости образов]
+	Пусть $X, Y$ - н.п., $A \in \bounded{X}{Y}$ и $x_n \weakto x$ в $X$, тогда $Ax_n \to Ax$ в $Y$
+\end{theorem}
+\begin{proof}
+	Требуется доказать что для произвольного $f \in Y^*$, выполнено $f(Ax_n) \to f(Ax)$, это наша цель. Рассмотрим функционал $\varphi$ определенный как суперпозиция $\varphi(x) = f(Ax), \forall x \in X$. Суперпозиция линейных операторов всегда является линейным оператором, давайте это покажем:
+	\begin{multline*}
+		\varphi(\alpha_1 x_1 + \alpha_2 x_2) = f(A(\alpha_1 x_1 + \alpha_2 x_2)) = f(\alpha_1 Ax_1 + \alpha_2 Ax_2) = \\ = \alpha_1 f(Ax_1) + \alpha_2 f(Ax_2) = \alpha_1 \varphi(x_1) + \alpha_2 \varphi(x_2)
+	\end{multline*}
+	С ограниченностью еще проще:
+	$$|\varphi(x)| = |f(Ax)| \leq \norm{f}_{Y^*} \norm{Ax}_Y \leq \norm{f} \norm{A} \norm{x}, \forall x \in X$$
+	Итого $\varphi \in X^*$, но тогда по определению слабой сходимости $x_n \weakto x$ имеем:
+	$$\varphi(x_n) \to \varphi(x) \Leftrightarrow f(Ax_n) \to f(Ax)$$
+	и видим что это то что нам и нужно.
+\end{proof}
 
+% Слабая полунепрерывность нормы
+\begin{theorem}[слабая полунепрерывность нормы]
+	Пусть $X$ - н.п., $x_n \weakto x$, тогда $\norm{x} \leq \lowlim\limits_{n \to \infty}{\norm{x_n}}$
+\end{theorem}
+\begin{proof}
+	Пусть $d = \lowlim\limits_{n \to \infty}{\norm{x_n}}$, тогда т.к. нижний предел обязательно реализуется на какой-то последовательности: $\exists{x_{n_k}} \subset{x_n}: \norm{x_{n_k}} \to d$. Вспоминаем \hyperref[corll:1]{следствие 1} теоремы Хана-Банаха (для элемента $x$), по которому \\ $\exists f \in X^*: (\norm{f} = 1) \wedge (f(x) = \norm{x})$. Т.к. $x_n \weakto x$, элементарно показывается что для подпоследовательности аналогично $x_{n_k} \weakto x$, значит 
+	$$f(x_{n_k}) \to f(x) = \norm{x}$$
+	по определению слабой сходимости.
+	
+	Остается провести оценку:
+	$$f(x_{n_k}) \leq |f(x_{n_k})| \leq \norm{f} \norm{x_{n_k}} \to d$$
+	и с учетом того что $f(x_{n_k}) \to \norm{x}$ получаем
+	$$\norm{x} \leq \lowlim\limits_{n \to \infty}{\norm{x_n}} = d$$
+	, что и требовалось.
+\end{proof}
 \newpage
 \renewcommand{\listtheoremname}{Список теорем и утверждений}
 \listoftheorems[ignoreall, show={theorem,corollary}]
