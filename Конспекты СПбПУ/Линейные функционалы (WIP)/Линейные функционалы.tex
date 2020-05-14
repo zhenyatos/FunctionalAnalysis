@@ -22,6 +22,7 @@ top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 \newcommand{\setbuild}[2]{\{#1\:|\:#2\}}
 \DeclareMathOperator{\Lin}{Lin}
 \DeclareMathOperator{\dist}{dist}
+\DeclareMathOperator*\lowlim{\underline{lim}}
 \DeclareMathOperator{\sign}{sign}
 \newcommand{\tick}[1]{#1^{\prime}}
 \newcommand{\dtick}[1]{#1^{\prime\prime}}
@@ -29,6 +30,7 @@ top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 \newcommand{\linear}[2]{\textrm{L}(#1, #2)}
 \newcommand{\seq}[2]{\{#1\}_{#2}}
 \newcommand{\conj}[1]{\left(#1\right)^*}
+\newcommand{\weakto}{\rightharpoonup}
 
 \hypersetup{
 	colorlinks   = true, 
@@ -51,6 +53,8 @@ top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 		\item \url{https://www.youtube.com/watch?v=NyO3tRUWof0}
 		\item \url{https://www.youtube.com/watch?v=FkBqjrC1pjI}
 		\item \url{https://www.youtube.com/watch?v=zlR53CFNsS8}
+		\item \url{https://www.youtube.com/watch?v=ZxErqaR8mHU}
+		\item \url{https://www.youtube.com/watch?v=Oeaqzm3VUxs}
 	\end{enumerate}
 	
 \end{abstract}
@@ -145,8 +149,8 @@ top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 	Возвращаясь к теории линейных операторов - ограниченный оператор можно было продлить со всюду-плотного линейного многообразия, а ограниченный функционал можно с произвольного. Однако, уже не единственным образом.
 \end{corollaryth}
 
-% Следствие 3
-\begin{corollary}
+% Следствие 1
+\begin{corollary}\label{corll:1}
 	Пусть $x_0 \neq 0$, тогда \\ $\exists f\in X^*: (\norm{f}_{X^*} = 1) \wedge (f(x_0) = \norm{x_0})$
 \end{corollary}
 \begin{proof}
@@ -158,7 +162,7 @@ top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 \end{proof}
 
 % Следствие 2
-\begin{corollary}
+\begin{corollary}\label{corll:2}
 	Пусть $x\in X$ и $\forall f \in X^* : f(x)=0$, тогда $x = 0$
 \end{corollary}
 \begin{proof}
@@ -195,7 +199,7 @@ top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 \section{Общий вид функционалов в различных пространствах}
 
 % Теорема Рисса об общем виде
-\begin{theorem}[\textbf{Рисса об общем виде}]\label{th:Rietz_general} 
+\begin{theorem}[\textbf{Рисса об общем виде}]\label{th:2} 
 	Пусть $H$ - г.п.
 	\begin{enumerate}
 		\item $(u \in H)\wedge(f(v)=(v,u), \forall v\in H) \Rightarrow (f\in H^*) \wedge (\norm{f}_{H^*}=\norm{u}_H)$
@@ -254,7 +258,7 @@ top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 \end{corollaryth}
 
 % Теорема Рисса в l^p
-\begin{theorem}[\textbf{Рисса в $l^p$}]
+\begin{theorem}[\textbf{Рисса в $l^p$}]\label{th:3}
 	Пусть $1 < p < \infty, q = \frac{p}{p-1}$ ($q$ - т.н. \textit{сопряженный показатель} т.е. такой что $\frac{1}{p} + \frac{1}{q} = 1$)
 	
 	\begin{enumerate}
@@ -325,7 +329,7 @@ top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 	
 \end{proof}
 \begin{corollaryth}
-	Теорема устанавливает следующий изометрический изоморфизм: $\conj{l^p} \sim l^q$. Это оправдывает то, что мы назвали $q$ - сопряженным показателем. Если в \hyperref[th:Rietz_general]{предыдущей теореме}, в случае гильбертовых пространств - $H^* \sim H$ т.е. сопряженное изоморфно самому ему, то в этой теореме Рисса уже другому пространству. Здесь следует заметить что среди $l^p$ гильбертовым является лишь $l^2$ и предыдущая теорема Рисса пересекается с этой т.к. если $p = q = 2$, то $\conj{l^2} \sim l^2$ уже по текущей теореме.
+	Теорема устанавливает следующий изометрический изоморфизм: $\conj{l^p} \sim l^q$. Это оправдывает то, что мы назвали $q$ - сопряженным показателем. Если в \hyperref[th:2]{предыдущей теореме}, в случае гильбертовых пространств - $H^* \sim H$ т.е. сопряженное изоморфно самому ему, то в этой теореме Рисса уже другому пространству. Здесь следует заметить что среди $l^p$ гильбертовым является лишь $l^2$ и предыдущая теорема Рисса пересекается с этой т.к. если $p = q = 2$, то $\conj{l^2} \sim l^2$ уже по текущей теореме.
 \end{corollaryth}
 
 
@@ -344,6 +348,85 @@ top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 	Теорема устанавливает следующий изометрический изоморфизм: $\conj{L^p (E)} \sim L^q$. На самом деле для всех используемых пространств имеются теоремы в духе теоремы Рисса (об общем виде) и каждая рассматривается отдельно.
 \end{corollaryth}
 
+\section{Слабая сходимость}
+% Определение слабой сходимости
+\begin{definition}
+	Пусть $X$ - н.п., будем говорить что $x_n$ \textcolor{red}{сходится} к $x$ \textcolor{red}{слабо} и обозначать это как $x_n \weakto x$ (иногда пишут $x_n \overset{w}{\to} x$ от английского \textit{weak}) если $\forall f \in X^*: f(x_n) \to f(x)$
+\end{definition}
+\begin{corollarydf}
+	В противопоставление, привычная нам сходимость в $X$: $x_n \to x \leftrightarrow \norm{x_n - x} \to 0$ называется \textcolor{red}{сильной}.
+\end{corollarydf}
+
+% Единственность предела при слабой сходимости
+\begin{theorem}[\textbf{единственность предела } $\weakto$]
+	Пусть $x_n \weakto x$ и $x_n \weakto y$ в $X$, тогда $x = y$
+\end{theorem}
+\begin{proof}
+	По определению слабой сходимости:
+	\begin{align*}
+	&(f(x_n) \to f(x)) \wedge (f(x_n) \to f(y)), \forall f \in X^* \\ &\Rightarrow \\ 
+	&f(x) = f(y), \forall f \in X^* \\  &\Leftrightarrow \\
+	&f(x - y) = 0, \forall f \in X^* \\ &\overset{\text{\hyperref[corll:2]{следствие 1.2}}}{\Rightarrow} \\ 
+	& x - y = 0
+	\end{align*}
+	, отсюда $x = y$, что и требовалось доказать.
+\end{proof}
+
+% Сильная влечет слабую
+\begin{theorem}[\textbf{сильная $\Rightarrow$ слабая}]
+	Пусть $x_n \to x$ в $X$, тогда $x_n \weakto x$ в $X$
+\end{theorem}
+\begin{proof}
+	Пусть $f \in X^*$, тогда $f$ - непрерывный, поэтому $(x_n \to x) \Rightarrow (f(x_n) \to f(x))$ т.е. $f(x_n) \to f(x), \forall f \in X^*$, ч.т.д.
+\end{proof}
+\begin{corollaryth}
+	Рассмотрим пример в $l^2$, последовательность $e^i = (0, ..., 0, 1, 0, ...)$, где $1$ на $i$-ой позиции. Сильно она никуда не сходится. Пусть $f \in \conj{l^2}$, воспользуемся тут \hyperref[th:3]{теоремой Рисса}:
+	$$\exists u \in l^2: f(e^i) = \sum_{k=1}^{\infty}{u_k e^i_k} = u_k \to 0$$
+	, последнее верно т.к. $u \in l^2 \Rightarrow \sum\limits_{k=1}^{\infty}{|u_k|^2} < \infty$ и общий член ряда должен сходиться к нулю. Мы показали что $e^i \weakto 0$, значит слабая сходимость не всегда влечет сильную. Далее рассмотрим когда это верно.
+\end{corollaryth}
+
+% В конечномерных слабая и сильная совпадают
+\begin{theorem}[\textbf{о $\weakto$ в $\Real^n$}]
+	Пусть $X = \Real^n$, тогда $(x_k \weakto x \text{ в } \Real^n) \Rightarrow (x_k \to x \text{ в } \Real^n)$
+\end{theorem}
+\begin{proof}
+	Пусть $e_1, ..., e_n$ базис в $\Real^n$, $x = \sum\limits_{i=1}^{n}{\alpha_i e_i} \in \Real^n$ и рассмотрим функционал $f(x) = \alpha_i$ для некоторого фиксированного $i \in \{1,...,n\}$, понятно что он линейный. В $\Real^n$ все нормы эквивалентны, поэтому можно взять \\ $\norm{x}_0 =\sum\limits_{i=1}^{n}{|\alpha_i|}$ и $|f(x)| = |\alpha_i| \leq \norm{x}_0, \forall x \in \Real^n$ т.е. этот функционал ограничен: $f \in \conj{\Real^n}$.
+	\\ 
+	
+	Т.к. $x_k \weakto x$, то $f(x_k) \to f(x)$ т.е. для $x_k = \sum\limits_{i=1}^{n}{\alpha_{ki} e_i}$ имеем покоординатную сходимость $\alpha_{ki} \to \alpha_i, \forall i \in \{1, ..., n\}$, а в $\Real^n$ это и означает сильную сходимость $x_k \to x$, ч.т.д.
+\end{proof}
+
+% Слабая сходимость образов
+\begin{theorem}[о слабой сходимости образов]
+	Пусть $X, Y$ - н.п., $A \in \bounded{X}{Y}$ и $x_n \weakto x$ в $X$, тогда $Ax_n \to Ax$ в $Y$
+\end{theorem}
+\begin{proof}
+	Требуется доказать что для произвольного $f \in Y^*$, выполнено $f(Ax_n) \to f(Ax)$, это наша цель. Рассмотрим функционал $\varphi$ определенный как суперпозиция $\varphi(x) = f(Ax), \forall x \in X$. Суперпозиция линейных операторов всегда является линейным оператором, давайте это покажем:
+	\begin{multline*}
+		\varphi(\alpha_1 x_1 + \alpha_2 x_2) = f(A(\alpha_1 x_1 + \alpha_2 x_2)) = f(\alpha_1 Ax_1 + \alpha_2 Ax_2) = \\ = \alpha_1 f(Ax_1) + \alpha_2 f(Ax_2) = \alpha_1 \varphi(x_1) + \alpha_2 \varphi(x_2)
+	\end{multline*}
+	С ограниченностью еще проще:
+	$$|\varphi(x)| = |f(Ax)| \leq \norm{f}_{Y^*} \norm{Ax}_Y \leq \norm{f} \norm{A} \norm{x}, \forall x \in X$$
+	Итого $\varphi \in X^*$, но тогда по определению слабой сходимости $x_n \weakto x$ имеем:
+	$$\varphi(x_n) \to \varphi(x) \Leftrightarrow f(Ax_n) \to f(Ax)$$
+	и видим что это то что нам и нужно.
+\end{proof}
+
+% Слабая полунепрерывность нормы
+\begin{theorem}[слабая полунепрерывность нормы]
+	Пусть $X$ - н.п., $x_n \weakto x$, тогда $\norm{x} \leq \lowlim\limits_{n \to \infty}{\norm{x_n}}$
+\end{theorem}
+\begin{proof}
+	Пусть $d = \lowlim\limits_{n \to \infty}{\norm{x_n}}$, тогда т.к. нижний предел обязательно реализуется на какой-то последовательности: $\exists{x_{n_k}} \subset{x_n}: \norm{x_{n_k}} \to d$. Вспоминаем \hyperref[corll:1]{следствие 1} теоремы Хана-Банаха (для элемента $x$), по которому \\ $\exists f \in X^*: (\norm{f} = 1) \wedge (f(x) = \norm{x})$. Т.к. $x_n \weakto x$, элементарно показывается что для подпоследовательности аналогично $x_{n_k} \weakto x$, значит 
+	$$f(x_{n_k}) \to f(x) = \norm{x}$$
+	по определению слабой сходимости.
+	
+	Остается провести оценку:
+	$$f(x_{n_k}) \leq |f(x_{n_k})| \leq \norm{f} \norm{x_{n_k}} \to d$$
+	и с учетом того что $f(x_{n_k}) \to \norm{x}$ получаем
+	$$\norm{x} \leq \lowlim\limits_{n \to \infty}{\norm{x_n}} = d$$
+	, что и требовалось.
+\end{proof}
 \newpage
 \renewcommand{\listtheoremname}{Список теорем и утверждений}
 \listoftheorems[ignoreall, show={theorem,corollary}]
