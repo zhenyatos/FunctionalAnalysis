@@ -55,6 +55,7 @@ top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 		\item \url{https://www.youtube.com/watch?v=zlR53CFNsS8}
 		\item \url{https://www.youtube.com/watch?v=ZxErqaR8mHU}
 		\item \url{https://www.youtube.com/watch?v=Oeaqzm3VUxs}
+		\item \url{https://www.youtube.com/watch?v=y6rOmdRSggE}
 	\end{enumerate}
 	
 \end{abstract}
@@ -427,6 +428,66 @@ top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 	$$\norm{x} \leq \lowlim\limits_{n \to \infty}{\norm{x_n}} = d$$
 	, что и требовалось.
 \end{proof}
+
+% Введение в теорию двойственности
+\section{Введение в теорию двойственности}
+Пусть $X$ - б.п., возьмем какой-нибудь элемент $x \in X$ и рассмотрим функционал:
+\begin{equation}\label{eq:5}
+	g_{x}: X^* \to \Real \ \ g_{x}(f) = f(x), \forall f \in X^*
+\end{equation}
+изучим его свойства, для начала линейность:
+\begin{multline*}
+		g_{x}(\alpha_1 f_1 + \alpha_2 f_2) = (\alpha_1 f_1 + \alpha_2 f_2)(x) = \alpha_1 f_1 (x) + \alpha_2 f_2 (x) = \alpha_1 g_{x}(f_1) + \alpha_2 g_{x}(f_2)
+\end{multline*}
+таким образом действительно $g \in \linear{X^*}{\Real}$, еще проще доказывается ограниченность:
+\begin{equation*}
+	|g_{x}(f)| = |f(x)| \leq \norm{f}_{X^*} \norm{x}_{X}, \forall f \in X^*
+\end{equation*}
+итого $g_{x} \in \conj{X^*} = X^{**}$ и получили оценку для нормы 
+\begin{equation}\label{eq:4}
+	\norm{g_{x}}_{X^{**}} \leq \norm{x}_X
+\end{equation}
+
+Покажем что здесь на самом деле строгое равенство. Если $x = 0$, то \\ $g_{x}(f) = f(0) = 0, \forall f \in X^*$ и это нулевой функционал для которого равенство \eqref{eq:4} очевидно. Если $x \neq 0$, то то \hyperref[corll:1]{следствию 1} теоремы Хана-Банаха $\exists f_0 \in X^*: (f_0 (x) = \norm{x}_X) \wedge (\norm{f_0}_{X^*} = 1)$, тогда 
+\begin{align*}
+	g_{x} (f_0) &\leq \norm{g}_{X^{**}} \norm{f_0}_{X^*} = \norm{g}_{X^{**}} \\
+	g_{x} (f_0) &= f_0 (x) = \norm{x}_X
+\end{align*}
+, отсюда $\norm{x}_X \leq \norm{g}_{X^{**}}$ и с учетом \eqref{eq:4}:  $\norm{g}_{X^{**}} = \norm{x}_X$.
+
+Итого, мы установили что каждый элемент $X$ задает на сопряженном пространстве некоторый линейный ограниченный функционал и норма этого функционала равна норме элемента.
+
+Покажем теперь что разные элементы задают разные функционалы. \begin{multline*}
+	\left(g_{x_1} = g_{x_2}\right) \Leftrightarrow \left(g_{x_1}(f) = g_{x_2}(f), \forall f \in X^*\right)  \Leftrightarrow \left(f(x_1) = f(x_2), \forall f \in X^*\right) \Leftrightarrow \\ \Leftrightarrow \left(f(x_1 - x_2) = 0, \forall f \in X^* \right) \overset{\hyperref[corll:2]{\text{сл. 2 Т. Х-Б}}}{\Rightarrow} \left(x_1 = x_2\right)
+\end{multline*}
+следовательно между $X$ и некоторым подмножеством $R \subset X^{**}$ второго сопряженного пространства имеется взаимно-однозначное соответствие: $X \overset{g}{\leftrightarrow} R$. 
+
+Покажем что это соответствие является изоморфизмом: пусть $x_1 \leftrightarrow g_{x_1}, \\ x_2 \leftrightarrow g_{x_2}$, тогда $\alpha_1 x_1 + \alpha_2 x_2 \leftrightarrow g_{\alpha_1 x_1 + \alpha_2 x_2}$ и рассмотрим этот функционал подробнее:
+\begin{multline*}
+	g_{\alpha_1 x_1 + \alpha_2 x_2}(f) = f(\alpha_1 x_1 + \alpha_2 x_2) = \alpha_1 f(x_1) + \alpha_2 f(x_2) = \alpha_1 g_{x_1}(f) + \alpha_2 g_{x_2}(f) = \\ = (\alpha_1 g_{x_1} + \alpha_2 g_{x_2})(f), \forall f \in X^*
+\end{multline*}
+и доказано равенство $g_{\alpha_1 x_1 + \alpha_2 x_2} = \alpha_1 g_{x_1} + \alpha_2 g_{x_2}$. 
+
+Итого $g$ - изометрический изоморфизм (то что норма сохраняется было доказано ранее). Т.к. $X$ - б.п., то изометрически-изоморфное ему $R$ тоже б.п., а $X^{**}$ всегда б.п. как и $X^*$. Теперь вспоминаем что подмножество банахова пространства само является банаховым пространством относительно индуцированной нормы если и только если это подпространство т.е. $R$ - подпространство $X^{**}$. Введем теперь важное
+\begin{definition}
+	Банахово пространство $X$ называется \textcolor{red}{рефлексивным} если $R = X^{**}$ т.е. 
+	$$\forall g \in X^{**} \exists! x\in X: g(f) = f(x), \forall f \in X^*$$
+\end{definition}
+\begin{corollarydf}
+	Мы установили очень интересный факт: если у нас есть некоторое б.п. (даже н.п.) $X$, то его сопряженное $X^*$ это функционалы действующие на $X$, но оказывается сами элементы $X$ также являются функционалами над $X^*$ действующие по формуле \eqref{eq:5}. В зависимости от того рефлексивное пространство или нет, все функционалы на $X^*$ определяются элементами из $X$ или нет. Это и называется \textcolor{red}{двойственностью}, иногда чтобы её подчеркнуть пишут $f(x) = \left<f, x\right>$, чтобы показать равноправность.
+\end{corollarydf}
+
+% Важное следствие
+\begin{theorem}[об ограниченности слабосходящихся $\{x_n\}_{n\in\Natural}$]
+	Пусть $X$ - б.п. и $x_n \weakto x$ в $X$, тогда $\exists M \geq 0: \norm{x_n} \leq M, \forall n \in \Natural$
+\end{theorem}
+\begin{proof}
+	$x_n \weakto x$ означает что $f(x_n) \to f(x), \forall x \in X^*$, а с учетом только что введенных обозначений в рамках теории двойственности это тоже самое что $g_{x_n} (f) \to g_{x} (f), \forall f \in X^*$. Теперь вспоминаем теорему Банаха-Штейнгауза, она говорит что если есть сильная операторная сходимость, то $$\sup\limits_{n \in \Natural}{\norm{g_{x_n}}_{X^{**}}} < \infty$$ что равносильно 
+	$$\exists M \geq 0: \norm{g_{x_n}}_{X^{**}} = \norm{x_n}_X \leq M, \forall n \in \Natural $$
+\end{proof}
+
+
+
 \newpage
 \renewcommand{\listtheoremname}{Список теорем и утверждений}
 \listoftheorems[ignoreall, show={theorem,corollary}]
