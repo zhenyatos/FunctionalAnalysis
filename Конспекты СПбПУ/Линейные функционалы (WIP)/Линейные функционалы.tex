@@ -76,7 +76,7 @@ top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 \end{corollarydf}
 
 % Теорема Хана-Банаха
-\begin{theorem}[\textbf{Хана-Банаха}]
+\begin{theorem}[\textbf{Хана-Банаха}]\label{th:1}
 	Пусть 
 	\begin{enumerate}
 		\item $X$ - н.п.
@@ -171,7 +171,7 @@ top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 \end{proof}
 
 % Следствие 3
-\begin{corollary}
+\begin{corollary}\label{corll:4}
 	Пусть $L\subset X$ - лин. многообразие, а $x\in X: \dist(x,L) = d > 0$, тогда $\exists f\in X^*$:
 	\begin{enumerate}
 		\item $f(x)=1$
@@ -486,6 +486,50 @@ top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 	$$\exists M \geq 0: \norm{g_{x_n}}_{X^{**}} = \norm{x_n}_X \leq M, \forall n \in \Natural $$
 \end{proof}
 
+% Определение сужения
+\begin{definition}
+	Пусть $L$ - подпространство в б.п. $X$ и $F \in X^*$, \textcolor{red}{сужением} $F$ на $L$ будем называть:
+	\begin{equation*}
+		F|_L : L \to \Real \ \ F|_L (y) = F(y), \forall y \in L
+	\end{equation*}
+\end{definition}
+\begin{corollarydf}\label{corll:3}
+	Пусть $y_1, y_2 \in L$, тогда $\alpha_1 y_1 + \alpha_2 y_2 \in L$ т.к. $L$ - подпространство и:
+	\begin{multline*}
+		F|_L (\alpha_1 y_1 + \alpha_2 y_2) = F(\alpha_1 y_1 + \alpha_2 y_2) = \alpha_1 F(y_1) + \alpha_2 F(y_2) = \alpha_1 F|_L (y_1) + \alpha_2 F|_L (y_2)
+	\end{multline*}
+	где мы пользовались определением сужения и линейностью $F \in X^*$, таким образом $F|_L \in \linear{L}{\Real}$. Теперь докажем ограниченность:
+	$$|F|_L (y)| = |F(y)| \leq \norm{F}_{X^*} \norm{y}_{X} = \norm{F}_{X^*} \norm{y}_L, \forall y \in L$$
+	здесь мы пользовались тем что на подпространстве $L$ норма индуцирована и ограниченностью $F$. Итого $F|_L \in L^*$ и $\norm{F|_L}_{L^*} \leq \norm{F}_{X^*}$. 
+\end{corollarydf}
+
+\begin{theorem}[о рефлексивности подпространства]
+	Пусть $X$ - рефлексивное б.п. и $L$ - подпространство в $X$ (заметим что оно тоже б.п.), тогда $L$ - рефлексивное пространство.
+\end{theorem}
+\begin{proof}
+	Для удобства договоримся что функционалы из $X^*, X^{**}$ - большими буквами ($G, F$), а из $L^*, L^{**}$ - маленькими ($g, f$).
+	
+	\textbf{1.} Пусть $g \in L^{**}$, мы хотим доказать что $\exists x \in L: g(f) = f(x), \forall f \in L^*$. Введем функционал 
+	$$G: X^* \to \Real \ \ G(F) = g(F|_L), \forall F \in X^*$$
+	и изучим его свойства. Он линейный т.к.:
+	\begin{multline*}
+		G(\alpha_1 F_1 +\alpha_2 F_2) = g((\alpha_1 F_1 + \alpha_2 F_2)|_L) = g(\alpha_1 F_1|_L + \alpha_2 F_2 |_L) = \\ = \alpha_1 g(F_1|_L) + \alpha_2 g(F_2|_L) = \alpha_1 G(F_1) + \alpha_2 G(F_2)
+	\end{multline*}
+	здесь мы пользовались тем очевидным свойством что сужение линейной комбинации функционалов это линейная комбинация сужений и доказали $G \in \linear{X^*}{\Real}$. Точно также покажем ограниченность:
+	$$|G(F)| = |g(F|_L)| \leq \norm{g}_{L^{**}} \norm{F|_L}_{L^*} \overset{\hyperref[corll:3]{\text{опред.}}}{\leq} \norm{g}_{L^{**}} \norm{F}_{X^*}, \forall F \in X^*$$
+	значит $G \in X^{**}$ и кроме того получили оценку для нормы $\norm{G}_{X^{**}} \leq \norm{g}_{L^{**}}$
+	
+	\textbf{2.} Т.к. $X$ рефлексивно, то $\exists! x \in X: G(F) = F(x), \forall F \in X^*$. Докажем что при этом $x \in L$. Пусть $x \notin L$, тогда $x$ не может быть предельной точкой $L$ (т.к. подпространства всегда замкнутые), т.е. он должен быть отделен: $\dist(x, L) > 0$ и можно применить \hyperref[corll:4]{следствие 3} теоремы Хана-Банаха: $\exists F_0 \in X^*: (F_0 (x) = 1) \wedge (F(y) = 0, \forall y \in L)$. Очевидно $F_0 |_L (y) = 0, \forall y \in L$. Заметим:
+	\begin{align*}
+		G(F_0) &= F_0 (x) = 1 \\
+		G(F_0) &= g(F_0 |_L) = g(0) = 0
+	\end{align*}
+	получили противоречие и $x \in L$.
+	
+	\textbf{3.} Рассматриваем $g(f)$, где $f \in L^*$. По \hyperref[th:1]{теореме Хана-Банаха} $\exists F \in X^*$ такой что $F$ - продолжение $f$ т.е. $F|_L = f$, причем $\norm{F}_{X^*} = \norm{f}_{L^*}$, но тогда:
+	$$g(f) = g(F|_L) = G(F) = F(x) \overset{x \in L}{=} f(x), \forall f \in L^*$$
+	нашу цель мы выполнили и $L$ - рефлексивно.
+\end{proof}
 
 
 \newpage
