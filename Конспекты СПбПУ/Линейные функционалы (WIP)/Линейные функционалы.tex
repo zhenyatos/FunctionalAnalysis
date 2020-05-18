@@ -14,6 +14,7 @@ top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 \newtheorem{corollarydf}{Замечание}[definition]
 \newtheorem{corollaryth}{Замечание}[theorem]
 \newtheorem{corollary}{Следствие}[theorem]
+\newtheorem{proposition}{Утверждение}[section]
 
 \newcommand{\Real}{\mathbb{R}}
 \newcommand{\Cmplx}{\mathbb{C}}
@@ -29,6 +30,7 @@ top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 \newcommand{\bounded}[2]{\textrm{B}(#1, #2)}
 \newcommand{\linear}[2]{\textrm{L}(#1, #2)}
 \newcommand{\seq}[2]{\{#1\}_{#2}}
+\newcommand{\seqbound}[3]{\{#1\}_{#2}^{#3}}
 \newcommand{\conj}[1]{\left(#1\right)^*}
 \newcommand{\weakto}{\rightharpoonup}
 
@@ -374,7 +376,7 @@ top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 \end{proof}
 
 % Сильная влечет слабую
-\begin{theorem}[\textbf{сильная $\Rightarrow$ слабая}]
+\begin{theorem}[\textbf{сильная $\Rightarrow$ слабая}]\label{th:4}
 	Пусть $x_n \to x$ в $X$, тогда $x_n \weakto x$ в $X$
 \end{theorem}
 \begin{proof}
@@ -530,6 +532,96 @@ top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 	$$g(f) = g(F|_L) = G(F) = F(x) \overset{x \in L}{=} f(x), \forall f \in L^*$$
 	нашу цель мы выполнили и $L$ - рефлексивно.
 \end{proof}
+
+\section{Слабая сходиомость в гильбертовых пространствах}
+Гильбертовы пространства частный случай банаховых, поэтому все что мы проходили до этого (для б.п.) здесь остается в силе. Т.к. они имеют много специфических свойств, можно доказать куда больше чем в общем случае. Вспомним этот самый общий случай:
+\begin{equation*}
+	(H \text{ - г.п. }, u_n \weakto u \text{ в } H) \Leftrightarrow
+	\left(f(u_n) \to f(u), \forall f \in H^*\right) \overset{\hyperref[th:2]{т. Рисса}}{\Leftrightarrow} \left((u_n, w) \to (u, w), \forall w \in H\right)
+\end{equation*}
+
+\begin{proposition}
+	$(u_n \to u) \Leftrightarrow (u_n \weakto u) \wedge (\norm{u_n} \to \norm{u})$
+\end{proposition}
+\begin{proof}
+	Необходимость очевидна т.к. для сходимостей \hyperref[th:4]{сильная $\Rightarrow$ слабая} и норма непрерывна. Докажем достаточность:
+	\begin{equation*}
+		\norm{u_n - u}^2 = \norm{u_n}^2 - 2(u_n, u) + \norm{u}^2 \to \norm{u}^2 - 2(u, u) + \norm{u}^2 = 0
+	\end{equation*}
+	где мы пользовались тем что $u_n \weakto u \Rightarrow (u_n, u) \to (u, u)$ ($w = u$ в определении)
+\end{proof}
+
+% Принцип выбора
+Теперь докажем важнейший результат этой теории. Вспомним принцип Больцано-Вейерштрасса в $\Real^n$ о том что из любой ограниченной последовательности можно выделить сходящуюся подпоследовательность. Хотелось бы иметь некоторый аналог в бесконечномерных пространствах, но для сильной сходимости это неверно, а вот для слабой имеем:
+\begin{theorem}[принцип выбора]
+	Пусть $H$ - г.п. и \\ $\seq{u_n}{n \in \Natural} \subset H: \norm{u_n} \leq M, \forall n \in \Natural$, тогда 
+	$$\exists \seq{u_{n_k}}{k \in \Natural} \subset \seq{u_n}{n \in \Natural} \ \exists u \in H: u_{n_k} \weakto u \text{ в } H$$
+\end{theorem}
+\begin{proof}
+	$ $ \newline
+	
+	\textbf{1.} Для $\seq{u_n}{n \in \Natural}$ получим числовую последовательность $\seq{(u_n, u_1)}{n\in\Natural} \subset \Real$. Она ограничена т.к. по неравенству Коши-Буняковского:
+	$$|(u_n, u_1)| \leq \norm{u_n} \norm{u_1} \leq M^2$$
+	Значит $\exists \seq{u_n^{(1)}}{n\in\Natural} \subset \seq{u_n}{n\in\Natural}: \seq{(u_n^{(1)}, u_1)}{n\in\Natural} \text{ - сходится}$.
+	
+	Для $\seq{u_n^{(1)}}{n\in\Natural}$ получим $\seq{(u_n^{(1)}, u_2)}{n\in\Natural} \subset \Real$. Аналогично она будет ограничена (той же константой $M^2$) и можно выделить подпоследовательность 
+	$$\seq{u_n^{2}}{n\in\Natural} \subset \seq{u_n^{(1)}}{n\in\Natural} \subset \seq{u_n}{n \in \Natural}: (u_n^{(2)}, u_2) \text{ - сходится}$$
+	причем $\seq{(u_n^{(2)}, u_1)}{n\in\Natural}$ (уже скалярное произведение на $u_1$, а не на $u_2$) - подпоследовательность сходящейся последовательности $\seq{(u_n^{(1)}, u_1)}{n\in\Natural}$ которая тоже сходится.
+	
+	Продолжая процесс получим 
+	\begin{equation*}
+		\seq{u_n^{(m)}}{n \in \Natural} \subset \seq{u_n^{(m-1)}}{n \in \Natural} \subset \cdots \subset \seq{u_n^{(1)}}{n \in \Natural} \subset \seq{u_n}{n \in \Natural}
+	\end{equation*}
+	причем по выкладкам аналогичным ранее для $\seq{u_n^{(2)}}{n\in\Natural}$:
+	\begin{equation*}
+		\seq{(u_n^{(m)}, u_k)}{n\in\Natural} \text{ - сходится}, \forall k \leq m
+	\end{equation*}
+	
+	\textbf{2.} Берем вот такую <<диагональную>> последовательность $\seq{u_n^{(n)}}{n\in\Natural} \subset \seq{u_n}{n\in\Natural}$. Кроме того, начиная с номера $m$ все элементы этой последовательности выбирались из ${u_n^{(m)}}$ (из неё самой и из подпоследовательностей):
+	\begin{equation*}
+		\seqbound{u_n^{(n)}}{n=m}{\infty} \subset \seq{u_n^{(m)}}{n\in\Natural}
+	\end{equation*}
+	, а это значит что $\seq{(u_n^{(n)}, u_m)}{n\in\Natural}, \forall m \in \Natural$ - сходится т.к. сходимость не зависит от конечного числа членов. Итого, если ранее построенные подпоследовательности давали сходящиеся числовые будучи домноженными на элементы с индексом не более чем $m$, то вот эта новая <<диагональная>> последовательность обеспечивает сходимость при домножении на любой элемент исходной.
+	
+	\textbf{3.} Рассмотрим $L = \Lin(\seq{u_n}{n\in\Natural})$. Понятно что это линейное многообразие в $H$ и если $v \in L$, то $\seq{(u_n^{(n)}, v)}{n\in\Natural} \text{ - сходится}$ т.к. $v$ - конечная линейная комбинация элементов последовательности для которых эта сходимость обеспечена в пункте \textbf{2}. 
+	
+	\textbf{4.} Пусть теперь $v \in \bar{L}$. Покажем что $\seq{(u_n^{(n)}, v)}{n\in\Natural} \text{ - cходится}$, для этого докажем фундаментальность, пусть $w \in L$ и:
+	\begin{multline}\label{eq:6}
+		|(u_n^{(n)}, v) - (u_m^{(m)}, v)| = |(u_n^{(n)} - u_m^{(m)}, v)| \leq |(u_n^{(n)} - u_m^{(m)}, v - w)| + |(u_n^{(n)} - u_m^{(m)}, w)| \leq \\ \leq \norm{u_n^{(n)} - u_m^{(m)}}\norm{v - w} + |(u_n^{(n)} - u_m^{(m)}, w)|
+	\end{multline}
+	Заметим что 
+	$$\norm{u_n^{(n)} - u_m^{(m)}} \leq \norm{u_n^{(n)}} + \norm{u_m^{(m)}} \leq 2M$$
+	и т.к. $L$ плотно в $\bar{L}$, то $\forall \varepsilon > 0 \ \exists w \in L: \norm{v - w} < \frac{\varepsilon}{4M}$. Зафиксируем такое $w$ и т.к. $w\in L$, то по пункту \textbf{3} последовательность $(u_n^{(n)}, w)$ - сходится т.е. фундаментальна и $\exists N \in \Natural: |(u_n^{(n)} - u_m^{(m)}, w)| < \frac{\varepsilon}{2}, \forall n, m \geq N$, наконец из \eqref{eq:6} получаем что
+	\begin{equation*}
+		|(u_n^{(n)}, v) - (u_m^{(m)}, v)| < \varepsilon, \forall n,m \geq N
+	\end{equation*}
+	т.е. последовательность $\seq{(u_n^{(n)}, v)}{n\in\Natural}$ фундаментальна и сходится т.к. $\Real$ - полное м.п.
+	
+	\textbf{5.} Пусть $v \in H$, покажем что $\seq{(u_n^{(n)}, v)}{n\in\Natural} \text{ - cходится}$ (уже более общий случай). Т.к. $\bar{L}$ - замкнутое линейное многообразие т.е. подпространство, то $H = \bar{L} \oplus \bar{L}^\perp$, а значит 
+	$$\forall v \in H \ \exists! l \in \bar{L}, l^\perp \in \bar{L}^\perp: v = l + l^\perp$$
+	, но тогда
+	$$(u_n^{(n)}, v) = (u_n^{(n)}, l) + (u_n^{(n)}, l^\perp) \overset{u_n^{(n)} \in \bar{L}}{=} (u_n^{(n)}, l) + 0 = (u_n^{(n)}, l) \text{ - cходится}$$
+	т.к. $l \in \bar{L}$ и по пункту \textbf{4}.
+	
+	\textbf{6.} Наконец, построим функционал:
+	\begin{equation*}
+		f: H \to \Real \ \ f(v) = \lim_{n \to \infty}{(u_n^{(n)}, v)}, \forall v \in H
+	\end{equation*}
+	и посмотрим его свойства. Он линейный т.к.:
+	\begin{multline*}
+		f(\alpha_1 v_1 + \alpha_2 v_2) = \lim_{n\to\infty}{(u_n^{(n)}, \alpha_1 v_1 + \alpha_2 v_2)} = \lim_{n\to\infty}{\left(\alpha_1 (u_n^{(n)}, v_1) + \alpha_2 (u_n^{(n)},v_2)\right)} = \\ = 
+		\alpha_1 \lim_{n\to\infty}{(u_n^{(n)}, v_1)} + \alpha_2 \lim_{n\to\infty}{(u_n^{(n)}, v_2)} = \alpha_1 f(v_1) + \alpha_2 f(v_2) 
+	\end{multline*}
+	еще проще показать ограниченность:
+	\begin{equation*}
+		|f(v)| = \left|\lim_{n\to\infty}{(u_n^{(n)}, v)}\right| = \lim_{n\to\infty}{|(u_n^{(n)}, v)|} \leq \lim_{n\to\infty}{\norm{u_n^{(n)}}\norm{v}} \leq M\norm{v}
+	\end{equation*}
+	Таким образом $f \in H^*$ и по \hyperref[th:2]{теореме Рисса} $$\exists! u \in H: f(v) = (u, v), \forall v \in H \Rightarrow \lim_{n\to\infty}{(u_n^{(n)}, v)} = (u, v), \forall v \in H \Rightarrow u_n^{(n)} \weakto u \text{ в } H$$
+	, та самая подпоследовательность которая нам была нужна, а именно $\seq{u_n^{(n)}}{n\in\Natural}$ построена и теорема доказана.
+\end{proof}
+\begin{corollaryth}
+	Тот же самый результат справедлив в случае если $H$ - сепарабельное рефлексивное пространство. Аналогично в них будут справедливы аналоги теорем которые будут дальше в пределах параграфа.
+\end{corollaryth}
 
 
 \newpage
