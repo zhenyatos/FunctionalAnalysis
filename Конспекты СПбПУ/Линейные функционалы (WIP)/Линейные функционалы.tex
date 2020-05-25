@@ -58,6 +58,9 @@ top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 		\item \url{https://www.youtube.com/watch?v=ZxErqaR8mHU}
 		\item \url{https://www.youtube.com/watch?v=Oeaqzm3VUxs}
 		\item \url{https://www.youtube.com/watch?v=y6rOmdRSggE}
+		\item \url{https://www.youtube.com/watch?v=NYHJtvgEImQ}
+		\item \url{https://www.youtube.com/watch?v=3Dvn4JC2Agg}
+		\item \url{https://www.youtube.com/watch?v=RzCFGwlTHQ0}
 	\end{enumerate}
 	
 \end{abstract}
@@ -480,7 +483,7 @@ top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 \end{corollarydf}
 
 % Важное следствие
-\begin{theorem}[об ограниченности слабосходящихся $\{x_n\}_{n\in\Natural}$]
+\begin{theorem}[об ограниченности слабосходящихся $\{x_n\}_{n\in\Natural}$]\label{th:5}
 	Пусть $X$ - б.п. и $x_n \weakto x$ в $X$, тогда $\exists M \geq 0: \norm{x_n} \leq M, \forall n \in \Natural$
 \end{theorem}
 \begin{proof}
@@ -623,6 +626,41 @@ top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 	Тот же самый результат справедлив в случае если $H$ - сепарабельное рефлексивное пространство. Аналогично в них будут справедливы аналоги теорем которые будут дальше в пределах параграфа.
 \end{corollaryth}
 
+% Теорема Банаха-Сакса
+\begin{theorem}[Банаха-Сакса]
+	Пусть $H$ - г.п. и $u_n \weakto u$, тогда \\ $\exists\seq{u_{n_k}}{k\in\Natural} \subset \seq{u_n}{n\in\Natural}: v_k = \frac{1}{k}\sum\limits_{i=1}^{k}{u_{n_i}} \to u$ в $H$
+\end{theorem}
+\begin{proof}
+	Без потери общности можно считать что $u = 0$, в противном случае рассматриваем $u_n - u$ вместо $u_n$. 
+	
+	Пусть $u_{n_1} = u_1$, 
+	$$u_n \weakto 0 \Rightarrow (u_{n_1}, u_n) \xrightarrow[n \to \infty]{} 0 \Rightarrow \exists n_2 > n_1: |(u_{n_1}, u_{n_2})| < 1$$
+	Теперь поскольку
+	\begin{align*}
+	\begin{split}
+		(u_{n_1}, u_n) &\xrightarrow[n \to \infty]{} 0 \\
+		(u_{n_2}, u_n) &\xrightarrow[n \to \infty]{} 0
+	\end{split}
+	\end{align*}
+	, то 
+	$$\exists n_3 > n_2: \left( |(u_{n_1}, u_{n_3})| < \frac{1}{2} \right) \wedge \left( |(u_{n_2}, u_{n_3})| < \frac{1}{2} \right)$$
+	одновременно. Продолжая процесс, можно сказать что 
+	\begin{equation}\label{eq:7}
+		\exists n_k > n_{k-1} > ...: |(u_{n_i}, u_{n_k})| < \frac{1}{k-1}, i = 1, ..., k-1
+	\end{equation}
+	
+	Заметим что
+	\begin{multline*}
+		\norm{v_k}^2 = \left(\frac{1}{k} \sum_{i=1}^{k}{u_{n_i}}, \frac{1}{k} \sum_{j=1}^{k}{u_{n_j}} \right) = \frac{1}{k^2}\sum_{i,j=1}^{k}{(u_{n_i}, u_{n_j})} = \\ = \frac{1}{k^2}\left( \sum_{i=1}^{k}{(u_{n_i}, u_{n_i})} + 2\sum_{i=2}^{k}{\sum_{j=1}^{i-1}{(u_{n_i}, u_{n_j})}} \right) \leq \cdots
+	\end{multline*}
+	
+	Вспоминаем \hyperref[th:5]{теорему} о том что слабосходящаяся последовательность ограничена т.е. $\exists M \geq 0: \norm{u_i} \leq M, \forall i \in \Natural$, неравенство Коши-Буняковского и доказанные ранее оценки \eqref{eq:7}, получаем
+	\begin{equation*}
+		\cdots \leq \frac{1}{k^2}\left(\sum_{i=1}^{k}{M^2} + 2\sum_{i=2}^{k}{\sum_{j=1}^{i-1}{\frac{1}{i-1}}}\right) \leq
+		\frac{1}{k^2}\left( kM^2 + 2\sum_{i=2}^{k}{1}\right) = \frac{M^2}{k} + 2\frac{k-1}{k^2} \xrightarrow[k \to \infty]{} 0
+	\end{equation*}
+	т.е. $\norm{v_k}^2 \to 0$, откуда очевидно $v_k \to 0$ в $H$, ч.т.д.
+\end{proof}
 
 \newpage
 \renewcommand{\listtheoremname}{Список теорем и утверждений}
