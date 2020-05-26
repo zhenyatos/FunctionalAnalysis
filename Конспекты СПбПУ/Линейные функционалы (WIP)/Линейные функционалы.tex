@@ -25,6 +25,7 @@ top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 \DeclareMathOperator{\dist}{dist}
 \DeclareMathOperator*\lowlim{\underline{lim}}
 \DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator{\Conv}{Conv}
 \newcommand{\tick}[1]{#1^{\prime}}
 \newcommand{\dtick}[1]{#1^{\prime\prime}}
 \newcommand{\bounded}[2]{\textrm{B}(#1, #2)}
@@ -423,7 +424,7 @@ top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 	Пусть $X$ - н.п., $x_n \weakto x$, тогда $\norm{x} \leq \lowlim\limits_{n \to \infty}{\norm{x_n}}$
 \end{theorem}
 \begin{proof}
-	Пусть $d = \lowlim\limits_{n \to \infty}{\norm{x_n}}$, тогда т.к. нижний предел обязательно реализуется на какой-то последовательности: $\exists{x_{n_k}} \subset{x_n}: \norm{x_{n_k}} \to d$. Вспоминаем \hyperref[corll:1]{следствие 1} теоремы Хана-Банаха (для элемента $x$), по которому \\ $\exists f \in X^*: (\norm{f} = 1) \wedge (f(x) = \norm{x})$. Т.к. $x_n \weakto x$, элементарно показывается что для подпоследовательности аналогично $x_{n_k} \weakto x$, значит 
+	Пусть $d = \lowlim\limits_{n \to \infty}{\norm{x_n}}$, тогда т.к. нижний предел обязательно реализуется на какой-то подпоследовательности: $\exists{x_{n_k}} \subset{x_n}: \norm{x_{n_k}} \to d$. Вспоминаем \hyperref[corll:1]{следствие 1} теоремы Хана-Банаха (для элемента $x$), по которому \\ $\exists f \in X^*: (\norm{f} = 1) \wedge (f(x) = \norm{x})$. Т.к. $x_n \weakto x$, элементарно показывается что для подпоследовательности аналогично $x_{n_k} \weakto x$, значит 
 	$$f(x_{n_k}) \to f(x) = \norm{x}$$
 	по определению слабой сходимости.
 	
@@ -627,7 +628,7 @@ top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 \end{corollaryth}
 
 % Теорема Банаха-Сакса
-\begin{theorem}[Банаха-Сакса]
+\begin{theorem}[Банаха-Сакса]\label{th:6}
 	Пусть $H$ - г.п. и $u_n \weakto u$, тогда \\ $\exists\seq{u_{n_k}}{k\in\Natural} \subset \seq{u_n}{n\in\Natural}: v_k = \frac{1}{k}\sum\limits_{i=1}^{k}{u_{n_i}} \to u$ в $H$
 \end{theorem}
 \begin{proof}
@@ -661,6 +662,55 @@ top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 	\end{equation*}
 	т.е. $\norm{v_k}^2 \to 0$, откуда очевидно $v_k \to 0$ в $H$, ч.т.д.
 \end{proof}
+
+% Определение выпуклой оболочки
+\begin{definition}
+	Пусть $X$ -- н.п., $A \subset X$, тогда \textcolor{red}{выпуклой оболочкой} назовем множество
+	$$\Conv(A) = \setbuild{x\in X}{\exists \lambda_1, ..., \lambda_k \geq 0, \lambda_1 + ... + \lambda_k = 1, \exists a_1, ...., a_k \in A: x = \lambda_1 a_1 + ... + \lambda_k a_k}$$
+\end{definition}
+% Определение выпуклого функционала
+\begin{definition}
+	Пусть $F: X \to \Real$ (вообще говоря нелинейный функционал), тогда $F$ называется \textcolor{red}{выпуклым} если
+	$$F(\lambda_1 x_1 + ... \lambda_k x_k) \leq \lambda_1 F(x_1) + ... + \lambda_k F(x_k), \text{ для } \lambda_1, ..., \lambda_k \geq 0, \lambda_1 + ... + \lambda_k = 1$$
+\end{definition}
+
+Для доказательства следующей теоремы нам пригодится следующий факт математического анализа
+\begin{proposition}\label{prop:1}
+	Пусть $\seq{a_n}{n\in\Natural}, \seq{b_n}{n\in\Natural} \subset \Real$, причем выполнены условия:
+	\begin{enumerate}
+		\item $b_n > 0, \forall n \in \Natural$
+		\item $b_n \to +\infty$
+		\item $b_{n+1} > b_n, \forall n \in \Natural$
+	\end{enumerate}
+	, тогда 
+	$$\left(\exists \lim_{n\to\infty}{\frac{a_n - a_{n-1}}{b_n - b_{n-1}}}\right) \Rightarrow \left(\exists \lim_{n\to\infty}{\frac{a_n}{b_n}}\right) \wedge \left(\lim_{n\to\infty}{\frac{a_n}{b_n}} = \lim_{n\to\infty}{\frac{a_{n+1} - a_n}{b_{n+1} - b_n}}\right)$$
+\end{proposition}
+Оно носит название \textbf{теоремы Штольца}.
+
+% Теорема о слабой полунепрерывности снизу выпуклого функционала в г.п.
+\begin{theorem}[о полунепрерывности снизу вып. непр. функционалов отн. $\weakto$]
+	Пусть $H$ -- г.п., $F: H \to \Real$ - непрерывный выпуклый, $D(F) = H$, тогда $$F(u) \leq \lowlim\limits_{n\to\infty}{F(u_n)}, \forall \seq{u_n}{n\in\Natural}\subset H: u_n \weakto u$$
+\end{theorem}
+\begin{proof}
+	Пусть $d = \lowlim\limits_{n\to\infty}{F(u_n)}$, тогда поскольку нижний предел обязательно реализуется на какой-нибудь подпоследовательности, то \\ $\exists \seq{u_{n_k}}{k\in\Natural} \subset \seq{u_n}{n\in\Natural}$. Заметим что $u_{n_k} \weakto u$ т.к. по условию $u_n \weakto u$. Применим \hyperref[th:6]{теорему Банаха-Сакса}, получим что 
+	$$\exists\seq{u_{n_{k_s}}}{s\in\Natural}\subset\seq{u_{n_k}}{k\in\Natural}: v_i = \frac{1}{i}\sum_{s=1}^{i}{u_{n_{k_s}}} \to u$$
+	
+	Теперь заметим что
+	\begin{align}\label{eq:8}
+		\begin{split}
+		F(v_i) &= F\left(\frac{1}{i} \sum_{s=1}^{i}{u_{n_{k_s}}}\right) \leq \frac{1}{i}\sum\limits_{s=1}^{i}{F(u_{n_{k_s}})} \\
+		F(v_i) &\to F(u)
+		\end{split}
+	\end{align}
+	
+	Самое время вспомнить про \hyperref[prop:1]{теорему Штольца}, взяв $b_i = i, a_i = \sum\limits_{s=1}^{i}{F(u_{n_{k_s}})}$, тогда
+	её условия очевидно выполнены и поскольку
+	$$\lim_{i\to\infty}{\frac{a_{i+1} - a_i}{b_{i+1} - b_i}}=
+	\lim_{i\to\infty}{\frac{F(u_{n_{k_{i+1}}})}{1}} = \lim_{i\to\infty}{F(u_{n_{k_{i+1}}})} = d$$
+	, имеем $\frac{1}{i}\sum\limits_{s=1}^{i}{F(u_{n_{k_s}})} \to d$ и с учетом \eqref{eq:8} получаем $F(u) \leq \lowlim\limits_{n\to\infty}{F(u_n)} = d$, ч.т.д.
+\end{proof} 
+
+
 
 \newpage
 \renewcommand{\listtheoremname}{Список теорем и утверждений}
