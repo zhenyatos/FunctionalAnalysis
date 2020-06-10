@@ -29,7 +29,9 @@ top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 \newcommand{\tick}[1]{#1^{\prime}}
 \newcommand{\dtick}[1]{#1^{\prime\prime}}
 \newcommand{\bounded}[2]{\textrm{B}(#1, #2)}
+\newcommand{\boundedo}[1]{\textrm{B}(#1)}
 \newcommand{\linear}[2]{\textrm{L}(#1, #2)}
+\newcommand{\linearo}[1]{\textrm{L}(#1)}
 \newcommand{\seq}[2]{\{#1\}_{#2}}
 \newcommand{\seqbound}[3]{\{#1\}_{#2}^{#3}}
 \newcommand{\conj}[1]{\left(#1\right)^*}
@@ -62,6 +64,7 @@ top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 		\item \url{https://www.youtube.com/watch?v=NYHJtvgEImQ}
 		\item \url{https://www.youtube.com/watch?v=3Dvn4JC2Agg}
 		\item \url{https://www.youtube.com/watch?v=RzCFGwlTHQ0}
+		\item \url{https://www.youtube.com/watch?v=XA87kULDlaU}
 	\end{enumerate}
 	
 \end{abstract}
@@ -710,7 +713,70 @@ top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 	, имеем $\frac{1}{i}\sum\limits_{s=1}^{i}{F(u_{n_{k_s}})} \to d$ и с учетом \eqref{eq:8} получаем $F(u) \leq \lowlim\limits_{n\to\infty}{F(u_n)} = d$, ч.т.д.
 \end{proof} 
 
+% Сопряженные операторы в г.п.
+\section{Сопряженные операторы в гильбертовых пространствах}
+\begin{definition}
+	Пусть $H$ - г.п. над $\Cmplx (\Real)$ и пусть $A \in \linearo{H} = \linear{H}{H}$, причем $\overline{D(A)} = H$. \textcolor{red}{Сопряженным оператором} к $A$ называется $A^*: H \to H$ такой что его область определения
+	$$D(A^*) = \setbuild{v\in H}{\exists h \in H: (Au, v) = (u,h), \forall u \in D(A)}$$ 
+	и действует как $A^* v = h$
+\end{definition}
+\begin{corollarydf} 
+Проверим корректность определения, а именно однозначность:
+Пусть $v\in D(A^*)$ и 
+$$\exists h_1, h_2 \in H: \left((Au, v) = (u, h_1)\right) \wedge \left((Au, v) = (u, h_2)\right), \forall u \in D(A)$$
+тогда $(u, h_1 - h_2) = 0, \forall u \in D(A)$ и $h_1 - h_2$ ортогонально всюду плотному $D(A)$ (в определении сопряженного оператора $\overline{D(A)} = H$) и найдется $\seq{u_n}{n\in\Natural} \subset D(A): u_n \to h_1 - h_2$, а значит $0 = (u_n, h_1 - h_2) \to (h_1 - h_2, h_1 - h_2)$ и т.к. последовательность из нулей сходится к нулю, то 
+$$(h_1 - h_2, h_1 - h_2) = 0 \Leftrightarrow h_1 - h_2 = 0 \Leftrightarrow h_1 = h_2$$
+\end{corollarydf}
+\begin{corollarydf}
+	Почему $D(A^*) \neq \emptyset$? По меньшей мере в нем есть 0, ведь $(Au, 0) = 0 = (u, 0), \forall u \in D(A)$ и можно взять $h = 0$.
+\end{corollarydf}
 
+Теперь когда определили - будем изучать свойства сопряженного оператора.
+
+\begin{proposition}
+	$A^* \in \linearo{H}$
+\end{proposition}
+\begin{proof}
+	Пусть $v_1, v_2 \in D(A^*)$, тогда 
+	$$\exists h_1, h_2 \in H: \left((Au, v_1) = (u, h_1)\right) \wedge \left((Au, v_2) = (u, h_2)\right), \forall u \in D(A)$$
+	и воспользовавшись линейностью (по второму аргументу) скалярного произведения получаем
+	$$(Au, \alpha_1 v_2 + \alpha_2 v_2) = (u, \alpha_1 h_1 + \alpha_2 h_2), \forall u \in H$$
+	откуда $\alpha_1 v_1 + \alpha_2 v_2 \in D(A^*)$ и
+	$$A^* (\alpha_1 v_1 + \alpha_2 v_2) = \alpha_1 h_1 + \alpha_2 h_2 = \alpha_1 A^* v_1 + \alpha_2 A^* v_2$$
+\end{proof}
+
+\begin{theorem}[\textbf{о свойствах $A^*$ для $A \in \boundedo{H}$}]
+	Пусть $A \in \boundedo{H}, D(A) = H$ (последнее получаем без потери общности для ограниченных на всюду плотной области определения), тогда
+	\begin{enumerate}
+		\item $D(A^*) = H$
+		\item $A^* \in \boundedo{H}$
+		\item $\norm{A^*} = \norm{A}$
+		\item $A^{**} = A$
+	\end{enumerate}
+\end{theorem}
+\begin{proof}
+	Пусть $v \in H$, рассмотрим функционал \\ $e_v(u) = (Au, v)$, из свойств скалярного произведения и линейности $A$ получаем $e_v \in \linear{H}{\Cmplx(\Real)}$, а из неравенства Коши-Буняковского и ограниченности $A$:
+	$$|e_v (u)| = |(Au, v)| \leq \norm{Au}\norm{v} \leq (\norm{A}\norm{v})\norm{u}$$
+	т.е. $e_v \in H^*$ причем 
+	\begin{equation}\label{eq:9}
+		\norm{e_v}_{H^*} \leq \norm{A}\norm{v}
+	\end{equation}
+	
+	Воспользуемся теоремой Рисса об общем виде: $$\exists!h\in H: \left(e_v(u) = (u, h), \forall u \in H\right) \wedge \left(\norm{h}_H = \norm{e_v}_{H^*}\right) $$
+	Теперь заметим что $e_v(u) = (Au, v) = (u, h)$, а значит $v \in D(A^*)$ и $D(A^*) = H$. Ограниченность следует из того что 
+	$$\norm{A^* v} = \norm{h} = \norm{e_v}_{H^*} \overset{\eqref{eq:9}}{\leq} \norm{A}\norm{v}, \forall v \in H$$
+	т.е. $A^* \in \boundedo{H}$ и
+	\begin{equation}\label{eq:10}
+		\norm{A^*} \leq \norm{A}
+	\end{equation}
+	
+	Теперь видим что $e_v (u) = (Au, v) = (u, A^* v)$ и соответственно:
+	$$(Au, v) = (u, A^* v), \forall u, v \in H$$
+	что равносильно (по свойствам скалярного произведения):
+	$$\overline{(v, Au)} = \overline{(A^* v, u)}, \forall u, v \in H \overset{\text{т.к. }\bar{x} = \bar{y} \Rightarrow x = y}{\Rightarrow} (A^* v, u) = (v, Au), \forall u, v \in H$$
+	отсюда как раз видно что $A^{**} = A$ и из доказанного ранее \eqref{eq:10}: \\ $\norm{A} = \norm{A^{**}} \leq \norm{A^*}$, а значит $\norm{A^*} = \norm{A}$, ч.т.д.
+\end{proof}
+Про сопряженные операторы в г.п. всё, следует заметить что их можно определить и в н.п., но там все сложнее и выходит за рамки курса.
 
 \newpage
 \renewcommand{\listtheoremname}{Список теорем и утверждений}
