@@ -778,6 +778,64 @@ $$(h_1 - h_2, h_1 - h_2) = 0 \Leftrightarrow h_1 - h_2 = 0 \Leftrightarrow h_1 =
 \end{proof}
 Про сопряженные операторы в г.п. всё, следует заметить что их можно определить и в н.п., но там все сложнее и выходит за рамки курса.
 
+% Самосопряженные операторы
+\section{Самосопряженные операторы в гильбертовых пространствах}
+\begin{definition}
+	Пусть $H$ -- г.п. над $\Cmplx (\Real)$ и пусть $A \in \linearo{H}$, тогда $A$ называют \textcolor{red}{самосопряженным}, если $A = A^*$. 
+\end{definition}
+
+Теперь рассмотрим простейшие свойства этих операторов.
+
+\begin{proposition}\label{prop:2}
+	$(Au, u) \in \Real, \forall u \in H$
+\end{proposition}
+\begin{proof}
+	$(Au, u) = (u, Au) = \overline{(Au, u)}$
+\end{proof}
+
+\begin{proposition}\label{prop:3}
+	$\lambda \in \sigma_p (A) \Rightarrow \lambda \in \Real$
+\end{proposition}
+\begin{proof}
+	По условию $\lambda \in \sigma_p (A)$, значит существует \\ $0 \neq u \in H: Au = \lambda u$, тогда $(Au, u) = (\lambda u, u) = \lambda \norm{u}^2 \Rightarrow \lambda = \frac{(Au, u)}{\norm{u}^2} \in \Real$ (используем \hyperref[prop:2]{утверждение 1})
+\end{proof}
+
+\begin{proposition}
+	Пусть $\lambda_1, \lambda_2 \in \sigma_p (A), \lambda_1 \neq \lambda_2$, тогда
+	$$(u_1 \neq 0: Au_1 = \lambda_1 u_1) \wedge (u_2 \neq 0: Au_2 = \lambda_2 u_2) \Rightarrow \left((u_1, u_2) = 0)\right)$$
+\end{proposition}
+\begin{proof}
+	\begin{multline*}
+		\lambda_1 (u_1, u_2) = (\lambda_1 u_1, u_2) = (Au_1, u_2) = (u_1, Au_2) = (u_1, \lambda_2 u_2) \overset{\hyperref[prop:3]{\lambda_2 = \overline{\lambda_2}}}{=} \lambda_2 (u_1, u_2)
+	\end{multline*}
+	, откуда $(\lambda_1 - \lambda_2) (u_1, u_2) = 0$ и т.к. $\lambda_1 \neq \lambda_2$ получаем $(u_1, u_2) = 0$, ч.т.д.
+\end{proof}
+
+\begin{theorem}[\textbf{о вычислении максимального с.ч. $A = A^*$}]
+	$ $ \\ Пусть $A \in \boundedo{H}$, $A$ - самосопряженный, $A \neq O$ и кроме того
+	$$u_0 \in \overline{B(0, 1)}: |(Au_0, u_0)| = \sup_{\norm{u} \leq 1}{|(Au, u)|}$$
+	, тогда
+	\begin{enumerate}
+		\item $\norm{u_0} = 1$
+		\item $u_0$ - с.в. $A$
+		\item $\lambda_0 = (Au_0, u_0)$ - максимальное по модулю с.ч. оператора $A$
+	\end{enumerate}
+\end{theorem}
+\begin{proof}
+	$ $ \\
+	\textbf{1.} $u_0 = 0 \Rightarrow |(Au_0, u_0)| = 0 = \sup\limits_{\norm{u} \leq 1}{|(Au, u)|} \overset{\hyperref[p:1]{1}}{\Rightarrow} (Au, u) = 0, \forall u \in H \overset{\hyperref[p:2]{2}}{\Rightarrow} A = O$. \\
+	\textbf{1.1.}\label{p:1} Действительно если $u = 0$, то очевидно, если $u \neq 0$, то рассмотрим \\ $\hat{u} = \frac{u}{\norm{u}}$ для которого $\norm{\hat{u}} = 1$ и значит $\frac{1}{\norm{u}^2} (Au, u) = (A\hat{u}, \hat{u}) = 0$ из равенства для супремума. Отсюда $(Au, u) = 0$. \\
+	\textbf{1.2.}\label{p:2} Докажем что $Au = 0, \forall u \in H$
+	\begin{multline*}
+		0 = (A(u + Au), u + Au) = (Au + A^2 u, u + Au) = (Au, u) + (Au, Au) + (A^2 u, u) + (A^2 u, Au) = \\ = (Au, Au) + (Au, Au) + (A(Au), Au) = 2 (Au, Au) = 2 \norm{Au}^2
+	\end{multline*}
+	т.е. $\norm{Au}^2 = 0 \Rightarrow \norm{Au} = 0 \Rightarrow Au = 0$, ч.т.д.
+	Мы пришли к противоречию с тем что $A \neq O$, пусть теперь $0 < \norm{u_0} < 1$, тогда рассмотрим $u_1 = \frac{u_0}{\norm{u_0}}$ для которого $1 = \norm{u_1} > \norm{u_0}$, однако:
+	$$|(Au_1, u_1)| = \frac{|(Au_0, u_0)|}{\norm{u_0}^2} > |(Au_0, u_0)|$$ вновь противоречие с тем что на $u_0$ достигается супремум. Итого $\norm{u_0} = 1$
+	
+	\noindent \textbf{2.} \textbf{Утверждение:} $(u_0, v) = 0 \Rightarrow (Au_0, v) = 0$. Докажем его. Пусть $u = \frac{u_0 + \alpha v}{\norm{u_0 + \alpha v}}$
+\end{proof}
+
 \newpage
 \renewcommand{\listtheoremname}{Список теорем и утверждений}
 \listoftheorems[ignoreall, show={theorem,corollary}]
