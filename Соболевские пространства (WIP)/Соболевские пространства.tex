@@ -1,0 +1,184 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks   = true, 
+	urlcolor     = blue, 
+	linkcolor    = blue, 
+	citecolor   = red
+}
+\usepackage{amsthm,amssymb,amsfonts,amsmath}
+\usepackage{physics}
+\usepackage{xcolor}
+\usepackage[left=3cm,right=3cm,
+top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
+\usepackage{tcolorbox}
+\usepackage{physics}
+
+\tcbuselibrary{theorems}
+\newtcbtheorem
+[number within=section]
+{definition}
+{Определение}
+{
+	colback=red!3,
+	colframe=red!20!white,
+	coltitle=black,
+	fonttitle=\bfseries,
+	sharp corners,
+}
+{def}
+
+\tcbuselibrary{theorems}
+\newtcbtheorem
+[number within=section]
+{proposition}
+{Утверждение}
+{
+	colback=purple!3,
+	colframe=purple!25!white,
+	coltitle=black,
+	fonttitle=\bfseries,
+}
+{prop}
+
+\tcbuselibrary{theorems}
+\newtcbtheorem
+[number within=section]
+{theorem}
+{Теорема}
+{
+	colback=blue!3,
+	colframe=blue!20!white,
+	coltitle=black,
+	fonttitle=\bfseries,
+}
+{th}
+
+\tcbuselibrary{theorems}
+\newtcbtheorem
+[number within=section]
+{example}
+{Пример}
+{
+	colback=orange!3,
+	colframe=orange!20!white,
+	coltitle=black,
+	fonttitle=\bfseries,
+	sharp corners,
+}
+{exmpl}
+
+\tcbuselibrary{theorems}
+\newtcbtheorem
+[number within=section]
+{lemma}
+{Лемма}
+{
+	colback=gray!3,
+	colframe=gray!20!white,
+	coltitle=black,
+	fonttitle=\bfseries,
+}
+{lemm}
+
+% Для удобства
+\newcommand{\intset}[1]{\int\limits_{#1}}
+\newcommand{\Real}{\mathbb{R}}
+\newcommand{\ssubset}{\subset \subset}
+
+\title{Соболевские пространства}
+
+\begin{document}
+	
+\maketitle
+\begin{abstract}
+\end{abstract}
+
+\section{Усреднение функций}
+	
+\subsection{Основные понятия}
+
+Пусть в $\Real^n$ задана норма 
+$$\norm{x} = \sqrt{\sum_{i=1}^{n}{x_i^2}}$$ 
+Определим $\omega: \Real^n \to \Real$ как
+\begin{equation*}
+	\omega (x) = 
+		\begin{cases}
+		c e^{\frac{1}{\norm{x}^2 - 1}}, & x \in B(0, 1) \\
+		0, & x \notin B(0, 1)
+		\end{cases}
+\end{equation*}
+где 
+$$c  = \frac{1}{\intset{B(0,1)}{e^{\frac{1}{\norm{x}^2 - 1}}dx}}$$
+так что $\intset{B(0,1)}{\omega(x)dx} = 1$ и кроме того по определению $\omega \in C(\Real^n)$. \\ Пусть $\omega_\rho (x) = \rho^{-n} \omega \left(\frac{x}{\rho}\right)$, тогда свойства указанные выше сохраняются.
+
+\begin{definition}{Усреднение функции}{def:1}
+	Пусть $\rho > 0$, усреднением функции $u \in L^{1}(\Omega)$ называется 
+	$$u_\rho (x) = \intset{\Omega}{\omega_\rho (x - y) u(y) dy}, \forall x \in \Real^n$$
+	Важное свойство $u_\rho \in C^{\infty}(\Real^n), \forall \rho > 0$
+\end{definition}
+
+\begin{proposition}{Вложенность $L^p$}{prop:1}
+	Пусть $\Omega \subset \Real^n$ -- открытое ограниченное, тогда
+	\begin{enumerate}
+		\item $L^{\infty}(\Omega) \subset \underset{1 < p < \infty}{L^{p}(\Omega)} \subset L^{1}(\Omega)$
+		\item $L^{p}(\Omega) \subset L^{q}(\Omega), 1 \leq q < p \leq \infty$
+	\end{enumerate}
+\end{proposition}
+
+\begin{proposition}{О норме усреднения}{prop:2}
+	Пусть $u \in L^{p}(\Omega), 1 \leq p \leq \infty$, тогда 
+	$$\norm{u_\rho}_{L^{p}(\Omega)} \leq \norm{u}_{L^{p}(\Omega)}$$
+\end{proposition}
+
+\begin{proposition}{О сходимости усреднений в $C$}{prop:3}
+	Пусть $u \in C(\Omega)$, $\underset{\text{компакт}}{K} \subset \Omega$, тогда $u_\rho \underset{\rho \to 0}{\to} u$ в $C(K)$
+\end{proposition}
+Из последнего утверждения следует что $u_\rho (x) \underset{\rho \to 0}{\to} u (x), \forall x \in \Omega$.
+
+\begin{theorem}{О сходимости усреднений в $L^{p}$}{th:1}
+	Пусть $u \in L^{p}(\Omega), 1 \leq p < \infty$, тогда $u_\rho \underset{\rho \to 0}{\to} u$ в $L^{p} (\Omega)$
+\end{theorem}
+
+\subsection{Свойства функций из $L^p$ связанные с усреднением}
+
+Рассмотрим множества плотные в пространствах Лебега.
+\begin{proposition}{}{prop:4}
+	$C^{\infty} (\overline{\Omega})$ плотно в $L^p (\Omega), 1 \leq p < \infty$
+\end{proposition}
+
+\begin{proposition}{}{prop:5}
+	$C^{\infty}_0 (\Omega)$ плотно в $L^p (\Omega), 1 \leq p < \infty$
+\end{proposition}
+
+\begin{definition}{Вхождение с замыканием}{def:2}
+	$\Omega^{'} \ssubset \Omega$ если $\Omega^{'}$ -- предкомпакт и $\overline{\Omega^{'}} \subset \Omega$
+\end{definition}
+
+\begin{definition}{Локально суммируемые функции}{def:3}
+	$u \in L^{p}_{\text{loc}} (\Omega)$ -- $u$ локально суммируема с показателем $p$, если \\ $u \in L^{p} (\Omega^{'}), \forall \Omega^{'} \ssubset \Omega$
+\end{definition}
+Заметим что на ограниченной области локально суммируемые функции ведут себя как угодно на границе.
+
+\begin{example}{}{exmpl:1}
+	$f \equiv c$, $f \notin L^1 (\Real)$, но $f \in L^1_{\text{loc}} (\Real)$
+\end{example}
+
+\begin{lemma}{Дюбуа-Реймонда}{}
+	Пусть $u \in L^1_{\text{loc}} (\Omega)$ и $\intset{\Omega}{u\phi dx}, \forall \phi \in C^{\infty}_0 (\Omega)$, тогда $u = 0$ п.в. на $\Omega$ [Заметим что класс для $u$ очень широкий, а для $\phi$ очень узкий]
+\end{lemma}
+
+\subsection{Критерий компактности в $L^p$}
+
+Пусть $F \subset L^p (\Omega), 1 \leq p < \infty$, по умолчанию $f \in F$ продолжаем 0 на $\Real^n$
+\begin{theorem}{Критерий Рисса}{th:2}
+	$\underset{\text{предкомпакт}}{F} \subset L^p (\Omega) \Leftrightarrow$
+	\begin{enumerate}
+		\item $\exists M \geq 0: \norm{f}_{L^p (\Omega)} \leq M, \forall f \in F$
+		\item $\sup\limits_{f\in F}{\sup\limits_{|z| < \rho}{\norm{f(x+z) - f(z)}_{L^p (\Omega)}}} = \delta(\rho) \to 0$
+	\end{enumerate}
+\end{theorem}
+
+\end{document}
