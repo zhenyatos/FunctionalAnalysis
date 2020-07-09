@@ -18,7 +18,8 @@ top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 
 \tcbuselibrary{theorems}
 \newtcbtheorem
-[number within=section]
+[number within=section, 
+list inside={def}]
 {definition}
 {Определение}
 {
@@ -86,7 +87,14 @@ top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 % Для удобства
 \newcommand{\intset}[1]{\int\limits_{#1}}
 \newcommand{\Real}{\mathbb{R}}
+\newcommand{\Natural}{\mathbb{N}}
 \newcommand{\ssubset}{\subset \subset}
+\newcommand{\Dto}{\overset{\mathcal{D}}{\to}}
+\newcommand{\nnorm}[1]{{\left\vert\kern-0.25ex\left\vert\kern-0.25ex\left\vert #1 
+		\right\vert\kern-0.25ex\right\vert\kern-0.25ex\right\vert}}
+\DeclareMathOperator\supp{supp}
+\DeclareMathOperator\dist{dist}
+\DeclareMathOperator\diam{diam}
 
 \title{Соболевские пространства}
 
@@ -94,6 +102,7 @@ top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 	
 \maketitle
 \begin{abstract}
+	Собраны основные понятия и утверждения курса, без доказательств (возможно они появятся в будущем)
 \end{abstract}
 
 \section{Усреднение функций}
@@ -167,18 +176,321 @@ $$c  = \frac{1}{\intset{B(0,1)}{e^{\frac{1}{\norm{x}^2 - 1}}dx}}$$
 \end{example}
 
 \begin{lemma}{Дюбуа-Реймонда}{}
-	Пусть $u \in L^1_{\text{loc}} (\Omega)$ и $\intset{\Omega}{u\phi dx}, \forall \phi \in C^{\infty}_0 (\Omega)$, тогда $u = 0$ п.в. на $\Omega$ [Заметим что класс для $u$ очень широкий, а для $\phi$ очень узкий]
+	Пусть $u \in L^1_{\text{loc}} (\Omega)$ и $\intset{\Omega}{u\varphi dx}, \forall \varphi \in C^{\infty}_0 (\Omega)$, тогда $u = 0$ п.в. на $\Omega$ [Заметим что класс для $u$ очень широкий, а для $\varphi$ очень узкий]
 \end{lemma}
 
 \subsection{Критерий компактности в $L^p$}
 
-Пусть $F \subset L^p (\Omega), 1 \leq p < \infty$, по умолчанию $f \in F$ продолжаем 0 на $\Real^n$
+Пусть $\Omega$ -- ограниченная область, $F \subset L^p (\Omega), 1 \leq p < \infty$, по умолчанию $f \in F$ продолжаем 0 на $\Real^n$
 \begin{theorem}{Критерий Рисса}{th:2}
 	$\underset{\text{предкомпакт}}{F} \subset L^p (\Omega) \Leftrightarrow$
 	\begin{enumerate}
 		\item $\exists M \geq 0: \norm{f}_{L^p (\Omega)} \leq M, \forall f \in F$
-		\item $\sup\limits_{f\in F}{\sup\limits_{|z| < \rho}{\norm{f(x+z) - f(z)}_{L^p (\Omega)}}} = \delta(\rho) \to 0$
+		\item $\sup\limits_{f\in F}{\sup\limits_{|z| < \rho}{\norm{f(x+z) - f(x)}_{L^p (\Omega)}}} = \delta(\rho) \to 0$
 	\end{enumerate}
 \end{theorem}
+
+\section{Обобщенные функции}
+
+\subsection{Мотивация}
+
+Пусть $f \in C^1 (\Omega), \varphi \in C_0^\infty (\Omega)$, тогда
+\begin{equation*}
+	\intset{\Omega}{\frac{\partial f}{\partial x_i} \varphi dx} \overset{\text{по частям}}{=} \intset{\partial \Omega}{f \varphi n_i d\sigma} - \intset{\Omega}{u \frac{\partial \varphi}{\partial x_i} dx} \overset{\varphi \equiv 0 \text{ вне } \Omega}{=} 0 - \intset{\Omega}{u \frac{\partial \varphi}{\partial x_i} dx} = -\intset{\Omega}{u \frac{\partial \varphi}{\partial x_i} dx}
+\end{equation*}
+или
+\begin{equation*}
+	\intset{\Omega}{f^\prime \varphi dx} = -\intset{\Omega}{f \varphi^\prime dx}
+\end{equation*}
+функцию $f^\prime$ удовлетворяющую этим свойствам можно найти для более широкого класса функций.
+
+\subsection{Пространства основных функций}
+
+\begin{definition}{D-сходимость}{def:4}
+	Пусть $\Omega \subset \Real^n$ -- открытое, в $C_0^\infty (\Omega)$ определим сходимость (именуемую D-сходимостью) как:
+	$\varphi_m \Dto \varphi \Leftrightarrow$
+	\begin{enumerate}
+		\item $\exists \underset{\text{компакт}}{K} \subset \Omega: \supp \varphi \subset K, \ \supp \varphi_m \subset K$
+		\item $D^\alpha \varphi_m \to D^\alpha \varphi \text{ в } C(K), \forall \alpha \text { -- мультииндекса}$
+	\end{enumerate}
+\end{definition}
+
+\begin{definition}{Пространство основных фунцкий}{def:5}
+	$C_0^\infty (\Omega)$ в совокупности с D-сходимостью образует $D(\Omega)$ -- пространство основных функций
+\end{definition}
+
+\begin{definition}{Распределение}{def:6}
+	Распределением или обобщенной функцией называется линейный функционал $T : D(\Omega) \to \Real$ непрерывный относительно D-сходимости, т.е. такой что:
+	\begin{enumerate}
+		\item $T(\alpha_1 \varphi_1 + \alpha_2 \varphi_2) = \alpha_1 T(\varphi_1) + \alpha_2 T(\varphi_2), \forall \alpha_1, \alpha_2 \in \Real, \ \forall \varphi_1, \varphi_2 \in D(\Omega)$
+		\item $\varphi_m \Dto \varphi \Rightarrow T(\varphi_m) \to T(\varphi)$
+	\end{enumerate}
+	Множество распределений обозначают как $D^* (\Omega)$
+\end{definition}
+
+\begin{proposition}{}{prop:6}
+	$D^* (\Omega)$ -- линейное многообразие
+\end{proposition}
+
+\begin{example}{Регулярные распределения}{exmpl:2}
+	Пусть $f \in L_{\text{loc}}^1 (\Omega)$, определим $T_f (\varphi) = \intset{\Omega}{f \varphi dx}, \forall \varphi \in D(\Omega)$. Можно показать что $T_f \in D^* (\Omega)$, распределения представимые таким образом называют регулярными. Остальные сингулярные.
+\end{example}
+
+\begin{example}{$\delta$-функция Дирака}{exmpl:3}
+	Считая что $0 \in \Omega$ определим $T_\delta (\varphi) = \varphi(0)$. Можно показать что \\ $T_\delta \in D^* (\Omega)$ и это распределение не является регулярным т.е. сингулярно.
+\end{example}
+
+\begin{example}{Ограниченная мера Радона}{exmpl:4}
+	Пусть $T \in D^* (\Omega)$ и $\exists M > 0: |T(\varphi)| \leq M \norm{\varphi}_{C(K)}$, где $K$ -- компакт такой что $\supp \varphi \subset K \subset \Omega$. Такое распределение называется ограниченной мерой Радона.
+\end{example}
+
+\subsection{Дифференцирование распределений}
+
+\begin{definition}{Производная распределения}{def:7}
+	$S = (-1)^{|\alpha|} (T \circ D^\alpha)$ -- это распределение (согласно следующему утверждению) называется частной производной распределения $T$, обозначается как $S = D^\alpha T$
+\end{definition}
+
+\begin{proposition}{}{prop:7}
+	$D^\alpha T \in D^* (\Omega)$
+\end{proposition}
+Любое распределение таким образом дифференцируемо любое число раз.
+
+\begin{example}{}{exmpl:5}
+	Пусть $\Omega = \Real$ и $\chi(x) = 
+	\begin{cases}
+		1, &x \geq 0 \\
+		0, &x < 0
+	\end{cases}$, тогда 
+	\begin{multline*}
+		\frac{d}{dx}T_{\chi} (\varphi) = -T_{\chi}\left(\frac{d\varphi}{dx}\right) = -\int\limits_{-\infty}^{+\infty}{\chi \frac{d\varphi}{dx} dx} = -\int\limits_{0}^{+\infty}{\frac{d\varphi}{dx} dx} = -\lim_{M\to +\infty}{\int\limits_{0}^{M}{\frac{d\varphi}{dx}}} = \\ =\lim_{M\to +\infty}{\varphi(M) - \varphi(0)} = \varphi(0) - \lim_{M\to +\infty}{\varphi(M)} \overset{\text{финитность } \varphi}{=} \varphi(0) = T_\delta (\varphi)
+	\end{multline*}
+	т.е. $\frac{d}{dx}T_\chi = T_\delta$
+\end{example}
+
+\subsection{Обобщенные производные в смысле Соболева}
+
+\begin{definition}{Обобщенная производная}{def:8}
+	Пусть $\underset{\text{открытое}}{\Omega} \subset \Real^n, f \in L_{\text{loc}}^1 (\Omega)$ и $D^\alpha T_f$ -- регулярное распределение т.е. $\exists g \in L_{\text{loc}}^1 (\Omega): D^\alpha T_f (\varphi) = \intset{\Omega}{g \varphi dx}$, тогда $g$ называется обобщенной производной в смысле Соболева от $f$, это обозначается как $g = D_c^\alpha f$
+\end{definition}
+Нетрудно показать что если $f \in C^{|\alpha|} (\overline{\Omega})$, то $D_c^\alpha f = D^\alpha f$, т.е. это действительно обобщение понятия производной.
+
+\begin{theorem}{О свойствах обобщенных производных}{th:2}
+	Будем говорить что $u_m \to u$ в $L_{\text{loc}}^1 (\Omega)$ если $\forall \underset{\text{компакт}}{K} \subset \Omega: u_m \to u \text{ в } L^1 (\Omega)$. 
+	\begin{enumerate}
+		\item $u \in L_{\text{loc}}^1 (\Omega)$ и $\exists D_c^\alpha u$ в $\Omega$, тогда для $\Omega^\prime \subset \Omega$: $\exists D_c^\alpha (u|_{\Omega^\prime}) \text{ в } \Omega^\prime$ и \\ $D_c^\alpha (u|_{\Omega^\prime}) = (D_c^\alpha u)|_{\Omega^\prime}$
+		\item $u_1, u_2 \in L_{\text{loc}}^1 (\Omega), c_1, c_2 \in \Real$ и $\exists D_c^\alpha u_1, D_c^\alpha u_2$ в $\Omega$, тогда \\ $\exists D_c^\alpha (c_1 u_1 + c_2 u_2) = c_1 D_c^\alpha u_1 + c_2 D_c^\alpha u_2$
+		\item $\begin{cases} 
+				D_c^\alpha u_m \to v &\text{ в } L_{\text{loc}}^1 (\Omega) \\
+				u_m \to u &\text{ в } L_{\text{loc}}^1 (\Omega) 
+				\end{cases}$, тогда $\exists D_c^\alpha u = v$
+	\end{enumerate}
+	Свойство 3 называется признаком обобщенной производной
+\end{theorem}
+
+\subsection{Усреднение функций имеющих обобщенные производные}
+
+\begin{lemma}{}{}
+	Пусть $u \in L^1 (\Omega)$ и $\exists D_c^\alpha u \in L_{\text{loc}}^1 (\Omega)$, $x\in \Omega: 0 < \rho < \dist(x, \partial \Omega)$, тогда $(D_c^\alpha u)_\rho (x) = (D^\alpha u_\rho) (x)$
+\end{lemma}
+Условие на $\rho$ существенно, в этом случае $\overline{B}(x, \rho) \subset \Omega$ т.е. $\omega_\rho (x - y)$ финитна по $y$ в $\Omega$.
+
+\begin{lemma}{}{}
+	Пусть $u \in L^p (\Omega), 1 \leq p < \infty$ и $\exists D_c^\alpha \in L^p (\Omega)$, тогда $\forall \Omega^\prime \ssubset \Omega: 
+	\begin{cases} 
+		u_\rho \to u &\text{ в } L^p (\Omega^\prime) \\ 
+		D^\alpha (u_\rho) \to D_c^\alpha u &\text{ в } L^p (\Omega^\prime)
+	\end{cases}$
+\end{lemma}
+
+\begin{lemma}{}{}
+	Пусть $u \in L_{\text{loc}}^1 (\Omega)$ и $D_c^\alpha = 0 \text{ в } \Omega, \forall \alpha: |\alpha| = 1$ (все обобщенные производные 1-го порядка равны 0), тогда $u = const$ п.в. в $\Omega$
+\end{lemma}
+
+\begin{theorem}{Обобщенная производная в новых координатах}{th:3}
+	Пусть $\Omega^\prime, \Omega \subset \Real^n, \varphi: \Omega^\prime \to \Omega$ -- диффеоморфизм, $u \in L_{\text{loc}}^1 (\Omega)$ и $\exists \frac{\partial_c u}{\partial x_i} \in L_{\text{loc}}^1 (\Omega), \forall i \in {1, ..., n}$, тогда $v = u \circ \varphi \in L_{\text{loc}}^1 (\Omega^\prime)$ и
+	\begin{enumerate}
+		\item $\exists \frac{\partial_c v}{\partial y_i} \in L_{\text{loc}}^1 (\Omega^\prime)$
+		\item $\frac{\partial_c v}{\partial y_i} = \sum\limits_{k=1}^{n}{(\frac{\partial_c u}{\partial x_k} \circ \varphi)\frac{\partial \varphi}{\partial y_i}}$
+	\end{enumerate}
+\end{theorem}
+
+\subsection{Случай одной независимой переменной}
+
+\begin{definition}{Абсолютная непрерывность}{def:9}
+	Функция $u: [a, b] \to \Real$ называется абсолютно непрерывной если \\ $\exists v \in L^1 ([a, b]): u(x) = \int\limits_a^x{v(t)dt} + u(a)$
+\end{definition}
+Можно доказать что абсолютно непрерывная функция равномерно непрерывна.
+
+\begin{theorem}{Критерий существования обобщенной производной}{th:4}
+	Для того чтобы $u \in L_{\text{loc}}^1 ([a, b])$ имела 1-ую обобщенную производную $\frac{d_c u}{dx} \in L^1 ([a, b])$ необходимо и достаточно чтобы она была абсолютно непрерывной.
+\end{theorem}
+\textbf{Мораль:} если $u$ -- суммируема и имеет суммируемую обобщенную производную, то она непрерывна.
+
+\subsection{Пространства Соболева}
+
+\begin{definition}{Пространства $W_p^\ell$}{def:10}
+	Пусть $\underset{\text{открыт. огр.}}{\Omega} \subset \Real^n, 1 \leq p \leq \infty, \ell = 0, 1, 2, ...$, тогда определим пространства Соболева
+	\begin{equation*}
+	 	W_p^\ell (\Omega) = \{f \in L^p (\Omega) \ | \ \exists D_c^\alpha f \in L^p (\Omega), \forall \alpha: |\alpha| \leq \ell\}
+	\end{equation*}
+	Введем норму
+	\begin{equation*}
+		\norm{u}_{W_p^\ell (\Omega)} = \norm{u}_{p, \ell, \Omega} = \left( \intset{\Omega}{\sum\limits_{|\alpha| \leq \ell}{|D_c^\alpha u|^p}} \right)^{\frac{1}{p}}
+	\end{equation*}
+\end{definition}
+Можно ввести и другую норму $\nnorm{u}_{p, \ell, \Omega} = \sum\limits_{|\alpha| \leq \ell}{\norm{D_c^\alpha u}_{L^p (\Omega)}}$
+
+\begin{theorem}{}{th:5}
+	$\left(W_p^\ell (\Omega), \norm{\cdot}_{p, \ell, \Omega}\right)$ -- банахово
+\end{theorem}
+
+\begin{proposition}{}{prop:7}
+	$\norm{u}_{p, \ell, \Omega} \sim \nnorm{u}_{p, \ell, \Omega}$
+\end{proposition}
+
+\begin{definition}{Пространства $[L^p (\Omega)]^N$}{def:11}
+	Определим пространства вектор-функций Лебега
+	\begin{equation*}
+		[L^p (\Omega)]^N = \{(u_1, ..., u_N) = \underline{u} \ | \ u_1, ..., u_N \in L^p (\Omega)\} 
+	\end{equation*}
+	Введем норму
+	\begin{equation*}
+		\norm{\underline{u}}_{[L^p (\Omega)]^N} = \left(\sum\limits_{i=1}^{N}{\intset{\Omega}{|u_i|^p dx}}\right)^{\frac{1}{p}}
+	\end{equation*}
+\end{definition}
+Зачем вводятся эти пространства? На самом деле между $W_p^\ell (\Omega)$ и некоторым подпространством $[L^p (\Omega)]^N$, где $N = \sum\limits_{|\alpha| \leq \ell}{1}$ существует изометрический изоморфизм определяемый как $p: W_p^\ell (\Omega) \to [L^p (\Omega)]^N, p(u) = (D_c^\alpha u)_{|\alpha| \leq \ell}$ при лексикографическом упорядочивании мультииндексов. Полезно изучить их свойства.
+
+\begin{theorem}{Теорема Рисса для $[L^p (\Omega)]^N$}{th:6}
+	Пусть $1 < p < \infty$, тогда
+	\begin{enumerate}
+		\item $\left(\underline{v} \in [L^{p^*} (\Omega)]^N\right) \wedge \left(f(\underline{u}) = \sum\limits_{i=1}^N{\intset{\Omega}{u_i v_i dx}}\right) \Rightarrow \left(f \in ([L^p (\Omega)]^N)^*\right) \wedge \\ \wedge \left(\norm{f}_{([L^p (\Omega)]^N)^*} = \norm{\underline{v}}_{[L^{p^*} (\Omega)]^N}\right)$
+		\item $\left(f \in ([L^p (\Omega)]^N)^*\right) \Rightarrow \exists! \underline{v} \in  [L^{p^*} (\Omega)]^N: \left(f(\underline{u}) = \sum\limits_{i=1}^N{\intset{\Omega}{u_i v_i dx}}\right) \wedge \\ \wedge \left(\norm{f}_{([L^p (\Omega)]^N)^*} = \norm{\underline{v}}_{[L^{p^*} (\Omega)]^N}\right)$
+	\end{enumerate}
+\end{theorem}
+\textbf{Мораль:} $[L^p (\Omega)]^N$ рефлексивны, также можно показать что эти пространства сепарабельны, а значит с учетом рефлексивности в них выполнен принцип выбора.
+
+\begin{proposition}{}{prop:8}
+	$W_p^\ell (\Omega)$ рефлексивно при $1 < p < \infty$
+\end{proposition}
+Они также сепарабельны, а значит в них выполнен принцип выбора.
+
+\begin{definition}{Диффеоморфизм класса $C^\ell$}{def:12}
+	$\varphi: \Omega \to \omega$ -- диффеоморфизм класса $C^\ell, \ell \in \Natural$, если $\varphi$ -- биекция, $\det \varphi^\prime \neq 0$ и $\varphi$ имеет непрерывные производные до порядка $\ell$ включительно.
+\end{definition}
+
+\begin{proposition}{}{prop:9}
+	Пусть $u \in W_p^\ell (\Omega)$, $\varphi: \Omega \to \omega$ -- диффеоморфизм класса $C^\ell$ и \\ $v(y) = u(\varphi^{-1} (y)), \forall y \in \omega$, тогда
+	\begin{enumerate}
+		\item $v \in W_p^\ell (\omega)$
+		\item $\exists c_1, c_2 > 0: c_1 \norm{u}_{p, \ell, \Omega} \leq \norm{v}_{p, \ell, \omega} \leq c_2 \norm{u}_{p, \ell, \Omega}$
+	\end{enumerate}
+\end{proposition}
+
+\subsection{Пространства $\mathring{W_p^\ell}$}
+
+\begin{definition}{Пространства $\mathring{W_p^\ell}$}{def:13}
+	Определим т.н. пространства Соболева с нулевыми граничными условиями:
+	\begin{equation*}
+		\mathring{W_p^\ell} (\Omega) = \overline{C_0^\infty (\Omega)} \text{ в } W_p^\ell
+	\end{equation*}
+\end{definition}
+Это замыкание линейного многообразия т.е. подпространство в $W_p^\ell (\Omega)$. Т.к. $W_p^\ell (\Omega)$ при $1 \leq p < \infty$ сепарабельны и при $1 < p < \infty$ рефлексивны, то для $\mathring{W_p^\ell} (\Omega)$ эти свойства сохраняются.
+
+\begin{proposition}{}{prop:10}
+	Пусть $u \in \mathring{W_p^\ell} (\Omega), \Omega \subset \tilde{\Omega}$ и пусть
+	$\tilde{u} (x) = 
+		\begin{cases}
+			u(x), &x \in \Omega \\
+			0, &x \in \tilde{\Omega} \setminus \Omega
+	 	\end{cases}$ п.в., тогда $\tilde{u} \in \mathring{W_p^\ell} (\tilde{\Omega})$ и $\norm{\tilde{u}}_{p, \ell, \tilde{\Omega}} = \norm{u}_{p, \ell, \Omega}$
+\end{proposition}
+
+\begin{example}{}{exmpl:6}
+	Пусть $n = 1, \ell = 1, p = 1$ и $\Omega = (0, 1)$, зададим $u \equiv 1$, тогда $u \in W_1^1 (\Omega)$. Допустим $u \in \mathring{W_1^1}$, $\tilde{\Omega} = (0, 2)$ и 
+	$\tilde{u} = 
+		\begin{cases}
+			1, &x \in (0, 1) \\
+			0, &x \in [1, 2)
+		\end{cases}$, тогда \\ $\tilde{u} \in \mathring{W_1^1} (\tilde{\Omega}) \subset W_1^1 (\tilde{\Omega})$, но $\tilde{u}$ разрывна на $\tilde{\Omega} = (0, 2)$, а так не может быть согласно критерию существования 1-ой обобщенной производной.
+\end{example}
+\textbf{Мораль:} $\mathring{W_p^\ell} (\Omega) \neq W_p^\ell (\Omega)$
+
+Рассмотрим несколько важных свойств этих пространств.
+\begin{proposition}{}{prop:11}
+	$u \in \mathring{W_p^\ell} (\Omega)$, тогда $u_\rho \to u$ в $W_p^\ell (\Omega)$
+\end{proposition}
+
+\begin{proposition}{}{prop:12}
+	Пусть $u \in W_p^\ell (\Omega)$ и $\supp{u} \ssubset \Omega$, тогда $u \in \mathring{W_p^\ell}$
+\end{proposition}
+
+\begin{proposition}{Интегрирование по частям}{prop:13}
+	\begin{enumerate}
+		\item Пусть $u \in W_p^1 (\Omega)$, $v \in \mathring{W_{p^*}^1} (\Omega)$, тогда
+			\begin{equation*}
+			\intset{\Omega}{u \frac{\partial_c v}{\partial x_i} dx} = -\intset{\Omega}{\frac{\partial_c u}{\partial x_i} v dx}
+			\end{equation*}
+		\item Пусть $u \in W_p^\ell (\Omega)$, $v \in \mathring{W_{p^*}^\ell} (\Omega)$, тогда
+			\begin{equation*}
+			\intset{\Omega}{u D_c^\alpha v dx} = -\intset{\Omega}{v D_c^\alpha u dx}
+			\end{equation*}
+	\end{enumerate}
+	2-ая часть утверждения прямое следствие 1-ой (при этом её обобщение)
+\end{proposition}
+
+\begin{theorem}{Неравенство Фридрихса}{th:7}
+	Для $u \in \mathring{W_p^\ell} (\Omega)$ определим 
+	\begin{equation*}
+		|u|_{p, \ell, \Omega} = \left(\intset{\Omega}{\sum_{|\alpha| = \ell}{|D_c^\alpha u|^p} dx}\right)^{\frac{1}{p}}
+	\end{equation*}
+	это полунорма. Пусть $d = \diam{\Omega}$, тогда
+	\begin{equation*}
+		\norm{u}_{p, \ell, \Omega} \leq d^\ell |u|_{p, \ell, \Omega}, \forall u \in \mathring{W_p^\ell} (\Omega)
+	\end{equation*}
+\end{theorem}
+\textbf{Мораль:} в $\mathring{W_p^\ell} (\Omega)$: $|\cdot|_{p, \ell, \Omega}$ норма эквивалентная $\norm{\cdot}_{p, \ell, \Omega}$.
+
+\begin{example}{Интересное скалярное произведение}{exmpl:7}
+	В $\mathring{W_2^2} (\Omega)$ можно ввести следующее скалярное произведение:
+	\begin{equation*}
+		(u, v)_{\mathring{W_2^2} (\Omega)} = \intset{\Omega}{\nabla^2 u \cdot \nabla^2 v dx}
+	\end{equation*}
+	где подразумевается $\nabla^2 = \sum\limits_{|\alpha| = 2}{D_c^\alpha}$ (это не лапласиан!)
+\end{example}
+
+\subsection{Двойственность в пространствах Соболева. Пространства Соболева с отрицательными индексами}
+
+\begin{theorem}{}{th:8}
+	Пусть $f \in \left(W_p^\ell (\Omega)\right)^*$, тогда $\exists v = (v_\alpha)_{|\alpha| \leq \ell} \in [L^{p^*} (\Omega)]^N$:
+	\begin{align*}
+		&f(u) = \intset{\Omega}{\sum\limits_{|\alpha| \leq \ell}{(D_c^\alpha u \cdot v_\alpha)} dx}, \forall u \in W_p^\ell (\Omega) \\
+		&\norm{f}_{\left(W_p^\ell (\Omega)\right)^*} = \norm{v}_{[L^{p^*} (\Omega)]^N}
+	\end{align*}
+\end{theorem}
+
+\begin{definition}{Пространства $W_p^{-\ell} (\Omega)$}{def:14}
+	Т.н. пространства Соболева с отрицательными индексами составляют обобщенные функции:
+	\begin{equation*}
+		W_p^{-\ell} (\Omega) = \{ T \in D^* (\Omega) \ | \ T = \sum\limits_{|\alpha| \leq \ell}{(-1)^{|\alpha|} D^\alpha T_{v_\alpha}}, \text { где } v_\alpha \in L^p (\Omega), \forall |\alpha| \leq \ell \}
+	\end{equation*}
+\end{definition}
+В сущности $W_p^\ell (\Omega)$ состоит из первообразных функций из $L^p$ (т.к. существуют обобщенные производные), а $W_p^{-\ell} (\Omega)$ уже состоит из производных (в виде обобщенных функций).
+
+\begin{theorem}{}{th:9}
+	$\left(\mathring{W_{p^*}^\ell} (\Omega)\right)^*$ изометрически изоморфно $W_p^{-\ell} (\Omega)$
+\end{theorem}
+\textbf{Мораль:} $W_p^{-\ell} (\Omega)$ -- банахово пространство, сепарабельное и рефлексивное. 
+
+\begin{example}{Где живет $\delta$-функция?}{exmpl:8}
+	Возьмем $v = (0, -\chi, 0, ...)$, всего $\ell + 1$ элементов (работаем в $\Real$). Получаем 
+	\begin{equation*}
+		T_v (\varphi) = \sum\limits_{|\alpha| \leq \ell}{(-1)^{|\alpha|} D^\alpha T_{v_\alpha}(\varphi)} = (-1)D^1 T_{-\chi} (\varphi) = (-1)^2 D^1 T_{\chi} = D^1 T_{\chi} = T_\delta (\varphi)
+	\end{equation*}
+	и поскольку $-\chi \in L^p (\Omega)$, то $T_\delta \in W_p^{\ell}, \forall \ell \in \Natural, 1 \leq p \leq \infty$
+\end{example}
+
+\newpage
+
+\tcblistof[\section*]{def}{Список определений}
 
 \end{document}
