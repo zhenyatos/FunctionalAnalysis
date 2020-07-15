@@ -5,6 +5,12 @@
 \usepackage[left=3cm,right=3cm,
 top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 \usepackage{amsthm,amssymb,amsfonts,amsmath}
+\hypersetup{
+	colorlinks   = true, 
+	urlcolor     = blue, 
+	linkcolor    = blue, 
+	citecolor   = red
+}
 
 \theoremstyle{definition}
 \newtheorem{exercise}{Задача}[section]
@@ -111,6 +117,25 @@ top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 
 \section{Обобщенные функции}
 
+\begin{exercise}\label{ex:1}
+	Определим сумму мультииндексов следующим образом: пусть \\ $\alpha = (\alpha_1, ..., \alpha_n), \beta = (\beta_1, ..., \beta_n)$, тогда $\alpha + \beta = (\alpha_1 + \beta_1, ..., \alpha_n + \beta_n)$. Доказать что для функции $f \in L^1_{\text{loc}} (\Omega)$:
+	\begin{equation*}
+		\exists D_c^\alpha f \wedge \exists D_c^\beta (D_c^\alpha f) \Rightarrow \exists D_c^{\alpha + \beta} = D_c^\beta (D_c^\alpha f)
+	\end{equation*}
+	В частности это устанавливает независимость от порядка дифференцирования для обобщенных производных в смысле Соболева.
+\end{exercise}
+\begin{solution}
+	Для начала заметим что 
+	\begin{equation*}
+		|\alpha + \beta| = \sum\limits_{i=1}^{n}{(\alpha_i + \beta_i)} = \sum\limits_{i=1}^{n}{\alpha_i} + \sum\limits_{i=1}^{n}{\beta_i} = |\alpha| + |\beta|
+	\end{equation*}
+	и 
+	\begin{multline*}
+		D^{\alpha + \beta} T_f (\varphi) = (-1)^{|\alpha + \beta|} T_f (D^{\alpha + \beta} \varphi) = (-1)^{|\alpha| + |\beta|} \int\limits_{\Omega}{f D^{\alpha + \beta} \varphi dx} = \\ = (-1)^{|\alpha| + |\beta|} \int\limits_{\Omega}{f D^\alpha \left( D^\beta \varphi\right) dx} \overset{\exists D_c^\alpha f}{=}  (-1)^{|\alpha| + |\beta|} (-1)^{|\alpha|} \int\limits_{\Omega}{D_c^\alpha f \cdot D^\beta \varphi dx} = \\ = (-1)^{2|\alpha| + |\beta|} \int\limits_{\Omega}{D_c^\alpha f \cdot D^\beta \varphi dx} = (-1)^{|\beta|} \int\limits_{\Omega}{D_c^\alpha f \cdot D^\beta \varphi dx} = (-1)^{|\beta|} T_{D_c^\alpha f}(D^\beta \varphi) = \\ = D^\beta T_{D_c^\alpha f} (\varphi) \overset{\exists D_c^\beta (D_c^\alpha f)}{=} T_{D_c^\beta (D_c^\alpha f)} (\varphi)
+	\end{multline*}
+	так что $D^{\alpha + \beta} T_f$ регулярно и по определению $D_c^{\alpha + \beta} f = D_c^\beta (D_c^\alpha f)$, ч.т.д.
+\end{solution}
+
 \begin{exercise}
 	Исследовать существуют ли обобщенные производные в смысле Соболева 1-го и 2-го порядка для:
 	\begin{enumerate}
@@ -143,7 +168,7 @@ top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 	\begin{equation*}
 		\frac{d_c f}{dx} = 2 \chi - 1
 	\end{equation*}
-	где $\chi$ -- функция Хевисайда, а как известно
+	где $\chi$ -- функция Хевисайда и использовать \hyperref[ex:1]{задачу 4.1}, но как известно
 	\begin{equation*}
 		T_\chi^\prime = T_\delta
 	\end{equation*}
@@ -162,15 +187,7 @@ top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 		\frac{d_c g}{dx} = 2f
 	\end{equation*}
 	т.е. как в привычном смысле $2x$ -- производная $x^2$, в смысле Соболева $2|x|$ -- производная $x|x|$. 
-	Далее можно доказать что
-	\begin{equation*}
-		\frac{d_c}{dx} \left(\frac{d_c g}{dx}\right) = \frac{d_c^2 g}{dx^2}
-	\end{equation*}
-	действительно
-	\begin{multline*}
-		T^{\prime\prime}_g (\varphi) = (-1)^2 T_g (\varphi^{\prime\prime} ) = \int\limits_{-\infty}^{+\infty}{g \varphi^{\prime\prime} dx} = -\int\limits_{-\infty}^{+\infty}{\frac{d_c g}{dx} \varphi^\prime dx} = \\ = -T_{\frac{d_c g}{dx}} (\varphi^\prime) = T^\prime_{\frac{d_c g}{dx}} (\varphi) = T_{\frac{d_c}{dx} \left(\frac{d_c g}{dx}\right)} (\varphi)
-	\end{multline*}
-	так что 
+	С использованием \hyperref[ex:1]{задачи 4.1}
 	\begin{equation*}
 		\frac{d_c^2 g}{dx^2} = 2 \frac{d_c f}{dx} = 
 		\begin{cases}

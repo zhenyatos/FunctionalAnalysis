@@ -15,8 +15,8 @@
 top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 \usepackage{tcolorbox}
 \usepackage{physics}
-
 \tcbuselibrary{theorems}
+
 \newtcbtheorem
 [number within=section, 
 list inside={def}]
@@ -95,6 +95,7 @@ list inside={def}]
 \DeclareMathOperator\supp{supp}
 \DeclareMathOperator\dist{dist}
 \DeclareMathOperator\diam{diam}
+\DeclareMathOperator{\bounded}{B}
 
 \title{Соболевские пространства}
 
@@ -473,20 +474,43 @@ $$c  = \frac{1}{\intset{B(0,1)}{e^{\frac{1}{\norm{x}^2 - 1}}dx}}$$
 	\begin{equation*}
 		W_p^{-\ell} (\Omega) = \{ T \in D^* (\Omega) \ | \ T = \sum\limits_{|\alpha| \leq \ell}{(-1)^{|\alpha|} D^\alpha T_{v_\alpha}}, \text { где } v_\alpha \in L^p (\Omega), \forall |\alpha| \leq \ell \}
 	\end{equation*}
+	Введем норму
+	\begin{equation*}
+		\norm{T}_{W_p^{-\ell} (\Omega)} = \sup\limits_{\norm{\varphi}_{p, \ell, \Omega} = 1}{|T(\varphi)|}
+	\end{equation*}
 \end{definition}
 В сущности $W_p^\ell (\Omega)$ состоит из первообразных функций из $L^p$ (т.к. существуют обобщенные производные), а $W_p^{-\ell} (\Omega)$ уже состоит из производных (в виде обобщенных функций).
 
 \begin{theorem}{}{th:9}
 	$\left(\mathring{W_{p^*}^\ell} (\Omega)\right)^*$ изометрически изоморфно $W_p^{-\ell} (\Omega)$
 \end{theorem}
-\textbf{Мораль:} $W_p^{-\ell} (\Omega)$ -- банахово пространство, сепарабельное и рефлексивное. 
+\begin{proof}
+	Пусть $T \in W_p^{-\ell} (\Omega)$, тогда по определению
+	\begin{equation*}
+		T (\varphi) = \sum\limits_{|\alpha| \leq \ell}{(-1)^{|\alpha|} D^\alpha T_{v_\alpha} (\varphi)}
+	\end{equation*}
+	это линейный функционал заданный на $C_0^\infty (\Omega)$. Покажем что он ограниченный
+	\begin{multline*}
+		|T(\varphi)| \leq \sum\limits_{|\alpha| \leq \ell}{\intset{\Omega}{|v_\alpha D^\alpha \varphi| dx}} \leq \sum\limits_{|\alpha| \leq \ell}{\norm{v_\alpha}_{L^p (\Omega)} \cdot \norm{D^\alpha \varphi}_{L^{p^*} (\Omega)}} \leq \\ \leq \sum\limits_{|\alpha| \leq \ell}{\norm{v_\alpha}_{L^p (\Omega)}} \cdot \sum\limits_{|\alpha| \leq \ell}{\norm{D^\alpha \varphi}_{L^{p^*}}} = \nnorm{\underline{v}}_{[L^p]^N} \nnorm{\varphi}_{p^*, \ell, \Omega} \overset{\nnorm{\cdot} \sim \norm{\cdot}}{\leq} C \norm{\varphi}_{p^*, \ell, \Omega}
+	\end{multline*}
+	для некоторой $C \geq 0$, так что $T \in \bounded(\mathring{W}_{p^*}^\ell (\Omega), \Real)$ и его область определения $C_0^\infty(\Omega)$ всюду плотна в $\mathring{W}_{p^*}^\ell (\Omega)$ по определению этих пространств. Поэтому 
+	\begin{equation*}
+		\exists!{p (T)} \in \left(\mathring{W_{p^*}^\ell} (\Omega)\right)^*: \left( p(T) |_{C_0^\infty (\Omega)} = T \right) \wedge \left( \norm{p (T)} = \norm{T} \right)
+	\end{equation*}
+	Это и будет искомый изометрический изоморфизм. Линейность очевидна т.к. продолжение линейной комбинации функционалов это линейная комбинация их продолжений. Инъективность:
+	\begin{equation*}
+		p(T_1) = p(T_2) \Rightarrow p(T_1) |_{C_0^\infty (\Omega)} = p(T_2)_{C_0^\infty (\Omega)} \Rightarrow T_1 = T_2
+	\end{equation*} 
+	Сюръективность получаем из теоремы 2.7 и определения Соболевской производной. 
+\end{proof}
+\textbf{Мораль:} $\left( W_p^{-\ell} (\Omega), \norm{\cdot}_{W_p^{-\ell} (\Omega)} \right)$ -- банахово пространство, сепарабельное и рефлексивное. 
 
 \begin{example}{Где живет $\delta$-функция?}{exmpl:8}
 	Возьмем $v = (0, -\chi, 0, ...)$, всего $\ell + 1$ элементов (работаем в $\Real$). Получаем 
 	\begin{equation*}
 		T_v (\varphi) = \sum\limits_{|\alpha| \leq \ell}{(-1)^{|\alpha|} D^\alpha T_{v_\alpha}(\varphi)} = (-1)D^1 T_{-\chi} (\varphi) = (-1)^2 D^1 T_{\chi} = D^1 T_{\chi} = T_\delta (\varphi)
 	\end{equation*}
-	и поскольку $-\chi \in L^p (\Omega)$, то $T_\delta \in W_p^{\ell}, \forall \ell \in \Natural, 1 \leq p \leq \infty$
+	и поскольку $-\chi \in L^p (\Omega)$, то $T_\delta \in W_p^{-\ell} (\Omega), \forall \ell \in \Natural, 1 \leq p \leq \infty$ (разумеется если $0 \in \Omega$)
 \end{example}
 
 \newpage
