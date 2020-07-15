@@ -11,6 +11,7 @@
 \usepackage{amsthm,amssymb,amsfonts,amsmath}
 \usepackage{physics}
 \usepackage{xcolor}
+\usepackage{svg}
 \usepackage[left=3cm,right=3cm,
 top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 \usepackage{tcolorbox}
@@ -513,6 +514,47 @@ $$c  = \frac{1}{\intset{B(0,1)}{e^{\frac{1}{\norm{x}^2 - 1}}dx}}$$
 	и поскольку $-\chi \in L^p (\Omega)$, то $T_\delta \in W_p^{-\ell} (\Omega), \forall \ell \in \Natural, 1 \leq p \leq \infty$ (разумеется если $0 \in \Omega$)
 \end{example}
 
+\section{Плотность гладких функций в пространствах Соболева}
+
+\subsection{Случай звездных областей}
+
+\begin{definition}{Зведная область}{}
+	Область называется звездной если в ней найдется точка звездности т.е. такая точка что любой луч выходящий из неё пересекает границу ровно 1 раз.
+\end{definition}
+
+\begin{example}{Выпуклое множество}{}
+	Всегда является звездной областью, точка звездности -- любая \\
+	\includegraphics[scale=0.3]{images/2.png}
+\end{example}
+
+\begin{example}{Не выпуклая звездная область}{}
+	В данном случае следует явно указать точку звездности
+	\includegraphics[scale=0.3]{images/3.png}
+\end{example}
+
+\begin{example}{Не звездная область}{}
+	Граница будет пересечена лучом направленным к центру 3 раза из любой точки \\
+	\includegraphics[scale=0.3]{images/1.png}
+\end{example}
+
+Поместим начало координат в точку звездности и пусть \\ $\Omega_\lambda = \{y \in \Real^n \ | \ \exists x \in \Omega: y = \lambda x\}$ -- гомотетия звездной области из точки звездности с коэффициентом $\lambda$.
+\begin{proposition}{}{}
+	Пусть $\Omega$ -- ограниченная звездная область, $\lambda > 1$, тогда $\Omega_{\frac{1}{\lambda}} \ssubset \Omega \ssubset \Omega_{\lambda}$
+\end{proposition}
+
+\begin{lemma}{о непрерывности в среднем}{}
+	Пусть $u \in L^p (\Omega)$ и $u = 0$ вне $\Omega$ -- ограниченной звездной области, тогда 
+	$\norm{u(x) - u(\frac{x}{\lambda})}_{L^p (\Omega)} \underset{\lambda \to 1 + 0}{\to} 0$
+\end{lemma}
+
+\begin{lemma}{}{}
+	Пусть $u \in W_p^1 (\Omega)$, $u = 0$ вне $\Omega$ -- ограниченной звездной области, тогда 
+	$\norm{u(x) - u(\frac{x}{\lambda})}_{1, p, \Omega} \underset{\lambda \to 1 + 0}{\to} 0$
+\end{lemma}
+
+\begin{theorem}{}{}
+	$C^\infty (\overline{\Omega})$ плотно в $W_p^1 (\Omega)$ если $\Omega$ -- ограниченная звездная область
+\end{theorem}
 \newpage
 
 \tcblistof[\section*]{def}{Список определений}
