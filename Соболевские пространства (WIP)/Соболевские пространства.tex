@@ -532,7 +532,7 @@ $$c  = \frac{1}{\intset{B(0,1)}{e^{\frac{1}{\norm{x}^2 - 1}}dx}}$$
 	\includegraphics[scale=0.3]{images/3.png}
 \end{example}
 
-\begin{example}{Не звездная область}{}
+\begin{example}{Не звездная область...}{}
 	Граница будет пересечена лучом направленным к центру 3 раза из любой точки \\
 	\includegraphics[scale=0.3]{images/1.png}
 \end{example}
@@ -555,6 +555,44 @@ $$c  = \frac{1}{\intset{B(0,1)}{e^{\frac{1}{\norm{x}^2 - 1}}dx}}$$
 \begin{theorem}{}{}
 	$C^\infty (\overline{\Omega})$ плотно в $W_p^1 (\Omega)$ если $\Omega$ -- ограниченная звездная область
 \end{theorem}
+
+\subsection{Разбиения единицы}
+
+\begin{theorem}{О разбиении единицы}{}
+	Пусть $K$ -- компакт, $K \subset \bigcup\limits_{i=1}^m {\Omega_i}$, где $\Omega_i$ -- открытое ограниченное множество, тогда $\exists \varphi_1, ..., \varphi_m \in C_0^\infty (\Real^n)$:
+	\begin{enumerate}
+		\item $\supp \varphi_i \ssubset \Omega_i$
+		\item $0 \leq \varphi \leq 1$
+		\item $\sum\limits_{i=1}^m {\varphi_i (x)} = 1, \forall x \in K$
+	\end{enumerate}
+\end{theorem}
+Это очень мощный инструмент по склеиванию результатов полученных локально.
+
+\subsection{Случай локально звездных областей}
+
+\begin{definition}{Локально звездная область}{}
+	Область $\Omega$ называется локально звездной если \\ $\forall x \in \partial \Omega \ \exists r > 0: \Omega_x = B(x, r) \cap \Omega$ -- звездная область
+\end{definition}
+Элементарно показать что звездная область является локально звездной, устремив $r \to +\infty$ для каждой точки границы, ведь в силу ограниченности получится $\Omega \cap B(x, r) = \Omega$. Обратное неверно, отсылаясь к примеру 3.3.
+
+\begin{example}{..., но локально звездная}{}
+	Видим что в каждом открытом шаре достаточно малого радиуса с центром на границе -- множество выпуклое, а значит звездное \\
+	\includegraphics[scale=0.3]{images/4.png}
+\end{example}
+
+\begin{example}{Не локально звездная область}{}
+	Круг с вырезом не является локально звездной областью поскольку вырез -- часть границы и любой открытый шар с центром в нем не порождает звездную область (т.к. звездные области всегда связны) \\
+	\includegraphics[scale=0.3]{images/5.png}
+\end{example}
+
+\begin{theorem}{}{}
+	$C^\infty (\overline{\Omega})$ плотно в $W_p^1 (\Omega)$ если $\Omega$ -- локально звездная область
+\end{theorem}
+
+\begin{theorem}{}{}
+	$C^\infty (\Omega)$ плотно в $W_p^1 (\Omega)$ для $1 \leq p < \infty$
+\end{theorem}
+
 \newpage
 
 \tcblistof[\section*]{def}{Список определений}
