@@ -456,7 +456,7 @@ $$c  = \frac{1}{\intset{B(0,1)}{e^{\frac{1}{\norm{x}^2 - 1}}dx}}$$
 	\end{equation*}
 	это полунорма. Пусть $d = \diam{\Omega}$, тогда
 	\begin{equation*}
-		\norm{u}_{p, \ell, \Omega} \leq d^\ell |u|_{p, \ell, \Omega}, \forall u \in \mathring{W_p^\ell} (\Omega)
+		\norm{u}_{L^p (\Omega)} \leq d^\ell |u|_{p, \ell, \Omega}, \forall u \in \mathring{W_p^\ell} (\Omega)
 	\end{equation*}
 \end{theorem}
 \textbf{Мораль:} в $\mathring{W_p^\ell} (\Omega)$: $|\cdot|_{p, \ell, \Omega}$ норма эквивалентная $\norm{\cdot}_{p, \ell, \Omega}$.
@@ -635,11 +635,10 @@ $$c  = \frac{1}{\intset{B(0,1)}{e^{\frac{1}{\norm{x}^2 - 1}}dx}}$$
 Таким образом многие построения для областей класса $C^1$ справедливы и для липшицевых областей.
 
 \begin{theorem}{О продолжении}{}
-	Пусть $\Omega$ -- липшицева область, $\Omega \ssubset \Omega_0$, тогда 
+	Пусть $\Omega$ -- липшицева область, $\Omega \ssubset \Omega_0$, тогда $\exists C = C(n, p, \Omega, \Omega_0)$:
 	\begin{equation*}
 		\forall u \in \underset{1 \leq p < \infty}{W_p^1 (\Omega)} \ \exists u_0 \in \mathring{W_p^1} (\Omega_0): \left(u_0 |_\Omega = u\right) \wedge \left(\norm{u_0}_{1, p, \Omega_0} \leq C \norm{u}_{1, p, \Omega}\right)
 	\end{equation*}
-	причем $C = C(n, p, \Omega, \Omega_0)$
 \end{theorem}
 \begin{proof}
 	Доказательство строится на основе двух утверждений. \\
@@ -707,6 +706,32 @@ $$c  = \frac{1}{\intset{B(0,1)}{e^{\frac{1}{\norm{x}^2 - 1}}dx}}$$
 	\end{equation*}
 	Где поздразумевается $\norm{\cdot}_{p, \Omega} = \norm{\cdot}_{L^p (\Omega)}$ для удобства
 \end{lemma}
+
+Пусть $1 \leq p < n$, введем $\overline{p} = \frac{np}{n-p}$ и $\varkappa = \frac{(n-1)p}{n-p}$.
+\begin{lemma}{}{}
+	Пусть $u \in C_0^\infty (\Omega)$, тогда $\norm{u}_{\overline{p}, \Omega} \leq \varkappa |u|_{1, p, \Omega}$
+\end{lemma}
+
+Из этой леммы вытекает:
+\begin{proposition}{}{}
+	Пусть $u \in W_p^1 (\Omega)$, тогда $u \in L^{\overline{p}} (\Omega)$ и $\norm{u}_{\overline{p}, \Omega} \leq \varkappa |u|_{1, p, \Omega}$
+\end{proposition}
+
+\begin{proposition}{Неравенство Пуанкаре}{}
+	Пусть $u \in \mathring{W_p^1}(\Omega)$, тогда $\exists C = C(n, p, \mu(\Omega))$:
+	\begin{equation*}
+		\norm{u}_{p, \Omega} \leq C |u|_{1, p, \Omega}
+	\end{equation*}
+\end{proposition}
+Близкий к неравенству Фридрихса результат.
+
+\begin{theorem}{1-ая теорема вложений Соболева}{}
+	Пусть $\Omega$ -- липшицева область, тогда
+	\begin{enumerate}
+		\item $1 \leq p < n: W_p^1 (\Omega) \arrsubset L^q (\Omega), \forall q \in [1, \overline{p}]$
+		\item $p = n: W_p^1 (\Omega) \arrsubset L^q (\Omega), \forall q \in [1, +\infty)$
+	\end{enumerate}
+\end{theorem}
 
 \newpage
 
