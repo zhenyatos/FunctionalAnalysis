@@ -85,6 +85,15 @@ list inside={def}]
 }
 {lemm}
 
+% Непрерывное вложение
+\makeatletter
+\newcommand{\rightarrowhead}{\mathrel{%
+		\hbox{\let\f@size\sf@size\usefont{U}{lasy}{m}{n}\symbol{41}}}}
+
+\newcommand\arrsubset{\mathrel{\ooalign{$\subset$\cr
+			\hidewidth\raise-0.440ex\hbox{$\rightarrowhead\mkern0.5mu$}}}}
+% Непрерывное вложение
+
 % Для удобства
 \newcommand{\intset}[1]{\int\limits_{#1}}
 \newcommand{\Real}{\mathbb{R}}
@@ -592,6 +601,112 @@ $$c  = \frac{1}{\intset{B(0,1)}{e^{\frac{1}{\norm{x}^2 - 1}}dx}}$$
 \begin{theorem}{}{}
 	$C^\infty (\Omega)$ плотно в $W_p^1 (\Omega)$ для $1 \leq p < \infty$
 \end{theorem}
+
+\section{Продолжение функций из пространств Соболева}
+
+\subsection{Классы областей}
+
+\begin{definition}{Цилиндр}{}
+	Пусть $y = (y^\prime, y_n) \in \Real^n$, где $y^\prime \in \Real^{n-1}, y_n \in \Real$, цилиндром называют следующее множество
+	\begin{equation*}
+		C_{R, h} = \{ y \in \Real^n \ | \ (\norm{y} < R) \wedge (|y_n| < h) \}
+	\end{equation*}
+\end{definition}
+
+\begin{definition}{Липшицева область}{}
+	Пусть $\Omega \subset \Real^n$ -- область, говорят что она липшицева и обозначают это как $\partial \Omega \in C^{0, 1}$ если $\forall x_0 \in \partial \Omega$:
+	\begin{enumerate}
+		\item $\exists R = R(x_0), L = L(x_0) > 0$ и $\exists \varphi : \overline{B^\prime} \to \Real$, где \\ $\overline{B^\prime}= \{ y^\prime \in \Real^{n-1} \ | \ \norm{y^\prime} \leq R \}$, причем \\ $\varphi (0) = 0$ и $\exists L \geq 0: |f(y) - f(z)| \leq L \norm{y - z}$ (липшицевость)
+		\item $\exists Q_{x_0} \in \text{SO}(n): y = Q_{x_0} (x - x_0)$ -- новая система координат полученная сдвигом начала в $x_0$ и поворотом $Q_{x_0}$ в которой
+		\item $\partial \Omega \cap \overline{C}_{R, 2RL} = \{ y \in \Real^n \ | \ (\norm{y^\prime} \leq R) \wedge (y_n = \varphi(y^\prime)) \}$
+		\item $\Omega \cap \overline{C}_{R, 2RL} = \{ y \in \Real^n \ | \ (\norm{y^\prime} \leq R) \wedge (-2RL < y_n < \varphi(y^\prime)) \}$
+	\end{enumerate}
+\end{definition}
+%TODO: Определение достаточно объемное, следует добавить иллюстрации
+Следует отметить что липшицевы область являются локально звездными, поэтому для них справедлива предыдущая теория.
+
+\begin{definition}{Область класса $C^k$}{}
+	Пусть $k \in \Natural \cap \{+\infty\}$, $\Omega$ -- область класса $C^k$ если она липшицева и \\  $\varphi \in C^k (\overline{B^\prime})$
+\end{definition}
+
+\begin{theorem}{Радемахера}{}
+	Липшицева функция п.в. дифференцируема и производная ограничена константой Липшица.
+\end{theorem}
+Таким образом многие построения для областей класса $C^1$ справедливы и для липшицевых областей.
+
+\begin{theorem}{О продолжении}{}
+	Пусть $\Omega$ -- липшицева область, $\Omega \ssubset \Omega_0$, тогда 
+	\begin{equation*}
+		\forall u \in \underset{1 \leq p < \infty}{W_p^1 (\Omega)} \ \exists u_0 \in \mathring{W_p^1} (\Omega_0): \left(u_0 |_\Omega = u\right) \wedge \left(\norm{u_0}_{1, p, \Omega_0} \leq C \norm{u}_{1, p, \Omega}\right)
+	\end{equation*}
+	причем $C = C(n, p, \Omega, \Omega_0)$
+\end{theorem}
+\begin{proof}
+	Доказательство строится на основе двух утверждений. \\
+	\textbf{Утверждение 1.} Пусть
+	\begin{enumerate}
+		\item $C = C_{R, h}$ (цилиндр)
+		\item $C_+ = \{ y \in \Real^n \ | \ (\norm{y^\prime} < R) \wedge (0 < y_n < h) \}$ (часть цилиндра $C$ отсеченная гиперплоскостью $y_n = 0$)
+		\item $\partial_+ C_+ = \{ y \in \Real^n \ | \ \left(\left(\norm{y^\prime} = R\right)\wedge \left(0 \leq y_n \leq h\right)\right)\vee\left(\left(\norm{y^\prime} < R\right)\wedge\left(y_n = h\right)\right)\}$ (граница $C_+$ без дна)
+		\item $\Sigma \subset C_+: \dist(\Sigma, \partial_+ C_+) > 0$ (отделенное от границы подмножество $C_+$)
+		\item $u \in W_p^1 (C_+): \supp{u} \subset \Sigma$ (причем носитель $u$ лежит в этом подмножестве)
+	\end{enumerate}
+	Тогда $\exists v \in \mathring{W_p^1} (C): \left(v|_{C_+} = u\right) \wedge \left(\norm{v}_{1, p, C} = \norm{u}_{1, p, C_+}\right)$ \\ Иными словами с половины цилиндра $C_+$ можно продлить на весь $C$ с сохранением нормы, да еще и с нулевыми граничными условиями, при условии отделимости носителя функции $u$ заданной на $C_+$ от границы собственно $C$ (то самое упомянутое выше дно не принадлежит ей). \\
+	\textbf{Утверждение 2.} Пусть
+	\begin{enumerate}
+		\item $\varphi \in C^1 (\overline{B_R})$, где $B_R = \{ y \in \Real^n \ | \ \norm{y^\prime} < R\}$, причем $\varphi(0) = 0$
+		\item $\omega = \{ y \in \Real^n \ | \ (\norm{y^\prime} < R) \wedge (|y_n| \leq \varphi (y^\prime) + h) \}$ (криволинейный цилинд, крышка и дно которого ведут себя в соответствие с функцией $\varphi$)
+		\item $\omega_+ = \{ y_n \in \Real^n \ | \ (\norm{y^\prime} < R) \wedge (\varphi(y^\prime) < y_n < \varphi(y^\prime) + h) \}$ (сегмент криволинейного цилиндра $\omega$)
+		\item 
+		\begin{multline*}
+			\partial_+ \omega_+ = \{y \in \Real^n \ | \ \left(\left(\norm{y^\prime} = R\right)\wedge \left(\varphi(y^\prime) \leq y_n \leq \varphi (y^\prime) + h\right)\right)\vee \\ \vee \left(\left(\norm{y^\prime} < R\right)\wedge\left(y_n = \varphi(y^\prime) + h\right)\right)\}
+		\end{multline*} (граница сегмента $\omega_+$ без дна)
+		\item $\Sigma \subset \omega_+: \dist(\Sigma, \partial_+ \omega_+) > 0$ (отделенное от границы подмножество $\omega_+$)
+		\item $u \in W_p^1 (\omega_+): \supp{u} \subset \Sigma$ (причем носитель $u$ лежит в этом подмножестве) 
+	\end{enumerate}
+	Тогда $\exists v \in \mathring{W_p^1} (\omega): \left(v|_{\omega_+} = u\right) \wedge \left(\norm{v}_{1, p, \omega} \leq C \norm{u}_{1, p, \omega_+}\right)$, где $C = C(n, p, \varphi)$
+\end{proof}
+
+\section{Теоремы вложения в пространствах Соболева}
+
+\subsection{Введение}
+
+Пусть $X, X_1$ -- нормированные пространства.
+\begin{definition}{Вложение}{}
+	$X_1$ вкладывается в $X$ если $X_1 \subset X$ (так и обозначается)
+\end{definition}
+
+\begin{definition}{Непрерывное вложение}{}
+	$X_1$ вкладывается в $X$ непрерывно ($X_1 \arrsubset X$) если $X_1 \subset X$ и
+	\begin{equation*}
+		\exists C \geq 0: \norm{x}_X \leq C \norm{x}_{X_1}, \forall x \in X_1
+	\end{equation*}
+\end{definition}
+
+\begin{definition}{Компактное вложение}{}
+	$X_1$ вкладывается в $X$ компактно ($X_1 \arrsubset\arrsubset X$) если $X_1 \subset X$ и 
+	\begin{equation*}
+		\underset{\text{огр. в } X_1}{A} \subset X_1 \Rightarrow \underset{\text{предкомп. в } X}{A}
+	\end{equation*}
+\end{definition}
+Альтернативный подход (если $X_1 \subset X$) заключается в определении оператора вложения $A: X_1 \to X$, заданного как $Ax = x$. Он непрерывен (компактен) тогда и только тогда когда вложение непрерывно (компактно).
+
+\begin{example}{}{}
+	$C^1 ([a, b]) \arrsubset \arrsubset C([a, b])$. 
+\end{example}
+Чтобы доказать это можно воспользоваться критерием Арцела-Асколи.
+
+\begin{example}{}{}
+	$W_p^1 (\Omega) \arrsubset L_p (\Omega)$
+\end{example}
+
+\begin{lemma}{Мультипликативное неравенство}{}
+	Пусть $\Omega \subset \Real^n$ -- ограниченная область, тогда
+	\begin{equation*}
+		\norm{u}_{\frac{n}{n-1}, \Omega} \leq \prod\limits_{i=1}^{n}{\norm{\frac{\partial u}{\partial x_i}}_{1, \Omega}^{\frac{1}{n}}}, \forall u \in C_0^1 (\Omega)
+	\end{equation*}
+	Где поздразумевается $\norm{\cdot}_{p, \Omega} = \norm{\cdot}_{L^p (\Omega)}$ для удобства
+\end{lemma}
 
 \newpage
 
