@@ -339,7 +339,7 @@ $$c  = \frac{1}{\intset{B(0,1)}{e^{\frac{1}{\norm{x}^2 - 1}}dx}}$$
 
 \subsection{Пространства Соболева}
 
-\begin{definition}{Пространства $W_p^\ell$}{def:10}
+\begin{definition}{Пространства $W_p^\ell (\Omega)$}{def:10}
 	Пусть $\underset{\text{открыт. огр.}}{\Omega} \subset \Real^n, 1 \leq p \leq \infty, \ell = 0, 1, 2, ...$, тогда определим пространства Соболева
 	\begin{equation*}
 	 	W_p^\ell (\Omega) = \{f \in L^p (\Omega) \ | \ \exists D_c^\alpha f \in L^p (\Omega), \forall \alpha: |\alpha| \leq \ell\}
@@ -399,7 +399,7 @@ $$c  = \frac{1}{\intset{B(0,1)}{e^{\frac{1}{\norm{x}^2 - 1}}dx}}$$
 
 \subsection{Пространства $\mathring{W_p^\ell}$}
 
-\begin{definition}{Пространства $\mathring{W_p^\ell}$}{def:13}
+\begin{definition}{Пространства $\mathring{W_p^\ell} (\Omega)$}{def:13}
 	Определим т.н. пространства Соболева с нулевыми граничными условиями:
 	\begin{equation*}
 		\mathring{W_p^\ell} (\Omega) = \overline{C_0^\infty (\Omega)} \text{ в } W_p^\ell
@@ -732,6 +732,92 @@ $$c  = \frac{1}{\intset{B(0,1)}{e^{\frac{1}{\norm{x}^2 - 1}}dx}}$$
 		\item $p = n: W_p^1 (\Omega) \arrsubset L^q (\Omega), \forall q \in [1, +\infty)$
 	\end{enumerate}
 \end{theorem}
+
+\subsection{Пространства Гельдера}
+Пусть $f \in C(\overline{\Omega})$, где $\Omega$ -- ограниченное в $\Real^n$ и пусть $0 \leq \alpha \leq 1$.
+
+\begin{definition}{Непрерывность по Гельдеру}{}
+	$f$ непрерывна по Гельдеру с показателем $\alpha$, если
+	\begin{equation}\label{eq:1}
+		|f(x) - f(y)| \leq C\norm{x - y}^\alpha, \forall x,y \in \overline{\Omega}
+	\end{equation}
+\end{definition}
+При $\alpha = 0$ определение не привносит ничего нового (т.к. $f \in C(\overline{\Omega})$ и так ограничены). При $\alpha = 1$ получаем липшицевы функции. Условию выше при $\alpha > 1$ могут удовлетворять только константы т.к. тогда
+\begin{equation*}
+	\frac{|f(x+h) - f(x)|}{\norm{h}} \leq C \norm{h}^{\alpha-1} \underset{h\to 0}{\to} 0
+\end{equation*}
+соответственно $f^\prime = 0$ в $\Omega$ и $f = const$ в $\overline{\Omega}$ (с учетом непрерывности).
+
+\begin{example}{для $\alpha = \frac{1}{2}$}{}
+	Пусть $\Omega = (0, 1)$ и $f(x) = \sqrt{x}$, тогда $f$ -- непрерывна по Гельдеру с показателем $\frac{1}{2}$ т.к. очевидно для неотрицательных чисел $\sqrt{a^2 + b^2} \leq a + b$ и следовательно
+	\begin{align*}
+		\sqrt{x} - \sqrt{y} &\leq \sqrt{x - y}, \forall 0 < y \leq x < 1 \\
+		\sqrt{y} - \sqrt{x} &\leq \sqrt{y - x}, \forall 0 < x \leq y < 1
+	\end{align*}
+	итого с учетом того что $\sqrt{\cdot}$ неубывающая функция получаем \\ $|\sqrt{x} - \sqrt{y}| \leq \sqrt{|x-y|} = 1\cdot|x-y|^{\frac{1}{2}}$
+\end{example}
+
+\begin{definition}{$[f]_{\alpha, \overline{\Omega}}$}{}
+	Для функции непрерывной по Гельдеру с показателем $\alpha$ можно определить
+	\begin{equation*}
+		[f]_{\alpha, \overline{\Omega}} = \sup\limits_{x, y \in \overline{\Omega}: \ x \neq y}{\frac{|f(x)-f(y)|}{\norm{x-y}^\alpha}}
+	\end{equation*}
+	определение корректно т.к. выражение под знаком супремума ограничено некоторой константой $C$
+\end{definition}
+Можно заметить что это также инфимум по всем константам $C$ для которых выполнено \eqref{eq:1}.
+
+\begin{definition}{Пространства $C^{0, \alpha} (\overline{\Omega})$}{}
+	Определим пространства Гельдера:
+	\begin{equation*}
+		C^{0, \alpha} (\overline{\Omega}) = \{ f \in C(\overline{\Omega}) \ | \ f \text{ -- непрерывна по Гельдеру с показателем } \alpha\}
+	\end{equation*}
+	В $C^{0, \alpha} (\overline{\Omega})$ $[f]_{\alpha, \overline{\Omega}}$ является полунормой. Можно факторизовать, однако мы пойдем другим путем определив норму как
+	\begin{equation*}
+		\norm{f}_{C^{0, \alpha} (\overline{\Omega})} = \norm{f}_{C(\overline{\Omega})} + [f]_{\alpha, \overline{\Omega}}
+	\end{equation*}
+\end{definition}
+
+\begin{definition}{Пространства $C^{k, \alpha} (\overline{\Omega})$}{}
+	Строятся на основе $C^k (\overline{\Omega})$ для $k \in \Natural$:
+	\begin{equation*}
+		C^{k, \alpha} (\overline{\Omega}) = \{ f \in C^k (\overline{\Omega}) \ | \ D^\beta f \in C^{0, \alpha} (\overline{\Omega}), \forall |\beta| = k\}
+	\end{equation*}
+	Норма определяется как
+	\begin{equation*}
+		\norm{f}_{C^{k, \alpha} (\overline{\Omega})} = \norm{f}_{C^k (\overline{\Omega})} + \sum\limits_{|\beta| = k}{[D^\beta f]_{\alpha, \overline{\Omega}}}
+	\end{equation*}
+\end{definition}
+
+\begin{proposition}{}{}
+	$C^{0, \alpha} (\overline{\Omega})$ -- банахово пространство
+\end{proposition}
+\begin{proof}
+	Пусть $\{f_k\}_{k\in\Natural} \subset C^{0, \alpha} (\overline{\Omega}): \norm{f_k - f_l}_{C^{0, \alpha} (\overline{\Omega})} \to 0$, тогда \\ $\norm{f_k - f_l}_{C(\overline{\Omega})} \to 0$ и $\exists f \in C(\overline{\Omega}): f_k \to f \text{ в } C(\overline{\Omega})$. Аналогично получаем \\ $[f_k - f_l]_{\alpha, \overline{\Omega}} \to 0$ т.е.
+	\begin{equation*}
+		\forall \varepsilon > 0 \ \exists K \in \Natural \ \forall k, l \geq K: [f_k - f_l]_{\alpha, \overline{\Omega}} \leq \varepsilon 
+	\end{equation*}
+	иначе говоря
+	\begin{equation*}
+		|(f_k - f_l)(x) - (f_k - f_l)(y)| \leq \varepsilon \norm{x-y}^\alpha, \forall k, l \geq K \ \forall x, y \in \overline{\Omega}
+	\end{equation*}
+	совершив предельный переход $l \to +\infty$ получим
+	\begin{equation*}
+		|(f_k - f)(x) - (f_k - f)(y)| \leq \varepsilon \norm{x-y}^\alpha, \forall k \geq K \ \forall x,y \in \overline{\Omega}
+	\end{equation*}
+	отсюда непосредственно следует $[f_k - f]_{\alpha, \overline{\Omega}} \leq \varepsilon$ и действительно $[f_k - f] \to 0$ т.к. мы получили что
+	\begin{equation*}
+		\forall \varepsilon > 0 \ \exists K \in \Natural \ \forall k \geq K: [f_k - f] \leq \varepsilon
+	\end{equation*}
+	к тому же $[f]_{\alpha, \overline{\Omega}} \leq [f_k - f]_{\alpha, \overline{\Omega}} + [f_k]_{\alpha, \overline{\Omega}}$ так что $f \in C^{0, \alpha} (\overline{\Omega})$. Остается заметить что $\norm{f_k - f}_{C^{0, \alpha} (\overline{\Omega})} = \norm{f_k - f}_{C(\overline{\Omega})} + [f_k - f]_{\alpha, \overline{\Omega}} \to 0$
+\end{proof}
+
+\begin{proposition}{}{}
+	$C^{0, \beta} (\overline{\Omega}) \arrsubset C^{0, \alpha} (\overline{\Omega}), 0 \leq \alpha \leq \beta \leq 1$
+\end{proposition}
+
+\begin{proposition}{}{}
+	$C^{0, \beta} (\overline{\Omega}) \arrsubset\arrsubset C^{0, \alpha} (\overline{\Omega}), 0 \leq \alpha < \beta \leq 1$
+\end{proposition}
 
 \newpage
 
