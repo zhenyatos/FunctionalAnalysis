@@ -121,17 +121,17 @@ list inside={def}]
 \subsection{Основные понятия}
 
 Пусть в $\Real^n$ задана норма 
-$$\norm{x} = \sqrt{\sum_{i=1}^{n}{x_i^2}}$$ 
+$$|x| = \sqrt{\sum_{i=1}^{n}{x_i^2}}$$ 
 Определим $\omega: \Real^n \to \Real$ как
 \begin{equation*}
 	\omega (x) = 
 		\begin{cases}
-		c e^{\frac{1}{\norm{x}^2 - 1}}, & x \in B(0, 1) \\
+		c e^{\frac{1}{|x|^2 - 1}}, & x \in B(0, 1) \\
 		0, & x \notin B(0, 1)
 		\end{cases}
 \end{equation*}
 где 
-$$c  = \frac{1}{\intset{B(0,1)}{e^{\frac{1}{\norm{x}^2 - 1}}dx}}$$
+$$c  = \frac{1}{\intset{B(0,1)}{e^{\frac{1}{|x|^2 - 1}}dx}}$$
 так что $\intset{B(0,1)}{\omega(x)dx} = 1$ и кроме того по определению $\omega \in C(\Real^n)$. \\ Пусть $\omega_\rho (x) = \rho^{-n} \omega \left(\frac{x}{\rho}\right)$, тогда свойства указанные выше сохраняются.
 
 \begin{definition}{Усреднение функции}{def:1}
@@ -609,20 +609,19 @@ $$c  = \frac{1}{\intset{B(0,1)}{e^{\frac{1}{\norm{x}^2 - 1}}dx}}$$
 \begin{definition}{Цилиндр}{}
 	Пусть $y = (y^\prime, y_n) \in \Real^n$, где $y^\prime \in \Real^{n-1}, y_n \in \Real$, цилиндром называют следующее множество
 	\begin{equation*}
-		C_{R, h} = \{ y \in \Real^n \ | \ (\norm{y} < R) \wedge (|y_n| < h) \}
+		C_{R, h} = \{ y \in \Real^n \ | \ (|y| < R) \wedge (|y_n| < h) \}
 	\end{equation*}
 \end{definition}
 
 \begin{definition}{Липшицева область}{}
 	Пусть $\Omega \subset \Real^n$ -- область, говорят что она липшицева и обозначают это как $\partial \Omega \in C^{0, 1}$ если $\forall x_0 \in \partial \Omega$:
 	\begin{enumerate}
-		\item $\exists R = R(x_0), L = L(x_0) > 0$ и $\exists \varphi : \overline{B^\prime} \to \Real$, где \\ $\overline{B^\prime}= \{ y^\prime \in \Real^{n-1} \ | \ \norm{y^\prime} \leq R \}$, причем \\ $\varphi (0) = 0$ и $\exists L \geq 0: |f(y) - f(z)| \leq L \norm{y - z}$ (липшицевость)
+		\item $\exists R = R(x_0), L = L(x_0) > 0$ и $\exists \varphi : \overline{B^\prime} \to \Real$, где \\ $\overline{B^\prime}= \{ y^\prime \in \Real^{n-1} \ | \ |y^\prime| \leq R \}$, причем \\ $\varphi (0) = 0$ и $\exists L \geq 0: |f(y) - f(z)| \leq L |y - z|$ (липшицевость)
 		\item $\exists Q_{x_0} \in \text{SO}(n): y = Q_{x_0} (x - x_0)$ -- новая система координат полученная сдвигом начала в $x_0$ и поворотом $Q_{x_0}$ в которой
-		\item $\partial \Omega \cap \overline{C}_{R, 2RL} = \{ y \in \Real^n \ | \ (\norm{y^\prime} \leq R) \wedge (y_n = \varphi(y^\prime)) \}$
-		\item $\Omega \cap \overline{C}_{R, 2RL} = \{ y \in \Real^n \ | \ (\norm{y^\prime} \leq R) \wedge (-2RL < y_n < \varphi(y^\prime)) \}$
+		\item $\partial \Omega \cap \overline{C}_{R, 2RL} = \{ y \in \Real^n \ | \ (|y^\prime| \leq R) \wedge (y_n = \varphi(y^\prime)) \}$
+		\item $\Omega \cap \overline{C}_{R, 2RL} = \{ y \in \Real^n \ | \ (|y^\prime| \leq R) \wedge (-2RL < y_n < \varphi(y^\prime)) \}$
 	\end{enumerate}
 \end{definition}
-%TODO: Определение достаточно объемное, следует добавить иллюстрации
 Следует отметить что липшицевы область являются локально звездными, поэтому для них справедлива предыдущая теория.
 
 \begin{definition}{Область класса $C^k$}{}
@@ -645,20 +644,20 @@ $$c  = \frac{1}{\intset{B(0,1)}{e^{\frac{1}{\norm{x}^2 - 1}}dx}}$$
 	\textbf{Утверждение 1.} Пусть
 	\begin{enumerate}
 		\item $C = C_{R, h}$ (цилиндр)
-		\item $C_+ = \{ y \in \Real^n \ | \ (\norm{y^\prime} < R) \wedge (0 < y_n < h) \}$ (часть цилиндра $C$ отсеченная гиперплоскостью $y_n = 0$)
-		\item $\partial_+ C_+ = \{ y \in \Real^n \ | \ \left(\left(\norm{y^\prime} = R\right)\wedge \left(0 \leq y_n \leq h\right)\right)\vee\left(\left(\norm{y^\prime} < R\right)\wedge\left(y_n = h\right)\right)\}$ (граница $C_+$ без дна)
+		\item $C_+ = \{ y \in \Real^n \ | \ (|y^\prime| < R) \wedge (0 < y_n < h) \}$ (часть цилиндра $C$ отсеченная гиперплоскостью $y_n = 0$)
+		\item $\partial_+ C_+ = \{ y \in \Real^n \ | \ \left(\left(|y^\prime| = R\right)\wedge \left(0 \leq y_n \leq h\right)\right)\vee\left(\left(|y^\prime| < R\right)\wedge\left(y_n = h\right)\right)\}$ (граница $C_+$ без дна)
 		\item $\Sigma \subset C_+: \dist(\Sigma, \partial_+ C_+) > 0$ (отделенное от границы подмножество $C_+$)
 		\item $u \in W_p^1 (C_+): \supp{u} \subset \Sigma$ (причем носитель $u$ лежит в этом подмножестве)
 	\end{enumerate}
 	Тогда $\exists v \in \mathring{W_p^1} (C): \left(v|_{C_+} = u\right) \wedge \left(\norm{v}_{1, p, C} = \norm{u}_{1, p, C_+}\right)$ \\ Иными словами с половины цилиндра $C_+$ можно продлить на весь $C$ с сохранением нормы, да еще и с нулевыми граничными условиями, при условии отделимости носителя функции $u$ заданной на $C_+$ от границы собственно $C$ (то самое упомянутое выше дно не принадлежит ей). \\
 	\textbf{Утверждение 2.} Пусть
 	\begin{enumerate}
-		\item $\varphi \in C^1 (\overline{B_R})$, где $B_R = \{ y \in \Real^n \ | \ \norm{y^\prime} < R\}$, причем $\varphi(0) = 0$
-		\item $\omega = \{ y \in \Real^n \ | \ (\norm{y^\prime} < R) \wedge (|y_n| \leq \varphi (y^\prime) + h) \}$ (криволинейный цилинд, крышка и дно которого ведут себя в соответствие с функцией $\varphi$)
-		\item $\omega_+ = \{ y_n \in \Real^n \ | \ (\norm{y^\prime} < R) \wedge (\varphi(y^\prime) < y_n < \varphi(y^\prime) + h) \}$ (сегмент криволинейного цилиндра $\omega$)
+		\item $\varphi \in C^1 (\overline{B_R})$, где $B_R = \{ y \in \Real^n \ | \ |y^\prime| < R\}$, причем $\varphi(0) = 0$
+		\item $\omega = \{ y \in \Real^n \ | \ (|y^\prime| < R) \wedge (|y_n| \leq \varphi (y^\prime) + h) \}$ (криволинейный цилинд, крышка и дно которого ведут себя в соответствие с функцией $\varphi$)
+		\item $\omega_+ = \{ y_n \in \Real^n \ | \ (|y^\prime| < R) \wedge (\varphi(y^\prime) < y_n < \varphi(y^\prime) + h) \}$ (сегмент криволинейного цилиндра $\omega$)
 		\item 
 		\begin{multline*}
-			\partial_+ \omega_+ = \{y \in \Real^n \ | \ \left(\left(\norm{y^\prime} = R\right)\wedge \left(\varphi(y^\prime) \leq y_n \leq \varphi (y^\prime) + h\right)\right)\vee \\ \vee \left(\left(\norm{y^\prime} < R\right)\wedge\left(y_n = \varphi(y^\prime) + h\right)\right)\}
+			\partial_+ \omega_+ = \{y \in \Real^n \ | \ \left(\left(|y^\prime| = R\right)\wedge \left(\varphi(y^\prime) \leq y_n \leq \varphi (y^\prime) + h\right)\right)\vee \\ \vee \left(\left(|y^\prime| < R\right)\wedge\left(y_n = \varphi(y^\prime) + h\right)\right)\}
 		\end{multline*} (граница сегмента $\omega_+$ без дна)
 		\item $\Sigma \subset \omega_+: \dist(\Sigma, \partial_+ \omega_+) > 0$ (отделенное от границы подмножество $\omega_+$)
 		\item $u \in W_p^1 (\omega_+): \supp{u} \subset \Sigma$ (причем носитель $u$ лежит в этом подмножестве) 
@@ -739,12 +738,12 @@ $$c  = \frac{1}{\intset{B(0,1)}{e^{\frac{1}{\norm{x}^2 - 1}}dx}}$$
 \begin{definition}{Непрерывность по Гельдеру}{}
 	$f$ непрерывна по Гельдеру с показателем $\alpha$, если
 	\begin{equation}\label{eq:1}
-		|f(x) - f(y)| \leq C\norm{x - y}^\alpha, \forall x,y \in \overline{\Omega}
+		|f(x) - f(y)| \leq C|x - y|^\alpha, \forall x,y \in \overline{\Omega}
 	\end{equation}
 \end{definition}
 При $\alpha = 0$ определение не привносит ничего нового (т.к. $f \in C(\overline{\Omega})$ и так ограничены). При $\alpha = 1$ получаем липшицевы функции. Условию выше при $\alpha > 1$ могут удовлетворять только константы т.к. тогда
 \begin{equation*}
-	\frac{|f(x+h) - f(x)|}{\norm{h}} \leq C \norm{h}^{\alpha-1} \underset{h\to 0}{\to} 0
+	\frac{|f(x+h) - f(x)|}{|h|} \leq C |h|^{\alpha-1} \underset{h\to 0}{\to} 0
 \end{equation*}
 соответственно $f^\prime = 0$ в $\Omega$ и $f = const$ в $\overline{\Omega}$ (с учетом непрерывности).
 
@@ -760,7 +759,7 @@ $$c  = \frac{1}{\intset{B(0,1)}{e^{\frac{1}{\norm{x}^2 - 1}}dx}}$$
 \begin{definition}{$[f]_{\alpha, \overline{\Omega}}$}{}
 	Для функции непрерывной по Гельдеру с показателем $\alpha$ можно определить
 	\begin{equation*}
-		[f]_{\alpha, \overline{\Omega}} = \sup\limits_{x, y \in \overline{\Omega}: \ x \neq y}{\frac{|f(x)-f(y)|}{\norm{x-y}^\alpha}}
+		[f]_{\alpha, \overline{\Omega}} = \sup\limits_{x, y \in \overline{\Omega}: \ x \neq y}{\frac{|f(x)-f(y)|}{|x-y|^\alpha}}
 	\end{equation*}
 	определение корректно т.к. выражение под знаком супремума ограничено некоторой константой $C$
 \end{definition}
@@ -798,11 +797,11 @@ $$c  = \frac{1}{\intset{B(0,1)}{e^{\frac{1}{\norm{x}^2 - 1}}dx}}$$
 	\end{equation*}
 	иначе говоря
 	\begin{equation*}
-		|(f_k - f_l)(x) - (f_k - f_l)(y)| \leq \varepsilon \norm{x-y}^\alpha, \forall k, l \geq K \ \forall x, y \in \overline{\Omega}
+		|(f_k - f_l)(x) - (f_k - f_l)(y)| \leq \varepsilon |x-y|^\alpha, \forall k, l \geq K \ \forall x, y \in \overline{\Omega}
 	\end{equation*}
 	совершив предельный переход $l \to +\infty$ получим
 	\begin{equation*}
-		|(f_k - f)(x) - (f_k - f)(y)| \leq \varepsilon \norm{x-y}^\alpha, \forall k \geq K \ \forall x,y \in \overline{\Omega}
+		|(f_k - f)(x) - (f_k - f)(y)| \leq \varepsilon |x-y|^\alpha, \forall k \geq K \ \forall x,y \in \overline{\Omega}
 	\end{equation*}
 	отсюда непосредственно следует $[f_k - f]_{\alpha, \overline{\Omega}} \leq \varepsilon$ и действительно $[f_k - f] \to 0$ т.к. мы получили что
 	\begin{equation*}
@@ -818,6 +817,95 @@ $$c  = \frac{1}{\intset{B(0,1)}{e^{\frac{1}{\norm{x}^2 - 1}}dx}}$$
 \begin{proposition}{}{}
 	$C^{0, \beta} (\overline{\Omega}) \arrsubset\arrsubset C^{0, \alpha} (\overline{\Omega}), 0 \leq \alpha < \beta \leq 1$
 \end{proposition}
+
+
+\subsection{Вложения Соболевских пространств в пространства Гельдера}
+
+\begin{lemma}{}{}
+	Пусть $\Omega \subset \Real^n$ -- выпуклая ограниченная область и $u \in C^1 (\overline{\Omega})$, тогда $\forall p > n$:
+	\begin{equation*}
+		\left|u(x) - \frac{1}{\mu(\Omega)}\intset{\Omega}{u(y)dy}\right| \leq \frac{\diam \Omega}{1 - \frac{n}{p}} \cdot \mu(\Omega)^{-\frac{1}{p}} \cdot \norm{|u^\prime|}_{L^p (\Omega)}
+	\end{equation*}
+\end{lemma}
+\begin{proof}
+	Пусть $x, y \in \overline{\Omega}, t \in [0, 1]$, тогда можно определить \\ $z(t) = (1-t)x + ty$ и пусть 
+	\begin{equation*}
+		\varphi(t) = u(z(t)), \text{ тогда } \varphi \in C^1 ([0, 1])
+	\end{equation*}
+	Заметим что
+	\begin{equation*}
+		u(y) - u(x) = \varphi(1) - \varphi(0) = \int\limits_{0}^{1}{\varphi^\prime (t) dt}
+	\end{equation*}
+	и с учетом выражения для производной композиции отображений
+	\begin{equation*}
+		\varphi^\prime (t) = \sum\limits_{k=1}^{n}{\frac{\partial u}{\partial z_k} (z(t)) \cdot \frac{\partial z_k}{\partial t} (t)} = (u_z^\prime (z(t)), y - x)
+	\end{equation*}
+	получаем
+	\begin{multline*}
+		\intset{\Omega}{u(y) dy} - \mu(\Omega) u(x) = \intset{\Omega}{(u(y) - u(x)) dy} = \intset{\Omega}{dy \int\limits_{0}^{1}{(u_z^\prime (z(t)), y - x)dt}} = \\ = \int\limits_{0}^{1}{dt \intset{\Omega}{(u_z^\prime (z(t)), y - x)dy}} = \cdots
+	\end{multline*}
+	Для выпуклого множества $\Omega$ справедливо следующее геометрическое утверждение: $\Omega(t) \subset \Omega$, где $\Omega(t)$ -- образ $\Omega$ при гомотетии с центром в $x$ и коэффициентом $t \in [0, 1]$ \\
+	\includegraphics[scale=0.85]{images/6.eps} \\
+	Следует заметить что $z(t) - x = t (y - x)$ т.е. при указанной гомотетии $y \to z(t)$, а якобиан преобразования очевидно равен $t^n$, так что
+	\begin{equation*}
+		\cdots = \int_{0}^{1}{\frac{dt}{t^n} \intset{\Omega(t)}{\left(u^\prime (z), \frac{z-x}{t}\right) dz}} = \int_{0}^{1}{\frac{dt}{t^{n+1}} \intset{\Omega(t)}{(u^\prime (z), z-x) dz}}  
+	\end{equation*}
+	далее перейдем к рассмотрению модуля разности
+	\begin{multline*}
+		\left|u(x) - \frac{1}{\mu(\Omega)} \intset{\Omega}{u(y)dy}\right| \leq 
+		\mu(\Omega)^{-1} \int_{0}^{1}{\frac{dt}{t^{n+1}} \intset{\Omega(t)}{|(u^\prime (z), z-x)| dz}} \overset{\text{н-во К-Б-Ш}}{\leq} \\ \leq 
+		\mu(\Omega)^{-1} \int_{0}^{1}{\frac{dt}{t^{n+1}} \intset{\Omega(t)}{|u^\prime (z)||z-x| dz}} \overset{\text{н-во Гельдера}}{\leq} \\ \leq 
+		\mu(\Omega)^{-1} \int_{0}^{1}{\frac{dt}{t^{n+1}} \left(\intset{\Omega(t)}{|u^\prime (z)|^p dz}\right)^{\frac{1}{p}} \left(\intset{\Omega(t)}{|z-x|^{p^*} dz}\right)^{\frac{1}{p^*}} } \leq \\ \leq 
+		\mu(\Omega)^{-1} \norm{|u^\prime|}_{L^p (\Omega)} \int_{0}^{1}{\frac{dt}{t^{n+1}} \left(\intset{\Omega(t)}{|z-x|^{p^*} dz}\right)^{\frac{1}{p^*}}} = \\ =
+		\mu(\Omega)^{-1} \norm{|u^\prime|}_{L^p (\Omega)} \int_{0}^{1}{\frac{dt}{t^{n+1}} \left(\intset{\Omega}{|t(y - x)|^{p^*} t^n dy}\right)^{\frac{1}{p^*}}} = \\ =
+		\mu(\Omega)^{-1} \norm{|u^\prime|}_{L^p (\Omega)} \int_{0}^{1}{\frac{t\cdot t^{\frac{n}{p^*}}dt}{t^{n+1}} \left(\intset{\Omega}{|y - x|^{p^*} dy}\right)^{\frac{1}{p^*}}} \overset{|y-x| \leq \diam \Omega}{\leq} \\ \leq 
+		\mu(\Omega)^{-1} \norm{|u^\prime|}_{L^p (\Omega)} \mu(\Omega)^{\frac{1}{p^*}} \diam \Omega \int_{0}^{1}{\frac{dt}{t^{n-\frac{n}{p^*}}}} = \\ =
+		\mu(\Omega)^{-1 + \frac{1}{p^*}} \norm{|u^\prime|}_{L^p (\Omega)} \diam \Omega \left(\frac{t^{-\frac{n}{p} + 1}}{-\frac{n}{p} + 1} \bigg\rvert_0^1\right) = \frac{\diam \Omega}{1 - \frac{n}{p}} \norm{|u^\prime|}_{L^p (\Omega)} \mu(\Omega)^{-\frac{1}{p}}
+	\end{multline*}
+\end{proof}
+
+\begin{lemma}{}{}
+	Пусть $u \in C^1 (\overline{B(0, 4R)})$, тогда для $\forall p > n \ \exists C = C(n, p)$ такое что
+	\begin{equation*}
+		\norm{u}_{C^{0, \bar{\alpha}}(\overline{B(0, R)})} \leq C \norm{u}_{1, p, B(0, 4R)}
+	\end{equation*}
+	, где $\bar{\alpha} = 1 - \frac{n}{p}$
+\end{lemma}
+
+\begin{theorem}{2-ая теорема вложений Соболева}{}
+	Пусть $\Omega$ -- липшицева ограниченная область, тогда
+	\begin{equation*}
+		p > n: W_p^1 (\Omega) \arrsubset C^{0, \alpha} (\overline{\Omega}), \forall \alpha \in [0, \bar{\alpha}]
+	\end{equation*}
+	, где $\bar{\alpha} = 1 - \frac{n}{p}$
+\end{theorem}
+
+\subsection{Случай компактных вложений}
+
+\begin{theorem}{Реллиха, Кондрашова, Соболева}{}
+	Пусть $\Omega \subset \Real^n$ -- липшицева ограниченная область, тогда
+	\begin{enumerate}
+		\item $p < n: W_p^1 (\Omega) \arrsubset\arrsubset L^q (\Omega), \forall q \in [0, \overline{p})$
+		\item $p = n: W_p^1 (\Omega) \arrsubset\arrsubset L^q (\Omega), \forall q \in [0, +\infty)$
+		\item $p > n: W_p^1 (\Omega) \arrsubset\arrsubset C^\alpha (\overline{\Omega}), \forall \alpha \in [0, \bar{\alpha})$
+	\end{enumerate}
+	, где $\overline{p} = \frac{np}{n-p}$ и $\bar{\alpha} = 1 -\frac{n}{p}$
+\end{theorem}
+
+\begin{lemma}{Теорема Реллиха}{}
+	Пусть $\Omega \subset \Real^n$ -- липшицева ограниченная область, тогда
+	\begin{equation*}
+		W_p^1 (\Omega) \arrsubset\arrsubset L^p (\Omega)
+	\end{equation*}
+\end{lemma}
+
+\begin{lemma}{}{}
+	Пусть $\{u_k\}_{k\in\Natural} \subset L^q (\Omega)$ -- ограниченная последовательность, $1 < q < \infty$, причем $u_k \to u$ по мере в $\Omega$, тогда
+	\begin{enumerate}
+		\item $u \in L^q (\Omega)$
+		\item $u_k \to u$ в $L^r (\Omega)$ для $1 \leq r < q$
+	\end{enumerate}
+\end{lemma}
 
 \newpage
 
