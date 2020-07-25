@@ -633,7 +633,7 @@ $$c  = \frac{1}{\intset{B(0,1)}{e^{\frac{1}{|x|^2 - 1}}dx}}$$
 \end{theorem}
 Таким образом многие построения для областей класса $C^1$ справедливы и для липшицевых областей.
 
-\begin{theorem}{О продолжении}{}
+\begin{theorem}{О продолжении}{}\label{th:1}
 	Пусть $\Omega$ -- липшицева область, $\Omega \ssubset \Omega_0$, тогда $\exists C = C(n, p, \Omega, \Omega_0)$:
 	\begin{equation*}
 		\forall u \in \underset{1 \leq p < \infty}{W_p^1 (\Omega)} \ \exists u_0 \in \mathring{W_p^1} (\Omega_0): \left(u_0 |_\Omega = u\right) \wedge \left(\norm{u_0}_{1, p, \Omega_0} \leq C \norm{u}_{1, p, \Omega}\right)
@@ -706,14 +706,14 @@ $$c  = \frac{1}{\intset{B(0,1)}{e^{\frac{1}{|x|^2 - 1}}dx}}$$
 	Где поздразумевается $\norm{\cdot}_{p, \Omega} = \norm{\cdot}_{L^p (\Omega)}$ для удобства
 \end{lemma}
 
-Пусть $1 \leq p < n$, введем $\overline{p} = \frac{np}{n-p}$ и $\varkappa = \frac{(n-1)p}{n-p}$.
+Пусть $1 \leq p < n$, введем $\overline{p} = \frac{np}{n-p}$ и $\varkappa_p = \frac{(n-1)p}{n-p}$.
 \begin{lemma}{}{}
-	Пусть $u \in C_0^\infty (\Omega)$, тогда $\norm{u}_{\overline{p}, \Omega} \leq \varkappa |u|_{1, p, \Omega}$
+	Пусть $u \in C_0^\infty (\Omega)$, тогда $\norm{u}_{\overline{p}, \Omega} \leq \varkappa_p |u|_{1, p, \Omega}$
 \end{lemma}
 
 Из этой леммы вытекает:
-\begin{proposition}{}{}
-	Пусть $u \in W_p^1 (\Omega)$, тогда $u \in L^{\overline{p}} (\Omega)$ и $\norm{u}_{\overline{p}, \Omega} \leq \varkappa |u|_{1, p, \Omega}$
+\begin{proposition}{}{}\label{prop:1}
+	Пусть $u \in \mathring{W_p^1} (\Omega)$, тогда $u \in L^{\overline{p}} (\Omega)$ и $\norm{u}_{\overline{p}, \Omega} \leq \varkappa_p |u|_{1, p, \Omega}$
 \end{proposition}
 
 \begin{proposition}{Неравенство Пуанкаре}{}
@@ -725,12 +725,34 @@ $$c  = \frac{1}{\intset{B(0,1)}{e^{\frac{1}{|x|^2 - 1}}dx}}$$
 Близкий к неравенству Фридрихса результат.
 
 \begin{theorem}{1-ая теорема вложений Соболева}{}
-	Пусть $\Omega$ -- липшицева область, тогда
+	Пусть $\Omega$ -- ограниченная липшицева область, тогда
 	\begin{enumerate}
 		\item $1 \leq p < n: W_p^1 (\Omega) \arrsubset L^q (\Omega), \forall q \in [1, \overline{p}]$
 		\item $p = n: W_p^1 (\Omega) \arrsubset L^q (\Omega), \forall q \in [1, +\infty)$
 	\end{enumerate}
 \end{theorem}
+\begin{proof}
+	$ $ \\
+	\textbf{1.} Пусть $\Omega \ssubset \Omega_0$, тогда по \hyperref[th:1]{теореме о продолжении} $\exists C = C(n, p, \Omega, \Omega_0)$:
+	\begin{equation*}
+		\forall u \in W_p^1 (\Omega) \ \exists u_0 \in \mathring{W_p^1} (\Omega_0): \left(u_0 |_\Omega = u\right) \wedge \left(\norm{u_0}_{1, p, \Omega_0} \leq C\norm{u}_{1, p, \Omega}\right)
+	\end{equation*}
+	Тогда по \hyperref[prop:1]{утверждению} $u_0 \in L^{\overline{p}} (\Omega)$ и
+	\begin{equation*}
+		\norm{u_0}_{\overline{p}, \Omega_0} \leq \varkappa_p |u_0|_{1, p, \Omega_0} \leq \varkappa_p \norm{u_0}_{1, p, \Omega_0} \leq C \varkappa_p \norm{u}_{1, p, \Omega}
+	\end{equation*}
+	и остается заметить что поскольку $\Omega \subset \Omega_0$, то $u = u_0 |_{\Omega} \in L^{\overline{p}} (\Omega)$ и 
+	\begin{equation*}
+		\norm{u}_{\overline{p}, \Omega} \leq \norm{u_0}_{\overline{p}, \Omega_0} \leq C\kappa_p \norm{u}_{1, p, \Omega} 
+	\end{equation*}
+	т.е. $W_p^1 (\Omega) \arrsubset L^{\overline{p}} (\Omega) \arrsubset L^q (\Omega), \forall q \in [1, \overline{p}]$, а непрерывное вложение как нетрудно показать -- транзитивно. \\
+	\textbf{2.} Пусть $q \in [0, +\infty)$, тогда его можно представить как
+	\begin{equation*}
+		q = \overline{p} = \frac{np}{n-p}, \text{ где } p = \frac{nq}{n+q}
+	\end{equation*}
+	действительно $\frac{n \frac{nq}{n+q}}{n - \frac{nq}{n+q}} = \frac{n^2 q}{n^2 + nq - nq} = q$, причем как мы видим $p < n$ и воспользовавшись предыдущим пунктом получаем
+	$W_n^1 (\Omega) \arrsubset W_p^1 (\Omega) \arrsubset L^q (\Omega)$, где первое вложение аналогично пространствам Лебега.
+\end{proof}
 
 \subsection{Пространства Гельдера}
 Пусть $f \in C(\overline{\Omega})$, где $\Omega$ -- ограниченное в $\Real^n$ и пусть $0 \leq \alpha \leq 1$.
