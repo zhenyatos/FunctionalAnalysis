@@ -1,0 +1,93 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage{hyperref}
+\usepackage[left=3cm,right=3cm,
+top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
+\usepackage{amsthm,amssymb,amsfonts,amsmath}
+\hypersetup{
+	colorlinks   = true, 
+	urlcolor     = blue, 
+	linkcolor    = blue, 
+	citecolor   = red
+}
+
+\theoremstyle{definition}
+\newtheorem{exercise}{Задача}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Решение]}
+{\end{proof}}
+
+\newenvironment{note}
+{\renewcommand\qedsymbol{}\begin{proof}[Примечание]}
+	{\end{proof}}
+
+% Непрерывное вложение
+\makeatletter
+\newcommand{\rightarrowhead}{\mathrel{%
+		\hbox{\let\f@size\sf@size\usefont{U}{lasy}{m}{n}\symbol{41}}}}
+
+\newcommand\arrsubset{\mathrel{\ooalign{$\subset$\cr
+			\hidewidth\raise-0.440ex\hbox{$\rightarrowhead\mkern0.5mu$}}}}
+% Непрерывное вложение
+
+\newcommand{\Real}{\mathbb{R}}
+\newcommand{\Complex}{\mathbb{C}}
+\newcommand{\Natural}{\mathbb{N}}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\conj}[1]{\left(#1\right)^*}
+\newcommand{\setbuild}[2]{\{#1\:|\:#2\}}
+\newcommand{\seq}[2]{\{#1\}_{#2}}
+\DeclareMathOperator{\dist}{dist}
+
+\begin{document}
+\begin{abstract}
+	Везде где не указано иначе, предполагается что $1 < p < \infty$, \\ область $\Omega$ -- односвязная, ограниченная и липшицева
+\end{abstract}
+\addtocounter{exercise}{6}
+
+\begin{exercise}
+	Пусть $u \in W_p^1 (\Omega), v \in W_{p^*}^1 (\Omega)$. Показать что $uv \in W_1^1 (\Omega)$ и \\ $\frac{\partial_c (uv)}{\partial x_i} = u\frac{\partial_c v}{\partial x_i} + v\frac{\partial_c u}{\partial x_i}$
+\end{exercise}
+\begin{solution}
+	Из условия следует что $u \in L^p (\Omega)$ и $v \in L^{p^*} (\Omega)$, так что из неравенства Гельдера получаем $uv \in L^1 (\Omega)$. Докажем что 
+	\begin{equation}\label{eq:1}
+		\frac{\partial_c (u\varphi)}{\partial x_i} = \varphi \frac{\partial_c u}{\partial x_i} + u \frac{\partial \varphi}{\partial x_i}, \forall \varphi \in C^\infty (\Omega)
+	\end{equation}
+	действительно если $\psi \in C_0^\infty (\Omega)$, то $\varphi \psi \in C_0^\infty (\Omega)$ и 
+	\begin{align*}
+		\int\limits_{\Omega}{u \frac{\partial (\varphi \psi)}{\partial x_i} dx} &= -\int\limits_{\Omega}{\frac{\partial_c u}{\partial x_i} \varphi \psi dx} \\
+		\int\limits_{\Omega}{u \frac{\partial (\varphi \psi)}{\partial x_i} dx} &= \int\limits_{\Omega}{u \psi \frac{\partial \varphi }{\partial x_i} dx} + \int\limits_{\Omega}{u \varphi \frac{\partial \psi}{\partial x_i} dx}
+	\end{align*}
+	где первое равенство получено по определению Соболевской производной, а второе через классическую формулу производной произведения. Из этих равенств получаем
+	\begin{equation*}
+		\int\limits_{\Omega}{u \varphi \frac{\partial \psi}{\partial x_i} dx} = - \left( \int\limits_{\Omega}{\frac{\partial_c u}{\partial x_i} \varphi \psi dx} + \int\limits_{\Omega}{u \psi \frac{\partial \varphi }{\partial x_i} dx} \right) = -\int\limits_{\Omega}{\left( \varphi \frac{\partial_c u}{\partial x_i} + u \frac{\partial \varphi}{\partial x_i} \right) \psi dx}
+	\end{equation*} 
+	ч.т.д.
+	Известно что $C^\infty (\Omega)$ всюду плотно в $W_{p^*}^1 (\Omega)$, так что 
+	\begin{equation*}
+		\exists \{\varphi_k\}_{k\in\Natural} \subset C^\infty (\Omega): \varphi_k \to v \text{ в } W_{p^*}^1 (\Omega)
+	\end{equation*}
+	отсюда следует что $\varphi_k \to v$ в $L^{p^*} (\Omega)$ и $\frac{\partial \varphi_k}{\partial x_i} \to \frac{\partial_c v}{\partial x_i}$ в $L^{p^*} (\Omega)$, для $i \in \{1, ..., n\}$. Воспользуемся \eqref{eq:1} и получим
+	\begin{equation*}
+		\frac{\partial_c (u \varphi_k)}{\partial x_i} = \varphi_k \frac{\partial_c u}{\partial x_i} + u \frac{\partial \varphi_k}{\partial x_i} \to v \frac{\partial_c u}{\partial x_i} + u \frac{\partial_c v}{\partial x_i} \text{ в } L^{p^*} (\Omega)
+	\end{equation*}
+	Значит
+	\begin{equation}\label{eq:2}
+		\frac{\partial_c (u \varphi_k)}{\partial x_i} \to v \frac{\partial_c u}{\partial x_i} + u \frac{\partial_c v}{\partial x_i} \text{ в } L^1 (\Omega)
+	\end{equation}
+	т.к. $L^{p^*} (\Omega) \arrsubset L^1 (\Omega)$ и воспользуемся неравенством Гельдера
+	\begin{equation*}
+		\norm{u\varphi_k - uv}_{L^1 (\Omega)} \leq \norm{u}_{L^p (\Omega)} \norm{\varphi_k - v}_{L^{p^*} (\Omega)} \to 0
+	\end{equation*}
+	т.е. $u\varphi_k \to uv$ в $L^1 (\Omega)$ и по признаку обобщенной производной с учетом \eqref{eq:2} получаем что
+	\begin{equation*}
+		\frac{\partial_c (uv)}{\partial x_i} = u\frac{\partial_c v}{\partial x_i} + v\frac{\partial_c u}{\partial x_i}
+	\end{equation*}
+	и кроме того $\frac{\partial_c (uv)}{\partial x_i} \in L^1 (\Omega)$ как сумма функций из этого пространства, ведь $\frac{\partial_c v}{\partial x_i} \in L^{p^*} (\Omega)$ и $\frac{\partial_c u}{\partial x_i} \in L^p (\Omega)$ известно по условию из того что $v \in W_{p^*}^1 (\Omega)$ и $u \in W_p^1 (\Omega)$ соответственно, а затем вновь применяем Гельдера. Итого $uv \in W_1^1 (\Omega)$, ч.т.д.
+\end{solution}
+
+\newpage
+	
+\end{document}
