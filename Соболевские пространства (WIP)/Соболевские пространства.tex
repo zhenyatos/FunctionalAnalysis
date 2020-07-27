@@ -929,6 +929,50 @@ $$c  = \frac{1}{\intset{B(0,1)}{e^{\frac{1}{|x|^2 - 1}}dx}}$$
 	\end{enumerate}
 \end{lemma}
 
+\section{Граничный интеграл Лебега. Теория следов}
+
+\subsection{Интеграл Лебега по поверхности}
+
+Пусть $S \subset \Real^{n+1}$ определено как
+\begin{equation*}
+S = \{ (x^\prime, x_{n+1}) \in \Real^{n+1} \ | \ (x^\prime \in E) \wedge (x_{n+1} = \varphi(x^\prime))\}
+\end{equation*}
+где $\varphi \in C^1 (\overline{E})$, а $E$ -- ограниченная область в $\Real^n$. У $S$ нет $\mu_n$, а $\mu_{n+1} (S) = 0$. Попробуем ввести меру для $S$. Пусть $\Omega \subset S$ и 
+\begin{equation*}
+E_\Omega = \{ x^\prime \in E \ | \ (x^\prime, \varphi(x^\prime) \in \Omega)\} \subset \Real^n
+\end{equation*}
+Будем говорить что $\Omega$ измеримо в $S$ если $E_\Omega$ измеримо в $\Real^n$ и зададим меру:
+\begin{equation*}
+\mu_S (\Omega) = \intset{E_\Omega}{\sqrt{1 + \sum\limits_{i=1}^{n}{\frac{\partial \varphi}{\partial x_i} (x^\prime)}}dx^\prime}
+\end{equation*}
+Пусть $f : S \to \overline{R}$, введем несколько определений
+
+\begin{definition}{Измеримость на поверхности}{}
+	$f$ измерима на $S$ если $S[f \leq \alpha]$ -- измеримо в $S, \forall \alpha \in \Real$ 
+\end{definition}
+
+\begin{definition}{Суммируемость на поверхности}{}
+	$f$ суммируема на $\Omega \subset S$ если
+	\begin{equation*}
+	\exists \intset{E_\Omega}{f(x^\prime, \varphi(x^\prime)) \sqrt{1 + \sum\limits_{i=1}^{n}{\frac{\partial \varphi}{\partial x_i} (x^\prime)}} dx^\prime}
+	\end{equation*}
+	который обозначают как 
+	\begin{equation*}
+	\intset{\Omega}{fdS}
+	\end{equation*}
+\end{definition}
+
+Свойства интеграла Лебега переносятся, вводится пространство $L^p (S)$:
+\begin{equation*}
+\mathcal{L}^p (S) = \{ f : S \to \Real \ | \ |f|^p \text{ - суммируема на } S \}
+\end{equation*}
+и $L^p (S)$ -- факторпространство $\mathcal{L}^p (S)$ с нормой
+\begin{equation*}
+\norm{f}_{L^p (S)} = \left(\intset{S}{|f|^p dS}\right)^{\frac{1}{p}}
+\end{equation*}
+
+\subsection{Интеграл Лебега по границе области}
+
 \newpage
 
 \tcblistof[\section*]{def}{Список определений}
