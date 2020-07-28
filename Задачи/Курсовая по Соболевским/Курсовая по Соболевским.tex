@@ -45,7 +45,38 @@ top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 \begin{abstract}
 	Везде где не указано иначе, предполагается что $1 < p < \infty$, \\ область $\Omega$ -- односвязная, ограниченная и липшицева
 \end{abstract}
-\addtocounter{exercise}{6}
+
+\addtocounter{exercise}{1}
+
+\begin{exercise}
+	Пусть $\Omega \subset \Real^3$. Пусть $u \in C^\infty (\overline{\Omega})$, причем $(u, v)_{W_2^1 (\Omega)} = 0, \forall v \in \mathring{W_2^1} (\Omega)$. Какому дифференциальному уравнению должна удовлетворять функция $u$?
+\end{exercise}
+\begin{solution}
+	$C_0^\infty (\Omega) \subset \mathring{W_2^1} (\Omega)$ т.к. последнее определяется как замыкание первого в $W_2^1 (\Omega)$, а значит
+	\begin{equation}\label{eq:3}
+		(u, v)_{W_2^1 (\Omega)} = \int\limits_{\Omega}{\left(u v + \frac{\partial u}{\partial x} \frac{\partial v}{\partial x} + \frac{\partial u}{\partial y} \frac{\partial v}{\partial y} +  \frac{\partial u}{\partial z} \frac{\partial v}{\partial z}\right) d\mu} = 0, \forall v \in C_0^\infty (\Omega)
+	\end{equation}
+Интегрированием по частям получаем
+\begin{equation*}
+	\int\limits_{\Omega}{\frac{\partial u}{\partial x} \frac{\partial v}{\partial x} d\mu} = \int\limits_{\partial \Omega}{\frac{\partial u}{\partial x} v n_x dS} - \int\limits_{\Omega}{\frac{\partial^2 u}{\partial x^2} v d\mu} \overset{v \in C_0^\infty (\Omega)}{=} -\int\limits_{\Omega}{\frac{\partial^2 u}{\partial x^2} v d\mu}
+\end{equation*}
+где $n_x$ -- координата $x$ нормали $n$ к $\partial \Omega$. Аналогично для координат $y$ и $z$, так что \eqref{eq:3} преобразуется в 
+\begin{equation*}
+	\int\limits_{\Omega}{\left( u - \frac{\partial^2 u}{\partial x^2} - \frac{\partial^2 u}{\partial y^2} - \frac{\partial^2 u}{\partial z^2}\right)v d\mu} = \int\limits_{\Omega}{(u - \Delta u)v d\mu} = 0, \forall v \in C_0^\infty (\Omega)
+\end{equation*}
+и по лемме Дюбуа-Реймондса получаем
+\begin{equation*}
+	u - \Delta u = 0 \text{ п.в. в } \Omega
+\end{equation*}
+однако $u \in C^\infty (\overline{\Omega})$ по условию, поэтому равенство выполняется всюду
+\begin{equation*}
+	u - \Delta u = 0 \text{ в } \Omega
+\end{equation*} 
+это и есть дифференциальное уравнение которому удовлетворяет $u$.
+\end{solution}
+\newpage
+
+\addtocounter{exercise}{4}
 
 \begin{exercise}
 	Пусть $u \in W_p^1 (\Omega), v \in W_{p^*}^1 (\Omega)$. Показать что $uv \in W_1^1 (\Omega)$ и \\ $\frac{\partial_c (uv)}{\partial x_i} = u\frac{\partial_c v}{\partial x_i} + v\frac{\partial_c u}{\partial x_i}$
@@ -87,7 +118,6 @@ top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 	\end{equation*}
 	и кроме того $\frac{\partial_c (uv)}{\partial x_i} \in L^1 (\Omega)$ как сумма функций из этого пространства, ведь $\frac{\partial_c v}{\partial x_i} \in L^{p^*} (\Omega)$ и $\frac{\partial_c u}{\partial x_i} \in L^p (\Omega)$ известно по условию из того что $v \in W_{p^*}^1 (\Omega)$ и $u \in W_p^1 (\Omega)$ соответственно, а затем вновь применяем Гельдера. Итого $uv \in W_1^1 (\Omega)$, ч.т.д.
 \end{solution}
-
 \newpage
 	
 \end{document}
