@@ -78,7 +78,7 @@ top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 
 \addtocounter{exercise}{4}
 
-\begin{exercise}
+\begin{exercise}\label{exr:1}
 	Пусть $u \in W_p^1 (\Omega), v \in W_{p^*}^1 (\Omega)$. Показать что $uv \in W_1^1 (\Omega)$ и \\ $\frac{\partial_c (uv)}{\partial x_i} = u\frac{\partial_c v}{\partial x_i} + v\frac{\partial_c u}{\partial x_i}$
 \end{exercise}
 \begin{solution}
@@ -117,6 +117,34 @@ top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 		\frac{\partial_c (uv)}{\partial x_i} = u\frac{\partial_c v}{\partial x_i} + v\frac{\partial_c u}{\partial x_i}
 	\end{equation*}
 	и кроме того $\frac{\partial_c (uv)}{\partial x_i} \in L^1 (\Omega)$ как сумма функций из этого пространства, ведь $\frac{\partial_c v}{\partial x_i} \in L^{p^*} (\Omega)$ и $\frac{\partial_c u}{\partial x_i} \in L^p (\Omega)$ известно по условию из того что $v \in W_{p^*}^1 (\Omega)$ и $u \in W_p^1 (\Omega)$ соответственно, а затем вновь применяем Гельдера. Итого $uv \in W_1^1 (\Omega)$, ч.т.д.
+\end{solution}
+\newpage
+
+\addtocounter{exercise}{8}
+
+\begin{exercise}
+	Пусть $\Omega$ -- липшицева область. Пусть $u \in W_p^1 (\Omega), v \in W_{p^*}^1 (\Omega)$ и $\{u_k\}_{k\in\Natural}, \{v_k\}_{k\in\Natural} \subset C^\infty (\overline{\Omega})$ таковы что $u_k \to u$ в $W_p^1 (\Omega)$, $v_k \to v$ в $W_{p^*}^1 (\Omega)$. Показать что $u_k v_k \to u v$ в $W_1^1 (\Omega)$
+\end{exercise}
+\begin{solution}
+	Воспользуемся \hyperref[exr:1]{задачей 7}, получив что $uv \in W_1^1 (\Omega)$, далее заметим
+	\begin{multline*}
+		\norm{u_k v_k - u v}_{1, 1, \Omega} = \norm{u_k v_k - u_k v + u_k v - u v}_{1, 1, \Omega} \leq \\ \leq \norm{u_k (v_k - v)}_{1, 1, \Omega} + \norm{(u_k - u)v}_{1, 1, \Omega} \leq \cdots
+	\end{multline*}
+	Теперь необходимо получить аналог неравенства Гельдера для пространств $W_p^1 (\Omega)$, один из возможных путей (грубая оценка):
+	\begin{multline*}
+		\norm{uv}_{1, 1, \Omega} = \norm{uv}_{L^1 (\Omega)} + \sum\limits_{i=1}^{n}{\norm{\frac{\partial_c (uv)}{\partial x_i}}_{L^1 (\Omega)}} = \norm{uv}_{L^1 (\Omega)} + \sum\limits_{i=1}^{n}{\norm{ v \frac{\partial_c u}{\partial x_i} + u \frac{\partial_c v}{\partial x_i} }_{L^1 (\Omega)}} \leq \\ \leq \norm{uv}_{L^1 (\Omega)} + \sum\limits_{i=1}^{n}{\norm{v \frac{\partial_c u}{\partial x_i}}_{L^1 (\Omega)}} + \sum\limits_{i=1}^{n}{\norm{u \frac{\partial_c v}{\partial x_i}}_{L^1 (\Omega)}} \leq \\
+		\leq \norm{u}_{L^p (\Omega)}\norm{v}_{L^{p^*} (\Omega)} + \sum\limits_{i=1}^{n}{\left( \norm{\frac{\partial_c u}{\partial x_i}}_{L^p (\Omega)} \norm{v}_{L^{p^*} (\Omega)} \right)} + \sum\limits_{i=1}^{n}{\left(\norm{\frac{\partial_c v}{\partial x_i}}_{L^{p^*} (\Omega)} \norm{u}_{L^p (\Omega)} \right)} \leq \\ \leq (2n+1) \norm{u}_{1, p, \Omega} \norm{v}_{1, p^*, \Omega}
+	\end{multline*}
+	Итого
+	\begin{equation}
+		\norm{uv}_{1, 1, \Omega} \leq (2n+1)\norm{u}_{1, p, \Omega}\norm{v}_{1, p^*, \Omega}
+	\end{equation}
+	Т.к. $u_k \to u$ в $W_p^1 (\Omega)$, то $\exists M \geq 0: \norm{u_k}_{1, p, \Omega} \leq M, \forall k \in \Natural$ и воспользовавшись этим получаем
+	\begin{multline*}
+		\cdots \leq (2n+1)\norm{u_k}_{1, p, \Omega}\norm{v_k - v}_{1, p^*, \Omega} + (2n+1)\norm{u_k - u}_{1, p, \Omega}\norm{v}_{1, p^*, \Omega} \leq \\ \leq
+		(2n+1) \left( M \norm{v_k - v}_{1, p^*, \Omega} + \norm{u_k - u}_{1, p, \Omega} \norm{v}_{1, p^*, \Omega} \right) \to 0
+	\end{multline*}
+	т.к. $\norm{v_k - v}_{1, p^*, \Omega} \to 0$ и $\norm{u_k - u}_{1, p, \Omega} \to 0$ т.е. действительно $\norm{u_k v_k - uv}_{1, 1, \Omega} \to 0$, ч.т.д.
 \end{solution}
 \newpage
 	
