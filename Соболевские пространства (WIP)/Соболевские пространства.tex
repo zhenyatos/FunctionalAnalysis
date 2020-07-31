@@ -846,7 +846,7 @@ $$c  = \frac{1}{\intset{B(0,1)}{e^{\frac{1}{|x|^2 - 1}}dx}}$$
 \begin{lemma}{}{}
 	Пусть $\Omega \subset \Real^n$ -- выпуклая ограниченная область и $u \in C^1 (\overline{\Omega})$, тогда $\forall p > n$:
 	\begin{equation*}
-		\left|u(x) - \frac{1}{\mu(\Omega)}\intset{\Omega}{u(y)dy}\right| \leq \frac{\diam \Omega}{1 - \frac{n}{p}} \cdot \mu(\Omega)^{-\frac{1}{p}} \cdot \norm{|u^\prime|}_{L^p (\Omega)}
+		\left|u(x) - \frac{1}{\mu(\Omega)}\intset{\Omega}{u(y)dy}\right| \leq \frac{\diam \Omega}{1 - \frac{n}{p}} \cdot \mu(\Omega)^{-\frac{1}{p}} \cdot \norm{|u^\prime|}_{L^p (\Omega)}, \forall x \in \overline{\Omega}
 	\end{equation*}
 \end{lemma}
 \begin{proof}
@@ -886,13 +886,41 @@ $$c  = \frac{1}{\intset{B(0,1)}{e^{\frac{1}{|x|^2 - 1}}dx}}$$
 	\end{multline*}
 \end{proof}
 
-\begin{lemma}{}{}
-	Пусть $u \in C^1 (\overline{B(0, 4R)})$, тогда для $\forall p > n \ \exists C = C(n, p)$ такое что
+\begin{lemma}{}{}\label{lemma:1}
+	Пусть $u \in C^1 (\overline{B(0, 4R)})$, тогда для $\forall p > n \ \exists C = C(n, p, R)$ такое что
 	\begin{equation*}
 		\norm{u}_{C^{0, \bar{\alpha}}(\overline{B(0, R)})} \leq C \norm{u}_{1, p, B(0, 4R)}
 	\end{equation*}
 	, где $\bar{\alpha} = 1 - \frac{n}{p}$
 \end{lemma}
+\begin{proof}
+	Введем обозначения $B_R = B(0, R)$ и $B_{4R} = B(0, 4R)$. \\ По определению
+	\begin{equation*}
+		\norm{u}_{C^{0, \bar{\alpha}} (\overline{B_R})} = \norm{u}_{C (\overline{B_R})} + [u]_{\bar{\alpha}, \overline{B_R}}
+	\end{equation*}
+	\textbf{1.} По предыдудыщей \hyperref[lemma:1]{лемме} получаем 
+	\begin{equation*}
+		\left| u(x) - \frac{1}{\mu(B_R)} \intset{B_R}{u(y) dy}  \right| \leq \underbrace{\frac{\overbrace{\diam B_R}^{2R}}{1 - \frac{n}{p}} \cdot \mu(B_R)^{-\frac{1}{p}}}_{C_0} \cdot \norm{|u^\prime|}_{L^p (B_R)}, \forall x \in \overline{B_R}
+	\end{equation*}
+	видим что $C_0 = C_0(n, p, R)$, используя обратное неравенство треугольника получаем
+	\begin{multline*}
+		|u(x)| \leq \frac{1}{\mu(B_R)} \intset{B_R}{|u(y)| dy} + C_0 \norm{ |u^\prime| }_{L^p (B_R)} \overset{\text{н-во Гельдера}}{\leq} \\ \leq \mu(B_R)^{-1} \left( \intset{B_R}{|u(y)|^p dy} \right)^{\frac{1}{p}} \left( \intset{B_R}{1^{p^*} dy} \right)^{\frac{1}{p^*}} + C_0 \norm{ |u^\prime|}_{L^p (B_R)} = \\ = \mu(B_R)^{\frac{1}{p}} \norm{u}_{L^p (B_R)} + C_0 \norm{ |u^\prime| }_{L^p (B_R)} \leq \cdots
+	\end{multline*}
+	теперь заметим что
+	\begin{multline*}
+		\norm{ |u^\prime| }_{L^p (B_R)} = \left( \intset{B_R}{\left( \sqrt{\sum\limits_{i=1}^{n}{\left|\frac{\partial u}{\partial x_i}\right|^2}} \right)^{p} dx} \right)^{\frac{1}{p}} \leq \left( \intset{B_R}{\left( \sqrt{n} \sum\limits_{i=1}^{n}{\left| \frac{\partial u}{\partial x_i}\right|} \right)^{p} dx} \right)^{\frac{1}{p}} \leq \\ \leq
+		n^{\frac{3}{2}} \left( \intset{B_R}{\left( \frac{1}{n} \sum\limits_{i=1}^{n}{\left| \frac{\partial u}{\partial x_i}\right|} \right)^{p} dx} \right)^{\frac{1}{p}} \leq n^{\frac{3}{2}} \left( \intset{B_R}{\frac{1}{n} \sum\limits_{i=1}^{n}{\left| \frac{\partial u}{\partial x_i}\right|^{p}} dx} \right)^{\frac{1}{p}} = n^{\frac{3}{2} - \frac{1}{p^*}} |u|_{1, p, B_R}
+	\end{multline*}
+	итого т.к. $\alpha \norm{u}_{L^p (B_R)} + \beta |u|_{1, p, B_R} \leq 2 \max\{\alpha, \beta\} \norm{u}_{1, p, B_R}$, то
+	\begin{equation*}
+		\cdots \leq \mu(B_R)^{\frac{1}{p}} \norm{u}_{L^p (B_R)} + C_0 n^{\frac{3}{2} - \frac{1}{p^*}} |u|_{1, p, B_R} \leq C_1(n, p, R) \norm{u}_{1, p, B_R}
+	\end{equation*}
+	значит и 
+	\begin{equation*}
+		\norm{u}_{C(\overline{B_R})} = \sup\limits_{x \in \overline{B_R}}{|u(x)|} \leq C_1 \norm{u}_{1, p, B_R}
+	\end{equation*} \\
+	\textbf{2.} 
+\end{proof}
 
 \begin{theorem}{2-ая теорема вложений Соболева}{}
 	Пусть $\Omega$ -- липшицева ограниченная область, тогда
