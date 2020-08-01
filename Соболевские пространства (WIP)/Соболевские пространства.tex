@@ -907,19 +907,44 @@ $$c  = \frac{1}{\intset{B(0,1)}{e^{\frac{1}{|x|^2 - 1}}dx}}$$
 		|u(x)| \leq \frac{1}{\mu(B_R)} \intset{B_R}{|u(y)| dy} + C_0 \norm{ |u^\prime| }_{L^p (B_R)} \overset{\text{н-во Гельдера}}{\leq} \\ \leq \mu(B_R)^{-1} \left( \intset{B_R}{|u(y)|^p dy} \right)^{\frac{1}{p}} \left( \intset{B_R}{1^{p^*} dy} \right)^{\frac{1}{p^*}} + C_0 \norm{ |u^\prime|}_{L^p (B_R)} = \\ = \mu(B_R)^{\frac{1}{p}} \norm{u}_{L^p (B_R)} + C_0 \norm{ |u^\prime| }_{L^p (B_R)} \leq \cdots
 	\end{multline*}
 	теперь заметим что
-	\begin{multline*}
+	\begin{multline}\label{eq:2}
 		\norm{ |u^\prime| }_{L^p (B_R)} = \left( \intset{B_R}{\left( \sqrt{\sum\limits_{i=1}^{n}{\left|\frac{\partial u}{\partial x_i}\right|^2}} \right)^{p} dx} \right)^{\frac{1}{p}} \leq \left( \intset{B_R}{\left( \sqrt{n} \sum\limits_{i=1}^{n}{\left| \frac{\partial u}{\partial x_i}\right|} \right)^{p} dx} \right)^{\frac{1}{p}} \leq \\ \leq
 		n^{\frac{3}{2}} \left( \intset{B_R}{\left( \frac{1}{n} \sum\limits_{i=1}^{n}{\left| \frac{\partial u}{\partial x_i}\right|} \right)^{p} dx} \right)^{\frac{1}{p}} \leq n^{\frac{3}{2}} \left( \intset{B_R}{\frac{1}{n} \sum\limits_{i=1}^{n}{\left| \frac{\partial u}{\partial x_i}\right|^{p}} dx} \right)^{\frac{1}{p}} = n^{\frac{3}{2} - \frac{1}{p^*}} |u|_{1, p, B_R}
-	\end{multline*}
+	\end{multline}
 	итого т.к. $\alpha \norm{u}_{L^p (B_R)} + \beta |u|_{1, p, B_R} \leq 2 \max\{\alpha, \beta\} \norm{u}_{1, p, B_R}$, то
 	\begin{equation*}
 		\cdots \leq \mu(B_R)^{\frac{1}{p}} \norm{u}_{L^p (B_R)} + C_0 n^{\frac{3}{2} - \frac{1}{p^*}} |u|_{1, p, B_R} \leq C_1(n, p, R) \norm{u}_{1, p, B_R}
 	\end{equation*}
 	значит и 
-	\begin{equation*}
+	\begin{equation}\label{eq:3}
 		\norm{u}_{C(\overline{B_R})} = \sup\limits_{x \in \overline{B_R}}{|u(x)|} \leq C_1 \norm{u}_{1, p, B_R}
-	\end{equation*} \\
-	\textbf{2.} 
+	\end{equation} \\
+	\textbf{2.} Пусть $\Omega = B\left(\frac{x_0 + y_0}{2}, \frac{|x_0 - y_0|}{2}\right)$ для $x_0, y_0 \in \overline{B_R}$. Пусть $x \in \Omega$, тогда
+	\begin{equation*}
+		|x| \leq \left|x - \frac{x_0 + y_0}{2}\right| + \left|\frac{x_0 + y_0}{2}\right| \leq \frac{|x_0 - y_0|}{2} + \frac{|x_0|}{2} + \frac{|y_0|}{2} < 2R
+	\end{equation*}
+	т.е. $x \in B(0, 2R)$, значит $\Omega \subset B_{2R}$ и $\overline{\Omega} \subset B_{4R}$. Очевидно $x_0, y_0 \in \overline{\Omega}$, заметим что
+	\begin{multline*}
+		|u(x_0) - u(y_0)| \leq \left|u(x_0) - \frac{1}{\mu(\Omega)} \intset{\Omega}{u(y) dy}\right| + \left| u(y_0) - \frac{1}{\mu(\Omega)} \intset{\Omega}{u(y) dy} \right| \leq \\ \leq 
+		\frac{2 \diam \Omega}{1 - \frac{n}{p}} \cdot \mu(\Omega)^{-\frac{1}{p}} \cdot \norm{|u^\prime|}_{L^p (\Omega)} = \cdots
+	\end{multline*}
+	заметим что поскольку $\Omega$ это шар, то его диаметр это удвоенный радиус т.е. $\diam \Omega = |x_0 - y_0|$, а мера, как несложно показать с применением теоремы о геометрическом смысле интеграла Лебега пропорциональная $n$-ой степени диаметра т.е. $\mu(\Omega) = C_2 (n) |x_0 - y_0|^n$, так что
+	\begin{equation*}
+		\cdots = \frac{2 |x_0 - y_0|}{1 - \frac{n}{p}} \cdot C_2^{-\frac{1}{p}} (n) |x_0 - y_0|^{-\frac{n}{p}} \cdot \norm{|u^\prime|}_{L^p (\Omega)} \leq C_3 (n, p) |x_0 - y_0|^{1 - \frac{n}{p} = \bar{\alpha}} |u|_{1, p, B_{4R}}
+	\end{equation*}
+	последний переход выполнен при помощи \eqref{eq:2} с учетом $\Omega \subset B_{4R}$. Итого
+	\begin{equation*}
+		|u(x_0) - u(y_0)| \leq  C_3 |x_0 - y_0|^{\bar{\alpha}} |u|_{1, p, B_{4R}}, \forall x_0, y_0 \in \overline{B_R}
+	\end{equation*}
+	т.е. 
+	\begin{equation}\label{eq:4}
+		[u]_{\bar{\alpha}, \overline{B_R}} \leq [u]_{\bar{\alpha}, \overline{\Omega}} \leq C_3 (n, p) |u|_{1, p, B_{4R}}
+	\end{equation}
+	\textbf{3.} Объединив \eqref{eq:3} и \eqref{eq:4} получаем
+	\begin{equation*}
+		\norm{u}_{C^{0, \bar{\alpha} (\overline{B_R})}} \leq C_1 \norm{u}_{1, p, B_R} + C_3 |u|_{1, p, B_{4R}} \leq C_1 \norm{u}_{1, p, B_{4R}} + C_3 \norm{u}_{1, p, B_{4R}} \leq C \norm{u}_{1, p, B_{4R}}
+	\end{equation*}
+	где $C = C_1 (n, p, R) + C_3 (n, p) = C(n, p, R)$, ч.т.д.
 \end{proof}
 
 \begin{theorem}{2-ая теорема вложений Соболева}{}
