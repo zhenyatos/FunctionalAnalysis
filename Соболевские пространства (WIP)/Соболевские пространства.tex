@@ -567,7 +567,7 @@ $$c  = \frac{1}{\intset{B(0,1)}{e^{\frac{1}{|x|^2 - 1}}dx}}$$
 
 \subsection{Разбиения единицы}
 
-\begin{theorem}{О разбиении единицы}{}
+\begin{theorem}{О разбиении единицы}{}\label{th:3}
 	Пусть $K$ -- компакт, $K \subset \bigcup\limits_{i=1}^m {\Omega_i}$, где $\Omega_i$ -- открытое ограниченное множество, тогда $\exists \varphi_1, ..., \varphi_m \in C_0^\infty (\Real^n)$:
 	\begin{enumerate}
 		\item $\supp \varphi_i \ssubset \Omega_i$
@@ -628,7 +628,7 @@ $$c  = \frac{1}{\intset{B(0,1)}{e^{\frac{1}{|x|^2 - 1}}dx}}$$
 	Пусть $k \in \Natural \cap \{+\infty\}$, $\Omega$ -- область класса $C^k$ если она липшицева и \\  $\varphi \in C^k (\overline{B^\prime})$
 \end{definition}
 
-\begin{theorem}{Радемахера}{}
+\begin{theorem}{Радемахера}{}\label{th:2}
 	Липшицева функция п.в. дифференцируема и производная ограничена константой Липшица.
 \end{theorem}
 Таким образом многие построения для областей класса $C^1$ справедливы и для липшицевых областей.
@@ -998,9 +998,9 @@ E_\Omega = \{ x^\prime \in E \ | \ (x^\prime, \varphi(x^\prime) \in \Omega)\} \s
 \begin{equation*}
 \mu_S (\Omega) = \intset{E_\Omega}{\sqrt{1 + \sum\limits_{i=1}^{n}{\frac{\partial \varphi}{\partial x_i} (x^\prime)}}dx^\prime}
 \end{equation*}
-Пусть $f : S \to \overline{R}$, введем несколько определений
+Пусть $f : S \to \overline{\Real}$, введем несколько определений
 
-\begin{definition}{Измеримость на поверхности}{}
+\begin{definition}{Измеримая функция на поверхности}{}
 	$f$ измерима на $S$ если $S[f \leq \alpha]$ -- измеримо в $S, \forall \alpha \in \Real$ 
 \end{definition}
 
@@ -1026,6 +1026,61 @@ E_\Omega = \{ x^\prime \in E \ | \ (x^\prime, \varphi(x^\prime) \in \Omega)\} \s
 
 \subsection{Интеграл Лебега по границе области}
 
+Пусть $\Omega$ -- ограниченная бласть в $\Real^n$, $\partial \Omega \in C^1$ (для $C^{0,1}$ с использованием \hyperref[th:2]{теоремы Радемахера} будет аналогично). Как следует из определения области класса $C^1$: $\forall x_0 \in \partial \Omega$
+\begin{equation*}
+	\exists R, L > 0 \ \exists \varphi \in C^{0, 1} (B^\prime) \ \exists Q_{x_0} \in \text{SO}(n)
+\end{equation*}
+такие что в системе координат $y = Q_{x_0} (x - x_0)$:
+\begin{align*}
+	B^\prime &= \{ y^\prime \in \Real^{n-1} \ | \ |y^\prime| < R \} \\
+	C_{x_0} &= C_{R, 2RL} \\
+	\partial \Omega \cap \overline{C_{x_0}} &= \{ y \in \Real^n \ | \ (|y^\prime| \leq R) \wedge (y_n = \varphi(y^\prime)) \} \\
+	\Omega \cap \overline{C_{x_0}} &= \{ y \in \Real^n \ | \ (|y^\prime| \leq R) \wedge (-2RL < y_n < \varphi(y^\prime)) \}
+\end{align*}
+и поскольку $x_0 \in C_{x_0}$, то $\partial \Omega \subset \bigcup\limits_{x_0 \in \partial \Omega}{C_{x_0}}$, $\partial \Omega$ -- компакт, так что
+\begin{equation*}
+	\exists C_1 = C_{x_1}, ..., C_m = C_{x_m}: \ \partial \Omega \subset \bigcup\limits_{i=1}^{m}{C_m}
+\end{equation*}
+значит по \hyperref[th:3]{теореме о разбиении единицы} получаем что $\exists \psi_1, ..., \psi_m \in C^\infty (\Real^n)$:
+\begin{enumerate}
+	\item $0 \leq \psi_i \leq 1$
+	\item $\supp \psi_i \ssubset C_i, \forall i \in \{1, ..., m\}$
+	\item $\sum\limits_{i=1}^{m}{\psi_i} = 1$ на $\partial \Omega$
+\end{enumerate}
+Пусть теперь $\Gamma \subset \partial \Omega$ и $\Gamma_i = \Gamma \cap C_i$. Заметим что $\partial \Omega \cap C_i \subset \Real^n$ имеет вид
+\begin{equation*}
+	\partial \Omega \cap C_i = \{ (y^\prime, y_n) \in \Real^n \ | \ (y^\prime \in B_i^\prime) \wedge (y_n = \varphi_i (y^\prime)) \}
+\end{equation*}
+где $B_i^\prime = \{ y^\prime \in \Real^{n-1} \ | \ |y^\prime| < R_i \}$ и $R_i, \varphi_i$ получены из определения области класса $C^1$ для точки $x_i$. Определим $(B_i^\prime)_{\Gamma_i} = \{ y^\prime \in B_i^\prime \ | \ (y^\prime, \varphi_i (y^\prime)) \in \Gamma_i)\}$, тогда в терминах предыдущего параграфа можно определить все что нам нужно.
+
+\begin{definition}{Измеримость на границе области}{}
+	$\Gamma$ -- измеримо на $\partial \Omega$, если $(B_i^\prime)_{\Gamma_i}$ измеримо в $\Real^{n-1}$ для всякого $i \in \{1, ..., m\}$, причем задана мера
+	\begin{equation*}
+		\mu_{\partial \Omega}(\Gamma) = \sum\limits_{i=1}^{m}{\intset{\Gamma_i}{\psi_i d (\partial \Omega \cap C_i)}} = \sum\limits_{i=1}^{m}{\intset{(B_i^\prime)_{\Gamma_i}}{\psi_i (y^\prime, \varphi_i (y^\prime)) \sqrt{1 + \sum\limits_{k=1}^{n-1}{\frac{\partial \varphi_i}{\partial (y^\prime)_k} (y^\prime)}} dy^\prime} }
+	\end{equation*}
+\end{definition}
+Функции $\psi_i$ нужны для того чтобы забить пересечения карт границы области. Пусть $f : \partial \Omega \to \overline{\Real}$
+
+\begin{definition}{Измеримая функция на границе области}{}
+	$f$ измерима на $\partial \Omega$ если $\partial \Omega [f \leq \alpha]$ -- измеримо на $\partial \Omega, \forall \alpha \in \Real$
+\end{definition}
+
+\begin{definition}{Суммируемость на границе области}{}
+	$f$ суммируема на $\Gamma \subset \partial \Omega$ если
+	\begin{equation*}
+		\forall i \in \{1, ..., m\} \ \exists \intset{\Gamma_i}{f \psi_i d(\partial \Omega \cap C_i)}
+	\end{equation*}
+	тогда
+	\begin{equation*}
+		\intset{\Gamma}{f d(\partial \Omega)} = \sum\limits_{i=1}^{m}{\intset{\Gamma_i}{f \psi_i d(\partial \Omega \cap C_i)}}
+	\end{equation*}
+\end{definition}
+
+Остается проверить что определения корректны, следующее утверждение устанавливает это
+\begin{proposition}{}{}
+	Определение меры на границе и интеграла по границе не зависит от покрытия цилиндрами и разбиения единицы.
+\end{proposition}
+Нетрудно заметить что $L^p (\partial \Omega)$ -- банаховы пространства, сепарабельные при $1 \leq p < \infty$ и рефлексивные при $1 < p < \Omega$, а $L^2 (\partial \Omega)$ -- гильбертово пространство.
 \newpage
 
 \tcblistof[\section*]{def}{Список определений}
