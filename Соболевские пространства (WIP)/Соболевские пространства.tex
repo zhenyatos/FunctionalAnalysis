@@ -846,7 +846,7 @@ $$c  = \frac{1}{\intset{B(0,1)}{e^{\frac{1}{|x|^2 - 1}}dx}}$$
 \begin{lemma}{}{}
 	Пусть $\Omega \subset \Real^n$ -- выпуклая ограниченная область и $u \in C^1 (\overline{\Omega})$, тогда $\forall p > n$:
 	\begin{equation*}
-		\left|u(x) - \frac{1}{\mu(\Omega)}\intset{\Omega}{u(y)dy}\right| \leq \frac{\diam \Omega}{1 - \frac{n}{p}} \cdot \mu(\Omega)^{-\frac{1}{p}} \cdot \norm{|u^\prime|}_{L^p (\Omega)}
+		\left|u(x) - \frac{1}{\mu(\Omega)}\intset{\Omega}{u(y)dy}\right| \leq \frac{\diam \Omega}{1 - \frac{n}{p}} \cdot \mu(\Omega)^{-\frac{1}{p}} \cdot \norm{|u^\prime|}_{L^p (\Omega)}, \forall x \in \overline{\Omega}
 	\end{equation*}
 \end{lemma}
 \begin{proof}
@@ -886,13 +886,66 @@ $$c  = \frac{1}{\intset{B(0,1)}{e^{\frac{1}{|x|^2 - 1}}dx}}$$
 	\end{multline*}
 \end{proof}
 
-\begin{lemma}{}{}
-	Пусть $u \in C^1 (\overline{B(0, 4R)})$, тогда для $\forall p > n \ \exists C = C(n, p)$ такое что
+\begin{lemma}{}{}\label{lemma:1}
+	Пусть $u \in C^1 (\overline{B(0, 4R)})$, тогда для $\forall p > n \ \exists C = C(n, p, R)$ такое что
 	\begin{equation*}
 		\norm{u}_{C^{0, \bar{\alpha}}(\overline{B(0, R)})} \leq C \norm{u}_{1, p, B(0, 4R)}
 	\end{equation*}
 	, где $\bar{\alpha} = 1 - \frac{n}{p}$
 \end{lemma}
+\begin{proof}
+	Введем обозначения $B_R = B(0, R)$ и $B_{4R} = B(0, 4R)$. \\ По определению
+	\begin{equation*}
+		\norm{u}_{C^{0, \bar{\alpha}} (\overline{B_R})} = \norm{u}_{C (\overline{B_R})} + [u]_{\bar{\alpha}, \overline{B_R}}
+	\end{equation*}
+	\textbf{1.} По предыдудыщей \hyperref[lemma:1]{лемме} получаем 
+	\begin{equation*}
+		\left| u(x) - \frac{1}{\mu(B_R)} \intset{B_R}{u(y) dy}  \right| \leq \underbrace{\frac{\overbrace{\diam B_R}^{2R}}{1 - \frac{n}{p}} \cdot \mu(B_R)^{-\frac{1}{p}}}_{C_0} \cdot \norm{|u^\prime|}_{L^p (B_R)}, \forall x \in \overline{B_R}
+	\end{equation*}
+	видим что $C_0 = C_0(n, p, R)$, используя обратное неравенство треугольника получаем
+	\begin{multline*}
+		|u(x)| \leq \frac{1}{\mu(B_R)} \intset{B_R}{|u(y)| dy} + C_0 \norm{ |u^\prime| }_{L^p (B_R)} \overset{\text{н-во Гельдера}}{\leq} \\ \leq \mu(B_R)^{-1} \left( \intset{B_R}{|u(y)|^p dy} \right)^{\frac{1}{p}} \left( \intset{B_R}{1^{p^*} dy} \right)^{\frac{1}{p^*}} + C_0 \norm{ |u^\prime|}_{L^p (B_R)} = \\ = \mu(B_R)^{\frac{1}{p}} \norm{u}_{L^p (B_R)} + C_0 \norm{ |u^\prime| }_{L^p (B_R)} \leq \cdots
+	\end{multline*}
+	теперь заметим что
+	\begin{multline}\label{eq:2}
+		\norm{ |u^\prime| }_{L^p (B_R)} = \left( \intset{B_R}{\left( \sqrt{\sum\limits_{i=1}^{n}{\left|\frac{\partial u}{\partial x_i}\right|^2}} \right)^{p} dx} \right)^{\frac{1}{p}} \leq \left( \intset{B_R}{\left( \sqrt{n} \sum\limits_{i=1}^{n}{\left| \frac{\partial u}{\partial x_i}\right|} \right)^{p} dx} \right)^{\frac{1}{p}} \leq \\ \leq
+		n^{\frac{3}{2}} \left( \intset{B_R}{\left( \frac{1}{n} \sum\limits_{i=1}^{n}{\left| \frac{\partial u}{\partial x_i}\right|} \right)^{p} dx} \right)^{\frac{1}{p}} \leq n^{\frac{3}{2}} \left( \intset{B_R}{\frac{1}{n} \sum\limits_{i=1}^{n}{\left| \frac{\partial u}{\partial x_i}\right|^{p}} dx} \right)^{\frac{1}{p}} = n^{\frac{3}{2} - \frac{1}{p^*}} |u|_{1, p, B_R}
+	\end{multline}
+	итого т.к. $\alpha \norm{u}_{L^p (B_R)} + \beta |u|_{1, p, B_R} \leq 2 \max\{\alpha, \beta\} \norm{u}_{1, p, B_R}$, то
+	\begin{equation*}
+		\cdots \leq \mu(B_R)^{\frac{1}{p}} \norm{u}_{L^p (B_R)} + C_0 n^{\frac{3}{2} - \frac{1}{p^*}} |u|_{1, p, B_R} \leq C_1(n, p, R) \norm{u}_{1, p, B_R}
+	\end{equation*}
+	значит и 
+	\begin{equation}\label{eq:3}
+		\norm{u}_{C(\overline{B_R})} = \sup\limits_{x \in \overline{B_R}}{|u(x)|} \leq C_1 \norm{u}_{1, p, B_R}
+	\end{equation} \\
+	\textbf{2.} Пусть $\Omega = B\left(\frac{x_0 + y_0}{2}, \frac{|x_0 - y_0|}{2}\right)$ для $x_0, y_0 \in \overline{B_R}$. Пусть $x \in \Omega$, тогда
+	\begin{equation*}
+		|x| \leq \left|x - \frac{x_0 + y_0}{2}\right| + \left|\frac{x_0 + y_0}{2}\right| \leq \frac{|x_0 - y_0|}{2} + \frac{|x_0|}{2} + \frac{|y_0|}{2} < 2R
+	\end{equation*}
+	т.е. $x \in B(0, 2R)$, значит $\Omega \subset B_{2R}$ и $\overline{\Omega} \subset B_{4R}$. Очевидно $x_0, y_0 \in \overline{\Omega}$, заметим что
+	\begin{multline*}
+		|u(x_0) - u(y_0)| \leq \left|u(x_0) - \frac{1}{\mu(\Omega)} \intset{\Omega}{u(y) dy}\right| + \left| u(y_0) - \frac{1}{\mu(\Omega)} \intset{\Omega}{u(y) dy} \right| \leq \\ \leq 
+		\frac{2 \diam \Omega}{1 - \frac{n}{p}} \cdot \mu(\Omega)^{-\frac{1}{p}} \cdot \norm{|u^\prime|}_{L^p (\Omega)} = \cdots
+	\end{multline*}
+	заметим что поскольку $\Omega$ это шар, то его диаметр это удвоенный радиус т.е. $\diam \Omega = |x_0 - y_0|$, а мера, как несложно показать с применением теоремы о геометрическом смысле интеграла Лебега пропорциональная $n$-ой степени диаметра т.е. $\mu(\Omega) = C_2 (n) |x_0 - y_0|^n$, так что
+	\begin{equation*}
+		\cdots = \frac{2 |x_0 - y_0|}{1 - \frac{n}{p}} \cdot C_2^{-\frac{1}{p}} (n) |x_0 - y_0|^{-\frac{n}{p}} \cdot \norm{|u^\prime|}_{L^p (\Omega)} \leq C_3 (n, p) |x_0 - y_0|^{1 - \frac{n}{p} = \bar{\alpha}} |u|_{1, p, B_{4R}}
+	\end{equation*}
+	последний переход выполнен при помощи \eqref{eq:2} с учетом $\Omega \subset B_{4R}$. Итого
+	\begin{equation*}
+		|u(x_0) - u(y_0)| \leq  C_3 |x_0 - y_0|^{\bar{\alpha}} |u|_{1, p, B_{4R}}, \forall x_0, y_0 \in \overline{B_R}
+	\end{equation*}
+	т.е. 
+	\begin{equation}\label{eq:4}
+		[u]_{\bar{\alpha}, \overline{B_R}} \leq [u]_{\bar{\alpha}, \overline{\Omega}} \leq C_3 (n, p) |u|_{1, p, B_{4R}}
+	\end{equation}
+	\textbf{3.} Объединив \eqref{eq:3} и \eqref{eq:4} получаем
+	\begin{equation*}
+		\norm{u}_{C^{0, \bar{\alpha} (\overline{B_R})}} \leq C_1 \norm{u}_{1, p, B_R} + C_3 |u|_{1, p, B_{4R}} \leq C_1 \norm{u}_{1, p, B_{4R}} + C_3 \norm{u}_{1, p, B_{4R}} \leq C \norm{u}_{1, p, B_{4R}}
+	\end{equation*}
+	где $C = C_1 (n, p, R) + C_3 (n, p) = C(n, p, R)$, ч.т.д.
+\end{proof}
 
 \begin{theorem}{2-ая теорема вложений Соболева}{}
 	Пусть $\Omega$ -- липшицева ограниченная область, тогда
@@ -928,6 +981,50 @@ $$c  = \frac{1}{\intset{B(0,1)}{e^{\frac{1}{|x|^2 - 1}}dx}}$$
 		\item $u_k \to u$ в $L^r (\Omega)$ для $1 \leq r < q$
 	\end{enumerate}
 \end{lemma}
+
+\section{Граничный интеграл Лебега. Теория следов}
+
+\subsection{Интеграл Лебега по поверхности}
+
+Пусть $S \subset \Real^{n+1}$ определено как
+\begin{equation*}
+S = \{ (x^\prime, x_{n+1}) \in \Real^{n+1} \ | \ (x^\prime \in E) \wedge (x_{n+1} = \varphi(x^\prime))\}
+\end{equation*}
+где $\varphi \in C^1 (\overline{E})$, а $E$ -- ограниченная область в $\Real^n$. У $S$ нет $\mu_n$, а $\mu_{n+1} (S) = 0$. Попробуем ввести меру для $S$. Пусть $\Omega \subset S$ и 
+\begin{equation*}
+E_\Omega = \{ x^\prime \in E \ | \ (x^\prime, \varphi(x^\prime) \in \Omega)\} \subset \Real^n
+\end{equation*}
+Будем говорить что $\Omega$ измеримо в $S$ если $E_\Omega$ измеримо в $\Real^n$ и зададим меру:
+\begin{equation*}
+\mu_S (\Omega) = \intset{E_\Omega}{\sqrt{1 + \sum\limits_{i=1}^{n}{\frac{\partial \varphi}{\partial x_i} (x^\prime)}}dx^\prime}
+\end{equation*}
+Пусть $f : S \to \overline{R}$, введем несколько определений
+
+\begin{definition}{Измеримость на поверхности}{}
+	$f$ измерима на $S$ если $S[f \leq \alpha]$ -- измеримо в $S, \forall \alpha \in \Real$ 
+\end{definition}
+
+\begin{definition}{Суммируемость на поверхности}{}
+	$f$ суммируема на $\Omega \subset S$ если
+	\begin{equation*}
+	\exists \intset{E_\Omega}{f(x^\prime, \varphi(x^\prime)) \sqrt{1 + \sum\limits_{i=1}^{n}{\frac{\partial \varphi}{\partial x_i} (x^\prime)}} dx^\prime}
+	\end{equation*}
+	который обозначают как 
+	\begin{equation*}
+	\intset{\Omega}{fdS}
+	\end{equation*}
+\end{definition}
+
+Свойства интеграла Лебега переносятся, вводится пространство $L^p (S)$:
+\begin{equation*}
+\mathcal{L}^p (S) = \{ f : S \to \Real \ | \ |f|^p \text{ - суммируема на } S \}
+\end{equation*}
+и $L^p (S)$ -- факторпространство $\mathcal{L}^p (S)$ с нормой
+\begin{equation*}
+\norm{f}_{L^p (S)} = \left(\intset{S}{|f|^p dS}\right)^{\frac{1}{p}}
+\end{equation*}
+
+\subsection{Интеграл Лебега по границе области}
 
 \newpage
 
