@@ -594,7 +594,7 @@ $$c  = \frac{1}{\intset{B(0,1)}{e^{\frac{1}{|x|^2 - 1}}dx}}$$
 	\includegraphics[scale=0.3]{images/5.png}
 \end{example}
 
-\begin{theorem}{}{}
+\begin{theorem}{}{}\label{th:5}
 	$C^\infty (\overline{\Omega})$ плотно в $W_p^1 (\Omega)$ если $\Omega$ -- локально звездная область
 \end{theorem}
 
@@ -1072,7 +1072,7 @@ E_\Omega = \{ x^\prime \in E \ | \ (x^\prime, \varphi(x^\prime) \in \Omega)\} \s
 	\end{equation*}
 	тогда
 	\begin{equation*}
-		\intset{\Gamma}{f d(\partial \Omega)} = \sum\limits_{i=1}^{m}{\intset{\Gamma_i}{f \psi_i d(\partial \Omega \cap C_i)}}
+		\intset{\Gamma}{f dS} = \sum\limits_{i=1}^{m}{\intset{\Gamma_i}{f \psi_i d(\partial \Omega \cap C_i)}}
 	\end{equation*}
 \end{definition}
 
@@ -1081,6 +1081,61 @@ E_\Omega = \{ x^\prime \in E \ | \ (x^\prime, \varphi(x^\prime) \in \Omega)\} \s
 	Определение меры на границе и интеграла по границе не зависит от покрытия цилиндрами и разбиения единицы.
 \end{proposition}
 Нетрудно заметить что $L^p (\partial \Omega)$ -- банаховы пространства, сепарабельные при $1 \leq p < \infty$ и рефлексивные при $1 < p < \Omega$, а $L^2 (\partial \Omega)$ -- гильбертово пространство.
+
+\subsection{Оператор следа}
+
+\begin{theorem}{}{}\label{th:4}
+	Пусть $\Omega$ -- ограниченная область, $\partial \Omega \in C^{0, 1}$ и $1 \leq p < \infty$.  Тогда \\ $\exists C = C(n, p, \Omega)$:
+	\begin{equation*}
+		\norm{u}_{L^p (\partial \Omega)} \leq C \norm{u}_{1, p, \Omega}, \forall u \in C^1 (\overline{\Omega})
+	\end{equation*}
+\end{theorem}
+Следствием этой теоремы является
+\begin{proposition}{}{}
+	Пусть выполнены условия \hyperref[th:4]{теоремы}, тогда $\forall \varepsilon > 0 \exists C = C(\varepsilon, n, p, \Omega)$:
+	\begin{equation*}
+		\norm{u}_{L^p (\partial \Omega)} \leq \varepsilon |u|_{1, p, \Omega} + C\norm{u}_{L^p (\Omega)}, \forall u \in C^1 (\overline{\Omega})
+	\end{equation*}
+\end{proposition}
+
+Введя необходимые технические утверждения, можно приступить к определению оператора следа. Пусть $\partial \Omega \in C^{0, 1}$ и $\gamma_0: W_p^1 (\Omega) \to L^p (\partial \Omega)$ с областью определения $D(\gamma_0) = C^1 (\overline{\Omega})$. Сам оператор действует следующим образом
+\begin{equation*}
+	\gamma_0 u = u|_{\partial \Omega}
+\end{equation*}
+т.е. это оператор сужения, так что он линеен, к тому же ограничен по теореме из начала параграфа, а т.к. $C^\infty (\overline{\Omega}) \subset C^1 (\overline{\Omega})$, то по \hyperref[th:5]{теореме} -- $C^1 (\overline{\Omega}) = D(\gamma_0)$ всюду плотное в $W_p^1 (\Omega)$ множество и по теореме о продолжении оператора со всюду-плотной областью определения (применима ведь $L^p (\partial \Omega)$ банаховы) получаем
+
+\begin{definition}{Оператор следа}{}
+	Пусть $\Omega$ -- ограниченная липшицева область, оператором следа \\ $\gamma: W_p^1 (\Omega) \to L^p (\partial \Omega)$ называется продолжение оператора $\gamma_0$ на $W_p^1 (\Omega)$	
+	Теперь мы можем ввести обозначение
+	\begin{equation*} 
+		u|_{\partial \Omega} = \gamma u, \forall u \in W_p^1 (\Omega)
+	\end{equation*}
+	это и есть след функции, причем для $u \in C^1 (\overline{\Omega})$ совпадает с определением сужения.
+\end{definition}
+\textbf{Замечание:} оператор следа устанавливает вложение $W_p^1 (\Omega) \arrsubset L^p (\partial \Omega)$, вложить подобным образом $L^p (\Omega)$ в $L^p (\partial \Omega)$ нельзя (!).
+
+\begin{theorem}{}{}
+	Для $1 < p < \infty$, $\gamma$ -- компактный оператор
+\end{theorem}
+Иначе говоря $W_p^1 (\Omega) \arrsubset\arrsubset L^p (\partial \Omega)$
+
+\subsection{Свойства функций из пространств Соболева, связанные со следами}
+
+\begin{theorem}{Интегрирование по частям}{}
+	Пусть $u \in W_p^1 (\Omega)$, $v \in W_{p^*}^1 (\Omega)$, $\partial \Omega \in C^{0, 1}$, тогда
+	\begin{equation*}
+		\intset{\Omega}{u \frac{\partial_c v}{\partial x_i} dx} = \intset{\partial \Omega}{u|_{\partial \Omega} \cdot v|_{\partial \Omega} n_i dS} - \intset{\Omega}{v \frac{\partial_c u}{\partial x_i} dx}
+	\end{equation*}
+	где $n_i$ -- $i$-ая координата нормали $n$ к $\partial \Omega$.
+\end{theorem}
+
+\begin{theorem}{}{}
+	Пусть $\partial \Omega \in C^{0, 1}$, тогда
+	\begin{equation*}
+		\mathring{W_p^1} (\Omega) = \{ u \in W_p^1 (\Omega) \ | \ u|_{\partial \Omega} = 0\}
+	\end{equation*}
+\end{theorem}
+
 \newpage
 
 \tcblistof[\section*]{def}{Список определений}
