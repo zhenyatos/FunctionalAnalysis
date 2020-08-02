@@ -5,6 +5,7 @@
 \usepackage[left=3cm,right=3cm,
 top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 \usepackage{amsthm,amssymb,amsfonts,amsmath}
+\usepackage{cancel}
 \hypersetup{
 	colorlinks   = true, 
 	urlcolor     = blue, 
@@ -40,6 +41,7 @@ top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 \newcommand{\setbuild}[2]{\{#1\:|\:#2\}}
 \newcommand{\seq}[2]{\{#1\}_{#2}}
 \DeclareMathOperator{\dist}{dist}
+\DeclareMathOperator{\sign}{sign}
 
 \begin{document}
 \begin{abstract}
@@ -120,7 +122,33 @@ top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 \end{solution}
 \newpage
 
-\addtocounter{exercise}{8}
+\addtocounter{exercise}{7}
+
+\begin{exercise}
+	Чему равна производная в смысле распределений функции \\ $f(x) = \sin{x} \cdot \sign{x}$? Будет ли эта функция принадлежать пространству $W_2^1 ((-1, 1))$?
+\end{exercise}
+\begin{solution}
+	Выясним какое распределение соответствует этой функции, пусть $\varphi \in C_0^\infty ((-1, 1))$, тогда
+	\begin{equation*}
+		T_f (\varphi) = \int\limits_{-1}^{1}{\sin{x} \cdot \sign{x} \cdot \varphi (x) dx} = \int\limits_{0}^{1}{\sin{x} \cdot \varphi(x) dx} - \int\limits_{-1}^{0}{\sin{x} \cdot \varphi(x) dx}
+	\end{equation*}
+	тогда производная в смысле распределений:
+	\begin{equation*}
+		\frac{d}{dx} T_f (\varphi) = - T_f \left(\frac{d\varphi}{dx}\right) = \int\limits_{-1}^{0}{\sin{x} \cdot \frac{d\varphi}{dx} (x) dx} - \int\limits_{0}^{1}{\sin{x} \cdot \frac{d\varphi}{dx} (x) dx} 
+	\end{equation*}
+	Найдем производную в смысле Соболева, применив интегрирование по частям:
+	\begin{multline*}
+		\frac{d}{dx} T_f (\varphi) = \int\limits_{-1}^{0}{\sin{x} \cdot \frac{d\varphi}{dx} (x) dx} - \int\limits_{0}^{1}{\sin{x} \cdot \frac{d\varphi}{dx} (x) dx} = \\ = 
+		\cancelto{0}{\left( \sin{x} \cdot \frac{d\varphi}{dx} (x) \biggr\rvert_{-1}^{0} \right)} - \int\limits_{-1}^{0}{\cos{x} \cdot \varphi(x) dx} - \cancelto{0}{\left( \sin{x} \cdot \frac{d\varphi}{dx} (x) \biggr\rvert_{0}^{1} \right)} + \int\limits_{0}^{1}{\cos{x} \cdot \varphi(x) dx} = \\ = \int\limits_{-1}^{1}{\cos{x} \cdot \sign{x} \cdot \varphi(x) dx} = T_g (\varphi)
+	\end{multline*}
+	где $g(x) = \cos{x} \cdot \sign{x}$, тогда по определению $\frac{d_c f}{dx} = g$. Остается заметить что $f, \frac{d_c f}{dx} \in L^2 ((-1, 1))$ т.к. $\sign^2 {x} = 1$ п.в. на $(-1, 1)$ и
+	\begin{align*}
+		\int\limits_{-1}^{1}{|f|^2 dx} &= \int\limits_{-1}^{1}{\sin^2 {x} dx} < \infty \\
+		\int\limits_{-1}^{1}{\left|\frac{d_c f}{dx}\right|^2 dx} &= \int\limits_{-1}^{1}{\cos^2 {x} dx} < \infty
+	\end{align*}
+	откуда по определению $f \in W_2^1 ((-1, 1))$
+\end{solution}
+\newpage
 
 \begin{exercise}
 	Пусть $\Omega$ -- липшицева область. Пусть $u \in W_p^1 (\Omega), v \in W_{p^*}^1 (\Omega)$ и $\{u_k\}_{k\in\Natural}, \{v_k\}_{k\in\Natural} \subset C^\infty (\overline{\Omega})$ таковы что $u_k \to u$ в $W_p^1 (\Omega)$, $v_k \to v$ в $W_{p^*}^1 (\Omega)$. Показать что $u_k v_k \to u v$ в $W_1^1 (\Omega)$
