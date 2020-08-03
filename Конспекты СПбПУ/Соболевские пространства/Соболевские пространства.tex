@@ -107,13 +107,15 @@ list inside={def}]
 \DeclareMathOperator\diam{diam}
 \DeclareMathOperator{\bounded}{B}
 
+\date{}
 \title{Соболевские пространства}
+\author{Самутичев Е.Р.}
 
 \begin{document}
 	
 \maketitle
 \begin{abstract}
-	Собраны основные понятия и утверждения курса, без доказательств (возможно они появятся в будущем)
+	Собраны основные понятия и утверждения курса лекций, читаемых С.В. Лупуляком в СПбПУ. Крайне избирательно присутствуют доказательства. Конспект удобно использовать как справочник, в конце есть список определений. 
 \end{abstract}
 
 \section{Усреднение функций}
@@ -877,9 +879,10 @@ $$c  = \frac{1}{\intset{B(0,1)}{e^{\frac{1}{|x|^2 - 1}}dx}}$$
 		\left|u(x) - \frac{1}{\mu(\Omega)} \intset{\Omega}{u(y)dy}\right| \leq 
 		\mu(\Omega)^{-1} \int_{0}^{1}{\frac{dt}{t^{n+1}} \intset{\Omega(t)}{|(u^\prime (z), z-x)| dz}} \overset{\text{н-во К-Б-Ш}}{\leq} \\ \leq 
 		\mu(\Omega)^{-1} \int_{0}^{1}{\frac{dt}{t^{n+1}} \intset{\Omega(t)}{|u^\prime (z)||z-x| dz}} \overset{\text{н-во Гельдера}}{\leq} \\ \leq 
-		\mu(\Omega)^{-1} \int_{0}^{1}{\frac{dt}{t^{n+1}} \left(\intset{\Omega(t)}{|u^\prime (z)|^p dz}\right)^{\frac{1}{p}} \left(\intset{\Omega(t)}{|z-x|^{p^*} dz}\right)^{\frac{1}{p^*}} } \leq \\ \leq 
-		\mu(\Omega)^{-1} \norm{|u^\prime|}_{L^p (\Omega)} \int_{0}^{1}{\frac{dt}{t^{n+1}} \left(\intset{\Omega(t)}{|z-x|^{p^*} dz}\right)^{\frac{1}{p^*}}} = \\ =
-		\mu(\Omega)^{-1} \norm{|u^\prime|}_{L^p (\Omega)} \int_{0}^{1}{\frac{dt}{t^{n+1}} \left(\intset{\Omega}{|t(y - x)|^{p^*} t^n dy}\right)^{\frac{1}{p^*}}} = \\ =
+		\mu(\Omega)^{-1} \int_{0}^{1}{\frac{dt}{t^{n+1}} \left(\intset{\Omega(t)}{|u^\prime (z)|^p dz}\right)^{\frac{1}{p}} \left(\intset{\Omega(t)}{|z-x|^{p^*} dz}\right)^{\frac{1}{p^*}} } \leq \\ \leq \mu(\Omega)^{-1} \norm{|u^\prime|}_{L^p (\Omega)} \int_{0}^{1}{\frac{dt}{t^{n+1}} \left(\intset{\Omega(t)}{|z-x|^{p^*} dz}\right)^{\frac{1}{p^*}}} = \cdots
+	\end{multline*}
+	\begin{multline*}
+		\cdots = \mu(\Omega)^{-1} \norm{|u^\prime|}_{L^p (\Omega)} \int_{0}^{1}{\frac{dt}{t^{n+1}} \left(\intset{\Omega}{|t(y - x)|^{p^*} t^n dy}\right)^{\frac{1}{p^*}}} = \\ =
 		\mu(\Omega)^{-1} \norm{|u^\prime|}_{L^p (\Omega)} \int_{0}^{1}{\frac{t\cdot t^{\frac{n}{p^*}}dt}{t^{n+1}} \left(\intset{\Omega}{|y - x|^{p^*} dy}\right)^{\frac{1}{p^*}}} \overset{|y-x| \leq \diam \Omega}{\leq} \\ \leq 
 		\mu(\Omega)^{-1} \norm{|u^\prime|}_{L^p (\Omega)} \mu(\Omega)^{\frac{1}{p^*}} \diam \Omega \int_{0}^{1}{\frac{dt}{t^{n-\frac{n}{p^*}}}} = \\ =
 		\mu(\Omega)^{-1 + \frac{1}{p^*}} \norm{|u^\prime|}_{L^p (\Omega)} \diam \Omega \left(\frac{t^{-\frac{n}{p} + 1}}{-\frac{n}{p} + 1} \bigg\rvert_0^1\right) = \frac{\diam \Omega}{1 - \frac{n}{p}} \norm{|u^\prime|}_{L^p (\Omega)} \mu(\Omega)^{-\frac{1}{p}}
@@ -1127,6 +1130,19 @@ E_\Omega = \{ x^\prime \in E \ | \ (x^\prime, \varphi(x^\prime) \in \Omega)\} \s
 		\intset{\Omega}{u \frac{\partial_c v}{\partial x_i} dx} = \intset{\partial \Omega}{u|_{\partial \Omega} \cdot v|_{\partial \Omega} n_i dS} - \intset{\Omega}{v \frac{\partial_c u}{\partial x_i} dx}
 	\end{equation*}
 	где $n_i$ -- $i$-ая координата нормали $n$ к $\partial \Omega$.
+\end{theorem}
+
+\begin{theorem}{Теорема о склейке}{}
+	Пусть $\Omega_1 \cap \Omega_2 = \emptyset$, $\partial \Omega_1 \in C^{0, 1}, \partial \Omega_2 \in C^{0, 1}$ и $\Omega = \Omega_1 \cup \Omega_2$ (склейка непересекающихся областей). Пусть $\Gamma = \partial \Omega_1 \cap \partial \Omega_2$ (общая граница по которой склеили). Если $u \in W_p^1 (\Omega_1), \\ u \in W_p^1 (\Omega_2)$ и $\mu_{\partial \Omega_1} (\Gamma) = \mu_{\partial \Omega_2} (\Gamma) \neq 0$, то для функции 
+	$u = 
+	\begin{cases}
+		u_1 \text{ в } \Omega_1  \\
+		u_2 \text{ в } \Omega_2  
+	\end{cases}$ справедливо
+	\begin{equation*}
+		\left( u \in W_p^1 (\Omega) \right) \Leftrightarrow \left( u_1|_\Gamma = u_2|_\Gamma \right)
+	\end{equation*}
+	(след этих функций на общей границе должен совпадать)
 \end{theorem}
 
 \begin{theorem}{}{}
