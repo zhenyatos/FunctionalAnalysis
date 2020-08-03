@@ -122,7 +122,67 @@ top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 \end{solution}
 \newpage
 
-\addtocounter{exercise}{7}
+\addtocounter{exercise}{3}
+
+\begin{exercise}
+	Пусть $\Omega = (0, 1)$. Показать что $W_2^1 (\Omega) \neq W_1^1 (\Omega)$
+\end{exercise}
+\begin{solution}
+	Пусть $f: (0, 1) \to \Real$ определена как $f(x) = \sqrt{x}$. Докажем что
+	\begin{equation*}
+		\frac{d_c f}{dx} (x) = \frac{1}{2\sqrt{x}} \text{ на } (0, 1)
+	\end{equation*}
+	для этого возьмем последовательность 
+	\begin{equation*}
+		f_n (x) = 
+		\begin{cases}
+			\sqrt{x}, &x \in (\frac{1}{n}, 1) \\
+			\sqrt{\frac{1}{n}}, &x \in (0, \frac{1}{n}]
+		\end{cases}, \ \forall n \in \Natural
+	\end{equation*}
+	и пусть $\varphi \in C_0^\infty ((0, 1))$, тогда
+	\begin{equation*}
+		T_{f_n} (\varphi) = \int\limits_{0}^{1}{f_n (x) \cdot \varphi(x) dx} = \int\limits_{0}^{\frac{1}{n}}{\sqrt{\frac{1}{n}} \varphi(x) dx} + \int\limits_{\frac{1}{n}}^{1}{\sqrt{x} \cdot \varphi(x) dx}
+	\end{equation*}
+	т.к. $\sqrt{\frac{1}{n}} \in C([0, \frac{1}{n}])$ и $\sqrt{x} \in C([\frac{1}{n}, 1])$, то применимо интегрирование по частям:
+	\begin{multline*}
+		\frac{d}{dx} T_{f_n} (\varphi) = -\int\limits_{0}^{\frac{1}{n}}{\sqrt{\frac{1}{n}} \frac{d \varphi}{dx} (x) dx} - \int\limits_{\frac{1}{n}}^{1}{\sqrt{x} \cdot \frac{d \varphi}{dx} (x) dx} = \\ 
+		= - \left( \sqrt{\frac{1}{n}} \varphi(x) \biggr\rvert_{0}^{\frac{1}{n}}\right) + \int\limits_{0}^{\frac{1}{n}}{\varphi(x) \cdot 0 dx} - \left( \sqrt{x} \varphi(x) \biggr\rvert_{\frac{1}{n}}^{1}\right) + \int\limits_{\frac{1}{n}}^{1}{\frac{1}{2\sqrt{x}} \cdot \varphi(x) dx} = \\
+		 = -\sqrt{\frac{1}{n}} \varphi\left(\frac{1}{n}\right) + \cancelto{0}{\sqrt{\frac{1}{n}}\varphi(0)} + \int\limits_{0}^{1}{\frac{d_c f_n}{dx} (x) \cdot \varphi(x) dx} - \cancelto{0}{\sqrt{1}\varphi(1)} + \sqrt{\frac{1}{n}}\varphi\left(\frac{1}{n}\right) = \\
+		 = \int\limits_{0}^{1}{\frac{d_c f_n}{dx} (x) \cdot \varphi(x) dx}
+	\end{multline*}
+	где
+	\begin{equation*}
+		\frac{d_c f_n}{dx} (x) = 
+		\begin{cases}
+			\frac{1}{2\sqrt{x}}, &x\in (\frac{1}{n}, 1) \\
+			0, &x \in (0, \frac{1}{n}]
+		\end{cases}
+	\end{equation*}
+	пусть теперь $[a, b] \subset (0, 1)$ т.е. $0 < a < b < 1$, тогда $\exists N \in \Natural: \frac{1}{n} < a, \forall n \geq N$ и соответственно $f_n (x) = \sqrt{x}$ на $[a, b]$ т.к. $\frac{1}{n} < a \leq x$, аналогично для $\frac{d_c f_n}{dx}$
+	\begin{align*}
+		\int\limits_{a}^{b}{|f_n (x) - \sqrt{x}| dx} &= \int\limits_{a}^{b}{|\sqrt{x} - \sqrt{x}| dx} = 0 \\
+		\int\limits_{a}^{b}{\left|\frac{d_c f_n}{dx} (x) - \frac{1}{2\sqrt{x}}\right| dx} &= \int\limits_{a}^{b}{\left|\frac{1}{2\sqrt{x}} - \frac{1}{2\sqrt{x}}\right| dx} = 0
+	\end{align*}
+	итого $\norm{f_n (x) - \sqrt{x}}_{L^1 ([a, b])} \to 0$ и $\norm{\frac{d_c f_n}{dx} (x) - \frac{1}{2\sqrt{x}}}_{L^1 ([a, b])} \to 0$, если теперь $K \subset \Omega$ -- компакт, то он содержится в некотором отрезке и сходимость аналогична, так что
+	\begin{align*}
+		f_n \to f &\text{ в } L_{\text{loc}}^1 (\Omega) \\
+		\frac{d_c f_n}{dx} \to g &\text{ в } L_{\text{loc}}^1 (\Omega)
+	\end{align*}
+	где $g(x) = \frac{1}{2\sqrt{x}}$, по признаку обобщенной производной мы доказали. 
+	\begin{equation*}
+		\frac{d_c f}{dx} (x) = g(x) = \frac{1}{2\sqrt{x}} \text{ на } \Omega = (0, 1)
+	\end{equation*}
+	Теперь дело за малым, $f \in C(\overline{\Omega})$ так что $f \in L^1 (\Omega) \cap L^2 (\Omega)$, в тоже время по определению интеграла от неотрицательной функции, через срезки можно доказать
+	\begin{align*}
+		\int\limits_{0}^{1}{\left|\frac{d_c f}{dx} (x)\right| dx} &= \int\limits_{0}^{1}{\frac{1}{2\sqrt{x}} dx} = 1 < \infty \\
+		\int\limits_{0}^{1}{\left|\frac{d_c f}{dx} (x)\right|^2 dx} &= \int\limits_{0}^{1}{\frac{1}{4x} dx} = \frac{1}{4}\int\limits_{0}^{1}{\frac{1}{x} dx} = \infty
+	\end{align*}
+	так что $\frac{d_c f}{dx} \in L^1 (\Omega)$, но $\frac{d_c f}{dx} \notin L^2 (\Omega)$ так что по определению $f \in W_1^1 (\Omega)$, но $f \notin W_2^1 (\Omega)$ и эти множества функций действительно не совпадают.
+\end{solution}
+\newpage
+
+\addtocounter{exercise}{3}
 
 \begin{exercise}
 	Чему равна производная в смысле распределений функции \\ $f(x) = \sin{x} \cdot \sign{x}$? Будет ли эта функция принадлежать пространству $W_2^1 ((-1, 1))$?
