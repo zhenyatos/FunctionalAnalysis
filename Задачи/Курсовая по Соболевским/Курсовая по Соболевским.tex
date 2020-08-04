@@ -1,0 +1,239 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage{hyperref}
+\usepackage[left=3cm,right=3cm,
+top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
+\usepackage{amsthm,amssymb,amsfonts,amsmath}
+\usepackage{cancel}
+\hypersetup{
+	colorlinks   = true, 
+	urlcolor     = blue, 
+	linkcolor    = blue, 
+	citecolor   = red
+}
+
+\theoremstyle{definition}
+\newtheorem{exercise}{Задача}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Решение]}
+{\end{proof}}
+
+\newenvironment{note}
+{\renewcommand\qedsymbol{}\begin{proof}[Примечание]}
+	{\end{proof}}
+
+% Непрерывное вложение
+\makeatletter
+\newcommand{\rightarrowhead}{\mathrel{%
+		\hbox{\let\f@size\sf@size\usefont{U}{lasy}{m}{n}\symbol{41}}}}
+
+\newcommand\arrsubset{\mathrel{\ooalign{$\subset$\cr
+			\hidewidth\raise-0.440ex\hbox{$\rightarrowhead\mkern0.5mu$}}}}
+% Непрерывное вложение
+
+\newcommand{\Real}{\mathbb{R}}
+\newcommand{\Complex}{\mathbb{C}}
+\newcommand{\Natural}{\mathbb{N}}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\conj}[1]{\left(#1\right)^*}
+\newcommand{\setbuild}[2]{\{#1\:|\:#2\}}
+\newcommand{\seq}[2]{\{#1\}_{#2}}
+\DeclareMathOperator{\dist}{dist}
+\DeclareMathOperator{\sign}{sign}
+
+\begin{document}
+\begin{abstract}
+	Везде где не указано иначе, предполагается что $1 < p < \infty$, \\ область $\Omega$ -- односвязная, ограниченная и липшицева
+\end{abstract}
+
+\addtocounter{exercise}{1}
+
+\begin{exercise}
+	Пусть $\Omega \subset \Real^3$. Пусть $u \in C^\infty (\overline{\Omega})$, причем $(u, v)_{W_2^1 (\Omega)} = 0, \forall v \in \mathring{W_2^1} (\Omega)$. Какому дифференциальному уравнению должна удовлетворять функция $u$?
+\end{exercise}
+\begin{solution}
+	$C_0^\infty (\Omega) \subset \mathring{W_2^1} (\Omega)$ т.к. последнее определяется как замыкание первого в $W_2^1 (\Omega)$, а значит
+	\begin{equation}\label{eq:3}
+		(u, v)_{W_2^1 (\Omega)} = \int\limits_{\Omega}{\left(u v + \frac{\partial u}{\partial x} \frac{\partial v}{\partial x} + \frac{\partial u}{\partial y} \frac{\partial v}{\partial y} +  \frac{\partial u}{\partial z} \frac{\partial v}{\partial z}\right) d\mu} = 0, \forall v \in C_0^\infty (\Omega)
+	\end{equation}
+Интегрированием по частям получаем
+\begin{equation*}
+	\int\limits_{\Omega}{\frac{\partial u}{\partial x} \frac{\partial v}{\partial x} d\mu} = \int\limits_{\partial \Omega}{\frac{\partial u}{\partial x} v n_x dS} - \int\limits_{\Omega}{\frac{\partial^2 u}{\partial x^2} v d\mu} \overset{v \in C_0^\infty (\Omega)}{=} -\int\limits_{\Omega}{\frac{\partial^2 u}{\partial x^2} v d\mu}
+\end{equation*}
+где $n_x$ -- координата $x$ нормали $n$ к $\partial \Omega$. Аналогично для координат $y$ и $z$, так что \eqref{eq:3} преобразуется в 
+\begin{equation*}
+	\int\limits_{\Omega}{\left( u - \frac{\partial^2 u}{\partial x^2} - \frac{\partial^2 u}{\partial y^2} - \frac{\partial^2 u}{\partial z^2}\right)v d\mu} = \int\limits_{\Omega}{(u - \Delta u)v d\mu} = 0, \forall v \in C_0^\infty (\Omega)
+\end{equation*}
+и по лемме Дюбуа-Реймондса получаем
+\begin{equation*}
+	u - \Delta u = 0 \text{ п.в. в } \Omega
+\end{equation*}
+однако $u \in C^\infty (\overline{\Omega})$ по условию, поэтому равенство выполняется всюду
+\begin{equation*}
+	u - \Delta u = 0 \text{ в } \Omega
+\end{equation*} 
+это и есть дифференциальное уравнение которому удовлетворяет $u$.
+\end{solution}
+\newpage
+
+\addtocounter{exercise}{4}
+
+\begin{exercise}\label{exr:1}
+	Пусть $u \in W_p^1 (\Omega), v \in W_{p^*}^1 (\Omega)$. Показать что $uv \in W_1^1 (\Omega)$ и \\ $\frac{\partial_c (uv)}{\partial x_i} = u\frac{\partial_c v}{\partial x_i} + v\frac{\partial_c u}{\partial x_i}$
+\end{exercise}
+\begin{solution}
+	Из условия следует что $u \in L^p (\Omega)$ и $v \in L^{p^*} (\Omega)$, так что из неравенства Гельдера получаем $uv \in L^1 (\Omega)$. Докажем что 
+	\begin{equation}\label{eq:1}
+		\frac{\partial_c (u\varphi)}{\partial x_i} = \varphi \frac{\partial_c u}{\partial x_i} + u \frac{\partial \varphi}{\partial x_i}, \forall \varphi \in C^\infty (\Omega)
+	\end{equation}
+	действительно если $\psi \in C_0^\infty (\Omega)$, то $\varphi \psi \in C_0^\infty (\Omega)$ и 
+	\begin{align*}
+		\int\limits_{\Omega}{u \frac{\partial (\varphi \psi)}{\partial x_i} dx} &= -\int\limits_{\Omega}{\frac{\partial_c u}{\partial x_i} \varphi \psi dx} \\
+		\int\limits_{\Omega}{u \frac{\partial (\varphi \psi)}{\partial x_i} dx} &= \int\limits_{\Omega}{u \psi \frac{\partial \varphi }{\partial x_i} dx} + \int\limits_{\Omega}{u \varphi \frac{\partial \psi}{\partial x_i} dx}
+	\end{align*}
+	где первое равенство получено по определению Соболевской производной, а второе через классическую формулу производной произведения. Из этих равенств получаем
+	\begin{equation*}
+		\int\limits_{\Omega}{u \varphi \frac{\partial \psi}{\partial x_i} dx} = - \left( \int\limits_{\Omega}{\frac{\partial_c u}{\partial x_i} \varphi \psi dx} + \int\limits_{\Omega}{u \psi \frac{\partial \varphi }{\partial x_i} dx} \right) = -\int\limits_{\Omega}{\left( \varphi \frac{\partial_c u}{\partial x_i} + u \frac{\partial \varphi}{\partial x_i} \right) \psi dx}
+	\end{equation*} 
+	ч.т.д.
+	Известно что $C^\infty (\Omega)$ всюду плотно в $W_{p^*}^1 (\Omega)$, так что 
+	\begin{equation*}
+		\exists \{\varphi_k\}_{k\in\Natural} \subset C^\infty (\Omega): \varphi_k \to v \text{ в } W_{p^*}^1 (\Omega)
+	\end{equation*}
+	отсюда следует что $\varphi_k \to v$ в $L^{p^*} (\Omega)$ и $\frac{\partial \varphi_k}{\partial x_i} \to \frac{\partial_c v}{\partial x_i}$ в $L^{p^*} (\Omega)$, для $i \in \{1, ..., n\}$. Воспользуемся \eqref{eq:1} и получим
+	\begin{equation*}
+		\frac{\partial_c (u \varphi_k)}{\partial x_i} = \varphi_k \frac{\partial_c u}{\partial x_i} + u \frac{\partial \varphi_k}{\partial x_i} \to v \frac{\partial_c u}{\partial x_i} + u \frac{\partial_c v}{\partial x_i} \text{ в } L^{p^*} (\Omega)
+	\end{equation*}
+	Значит
+	\begin{equation}\label{eq:2}
+		\frac{\partial_c (u \varphi_k)}{\partial x_i} \to v \frac{\partial_c u}{\partial x_i} + u \frac{\partial_c v}{\partial x_i} \text{ в } L^1 (\Omega)
+	\end{equation}
+	т.к. $L^{p^*} (\Omega) \arrsubset L^1 (\Omega)$ и воспользуемся неравенством Гельдера
+	\begin{equation*}
+		\norm{u\varphi_k - uv}_{L^1 (\Omega)} \leq \norm{u}_{L^p (\Omega)} \norm{\varphi_k - v}_{L^{p^*} (\Omega)} \to 0
+	\end{equation*}
+	т.е. $u\varphi_k \to uv$ в $L^1 (\Omega)$ и по признаку обобщенной производной с учетом \eqref{eq:2} получаем что
+	\begin{equation*}
+		\frac{\partial_c (uv)}{\partial x_i} = u\frac{\partial_c v}{\partial x_i} + v\frac{\partial_c u}{\partial x_i}
+	\end{equation*}
+	и кроме того $\frac{\partial_c (uv)}{\partial x_i} \in L^1 (\Omega)$ как сумма функций из этого пространства, ведь $\frac{\partial_c v}{\partial x_i} \in L^{p^*} (\Omega)$ и $\frac{\partial_c u}{\partial x_i} \in L^p (\Omega)$ известно по условию из того что $v \in W_{p^*}^1 (\Omega)$ и $u \in W_p^1 (\Omega)$ соответственно, а затем вновь применяем Гельдера. Итого $uv \in W_1^1 (\Omega)$, ч.т.д.
+\end{solution}
+\newpage
+
+\addtocounter{exercise}{3}
+
+\begin{exercise}
+	Пусть $\Omega = (0, 1)$. Показать что $W_2^1 (\Omega) \neq W_1^1 (\Omega)$
+\end{exercise}
+\begin{solution}
+	Пусть $f: (0, 1) \to \Real$ определена как $f(x) = \sqrt{x}$. Докажем что
+	\begin{equation*}
+		\frac{d_c f}{dx} (x) = \frac{1}{2\sqrt{x}} \text{ на } (0, 1)
+	\end{equation*}
+	для этого возьмем последовательность 
+	\begin{equation*}
+		f_n (x) = 
+		\begin{cases}
+			\sqrt{x}, &x \in (\frac{1}{n}, 1) \\
+			\sqrt{\frac{1}{n}}, &x \in (0, \frac{1}{n}]
+		\end{cases}, \ \forall n \in \Natural
+	\end{equation*}
+	и пусть $\varphi \in C_0^\infty ((0, 1))$, тогда
+	\begin{equation*}
+		T_{f_n} (\varphi) = \int\limits_{0}^{1}{f_n (x) \cdot \varphi(x) dx} = \int\limits_{0}^{\frac{1}{n}}{\sqrt{\frac{1}{n}} \varphi(x) dx} + \int\limits_{\frac{1}{n}}^{1}{\sqrt{x} \cdot \varphi(x) dx}
+	\end{equation*}
+	т.к. $\sqrt{\frac{1}{n}} \in C([0, \frac{1}{n}])$ и $\sqrt{x} \in C([\frac{1}{n}, 1])$, то применимо интегрирование по частям:
+	\begin{multline*}
+		\frac{d}{dx} T_{f_n} (\varphi) = -\int\limits_{0}^{\frac{1}{n}}{\sqrt{\frac{1}{n}} \frac{d \varphi}{dx} (x) dx} - \int\limits_{\frac{1}{n}}^{1}{\sqrt{x} \cdot \frac{d \varphi}{dx} (x) dx} = \\ 
+		= - \left( \sqrt{\frac{1}{n}} \varphi(x) \biggr\rvert_{0}^{\frac{1}{n}}\right) + \int\limits_{0}^{\frac{1}{n}}{\varphi(x) \cdot 0 dx} - \left( \sqrt{x} \varphi(x) \biggr\rvert_{\frac{1}{n}}^{1}\right) + \int\limits_{\frac{1}{n}}^{1}{\frac{1}{2\sqrt{x}} \cdot \varphi(x) dx} = \\
+		 = -\sqrt{\frac{1}{n}} \varphi\left(\frac{1}{n}\right) + \cancelto{0}{\sqrt{\frac{1}{n}}\varphi(0)} + \int\limits_{0}^{1}{\frac{d_c f_n}{dx} (x) \cdot \varphi(x) dx} - \cancelto{0}{\sqrt{1}\varphi(1)} + \sqrt{\frac{1}{n}}\varphi\left(\frac{1}{n}\right) = \\
+		 = \int\limits_{0}^{1}{\frac{d_c f_n}{dx} (x) \cdot \varphi(x) dx}
+	\end{multline*}
+	где
+	\begin{equation*}
+		\frac{d_c f_n}{dx} (x) = 
+		\begin{cases}
+			\frac{1}{2\sqrt{x}}, &x\in (\frac{1}{n}, 1) \\
+			0, &x \in (0, \frac{1}{n}]
+		\end{cases}
+	\end{equation*}
+	пусть теперь $[a, b] \subset (0, 1)$ т.е. $0 < a < b < 1$, тогда $\exists N \in \Natural: \frac{1}{n} < a, \forall n \geq N$ и соответственно $f_n (x) = \sqrt{x}$ на $[a, b]$ т.к. $\frac{1}{n} < a \leq x$, аналогично для $\frac{d_c f_n}{dx}$
+	\begin{align*}
+		\int\limits_{a}^{b}{|f_n (x) - \sqrt{x}| dx} &= \int\limits_{a}^{b}{|\sqrt{x} - \sqrt{x}| dx} = 0 \\
+		\int\limits_{a}^{b}{\left|\frac{d_c f_n}{dx} (x) - \frac{1}{2\sqrt{x}}\right| dx} &= \int\limits_{a}^{b}{\left|\frac{1}{2\sqrt{x}} - \frac{1}{2\sqrt{x}}\right| dx} = 0
+	\end{align*}
+	итого $\norm{f_n (x) - \sqrt{x}}_{L^1 ([a, b])} \to 0$ и $\norm{\frac{d_c f_n}{dx} (x) - \frac{1}{2\sqrt{x}}}_{L^1 ([a, b])} \to 0$, если теперь $K \subset \Omega$ -- компакт, то он содержится в некотором отрезке и сходимость аналогична, так что
+	\begin{align*}
+		f_n \to f &\text{ в } L_{\text{loc}}^1 (\Omega) \\
+		\frac{d_c f_n}{dx} \to g &\text{ в } L_{\text{loc}}^1 (\Omega)
+	\end{align*}
+	где $g(x) = \frac{1}{2\sqrt{x}}$, по признаку обобщенной производной мы доказали. 
+	\begin{equation*}
+		\frac{d_c f}{dx} (x) = g(x) = \frac{1}{2\sqrt{x}} \text{ на } \Omega = (0, 1)
+	\end{equation*}
+	Теперь дело за малым, $f \in C(\overline{\Omega})$ так что $f \in L^1 (\Omega) \cap L^2 (\Omega)$, в тоже время по определению интеграла от неотрицательной функции, через срезки можно доказать
+	\begin{align*}
+		\int\limits_{0}^{1}{\left|\frac{d_c f}{dx} (x)\right| dx} &= \int\limits_{0}^{1}{\frac{1}{2\sqrt{x}} dx} = 1 < \infty \\
+		\int\limits_{0}^{1}{\left|\frac{d_c f}{dx} (x)\right|^2 dx} &= \int\limits_{0}^{1}{\frac{1}{4x} dx} = \frac{1}{4}\int\limits_{0}^{1}{\frac{1}{x} dx} = \infty
+	\end{align*}
+	так что $\frac{d_c f}{dx} \in L^1 (\Omega)$, но $\frac{d_c f}{dx} \notin L^2 (\Omega)$ так что по определению $f \in W_1^1 (\Omega)$, но $f \notin W_2^1 (\Omega)$ и эти множества функций действительно не совпадают.
+\end{solution}
+\newpage
+
+\addtocounter{exercise}{3}
+
+\begin{exercise}
+	Чему равна производная в смысле распределений функции \\ $f(x) = \sin{x} \cdot \sign{x}$? Будет ли эта функция принадлежать пространству $W_2^1 ((-1, 1))$?
+\end{exercise}
+\begin{solution}
+	Выясним какое распределение соответствует этой функции, пусть $\varphi \in C_0^\infty ((-1, 1))$, тогда
+	\begin{equation*}
+		T_f (\varphi) = \int\limits_{-1}^{1}{\sin{x} \cdot \sign{x} \cdot \varphi (x) dx} = \int\limits_{0}^{1}{\sin{x} \cdot \varphi(x) dx} - \int\limits_{-1}^{0}{\sin{x} \cdot \varphi(x) dx}
+	\end{equation*}
+	тогда производная в смысле распределений:
+	\begin{equation*}
+		\frac{d}{dx} T_f (\varphi) = - T_f \left(\frac{d\varphi}{dx}\right) = \int\limits_{-1}^{0}{\sin{x} \cdot \frac{d\varphi}{dx} (x) dx} - \int\limits_{0}^{1}{\sin{x} \cdot \frac{d\varphi}{dx} (x) dx} 
+	\end{equation*}
+	Найдем производную в смысле Соболева, применив интегрирование по частям:
+	\begin{multline*}
+		\frac{d}{dx} T_f (\varphi) = \int\limits_{-1}^{0}{\sin{x} \cdot \frac{d\varphi}{dx} (x) dx} - \int\limits_{0}^{1}{\sin{x} \cdot \frac{d\varphi}{dx} (x) dx} = \\ = 
+		\cancelto{0}{\left( \sin{x} \cdot \frac{d\varphi}{dx} (x) \biggr\rvert_{-1}^{0} \right)} - \int\limits_{-1}^{0}{\cos{x} \cdot \varphi(x) dx} - \cancelto{0}{\left( \sin{x} \cdot \frac{d\varphi}{dx} (x) \biggr\rvert_{0}^{1} \right)} + \int\limits_{0}^{1}{\cos{x} \cdot \varphi(x) dx} = \\ = \int\limits_{-1}^{1}{\cos{x} \cdot \sign{x} \cdot \varphi(x) dx} = T_g (\varphi)
+	\end{multline*}
+	где $g(x) = \cos{x} \cdot \sign{x}$, тогда по определению $\frac{d_c f}{dx} = g$. Остается заметить что $f, \frac{d_c f}{dx} \in L^2 ((-1, 1))$ т.к. $\sign^2 {x} = 1$ п.в. на $(-1, 1)$ и
+	\begin{align*}
+		\int\limits_{-1}^{1}{|f|^2 dx} &= \int\limits_{-1}^{1}{\sin^2 {x} dx} < \infty \\
+		\int\limits_{-1}^{1}{\left|\frac{d_c f}{dx}\right|^2 dx} &= \int\limits_{-1}^{1}{\cos^2 {x} dx} < \infty
+	\end{align*}
+	откуда по определению $f \in W_2^1 ((-1, 1))$
+\end{solution}
+\newpage
+
+\begin{exercise}
+	Пусть $\Omega$ -- липшицева область. Пусть $u \in W_p^1 (\Omega), v \in W_{p^*}^1 (\Omega)$ и $\{u_k\}_{k\in\Natural}, \{v_k\}_{k\in\Natural} \subset C^\infty (\overline{\Omega})$ таковы что $u_k \to u$ в $W_p^1 (\Omega)$, $v_k \to v$ в $W_{p^*}^1 (\Omega)$. Показать что $u_k v_k \to u v$ в $W_1^1 (\Omega)$
+\end{exercise}
+\begin{solution}
+	Воспользуемся \hyperref[exr:1]{задачей 7}, получив что $uv \in W_1^1 (\Omega)$, далее заметим
+	\begin{multline*}
+		\norm{u_k v_k - u v}_{1, 1, \Omega} = \norm{u_k v_k - u_k v + u_k v - u v}_{1, 1, \Omega} \leq \\ \leq \norm{u_k (v_k - v)}_{1, 1, \Omega} + \norm{(u_k - u)v}_{1, 1, \Omega} \leq \cdots
+	\end{multline*}
+	Теперь необходимо получить аналог неравенства Гельдера для пространств $W_p^1 (\Omega)$, один из возможных путей (грубая оценка):
+	\begin{multline*}
+		\norm{uv}_{1, 1, \Omega} = \norm{uv}_{L^1 (\Omega)} + \sum\limits_{i=1}^{n}{\norm{\frac{\partial_c (uv)}{\partial x_i}}_{L^1 (\Omega)}} = \norm{uv}_{L^1 (\Omega)} + \sum\limits_{i=1}^{n}{\norm{ v \frac{\partial_c u}{\partial x_i} + u \frac{\partial_c v}{\partial x_i} }_{L^1 (\Omega)}} \leq \\ \leq \norm{uv}_{L^1 (\Omega)} + \sum\limits_{i=1}^{n}{\norm{v \frac{\partial_c u}{\partial x_i}}_{L^1 (\Omega)}} + \sum\limits_{i=1}^{n}{\norm{u \frac{\partial_c v}{\partial x_i}}_{L^1 (\Omega)}} \leq \\
+		\leq \norm{u}_{L^p (\Omega)}\norm{v}_{L^{p^*} (\Omega)} + \sum\limits_{i=1}^{n}{\left( \norm{\frac{\partial_c u}{\partial x_i}}_{L^p (\Omega)} \norm{v}_{L^{p^*} (\Omega)} \right)} + \sum\limits_{i=1}^{n}{\left(\norm{\frac{\partial_c v}{\partial x_i}}_{L^{p^*} (\Omega)} \norm{u}_{L^p (\Omega)} \right)} \leq \\ \leq (2n+1) \norm{u}_{1, p, \Omega} \norm{v}_{1, p^*, \Omega}
+	\end{multline*}
+	Итого
+	\begin{equation}
+		\norm{uv}_{1, 1, \Omega} \leq (2n+1)\norm{u}_{1, p, \Omega}\norm{v}_{1, p^*, \Omega}
+	\end{equation}
+	Т.к. $u_k \to u$ в $W_p^1 (\Omega)$, то $\exists M \geq 0: \norm{u_k}_{1, p, \Omega} \leq M, \forall k \in \Natural$ и воспользовавшись этим получаем
+	\begin{multline*}
+		\cdots \leq (2n+1)\norm{u_k}_{1, p, \Omega}\norm{v_k - v}_{1, p^*, \Omega} + (2n+1)\norm{u_k - u}_{1, p, \Omega}\norm{v}_{1, p^*, \Omega} \leq \\ \leq
+		(2n+1) \left( M \norm{v_k - v}_{1, p^*, \Omega} + \norm{u_k - u}_{1, p, \Omega} \norm{v}_{1, p^*, \Omega} \right) \to 0
+	\end{multline*}
+	т.к. $\norm{v_k - v}_{1, p^*, \Omega} \to 0$ и $\norm{u_k - u}_{1, p, \Omega} \to 0$ т.е. действительно $\norm{u_k v_k - uv}_{1, 1, \Omega} \to 0$, ч.т.д.
+\end{solution}
+\newpage
+	
+\end{document}
