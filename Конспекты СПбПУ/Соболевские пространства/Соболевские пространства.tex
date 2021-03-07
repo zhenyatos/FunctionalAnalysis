@@ -1,13 +1,6 @@
 \documentclass[12pt,a4paper]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[english,russian]{babel}
-\usepackage{hyperref}
-\hypersetup{
-	colorlinks   = true, 
-	urlcolor     = blue, 
-	linkcolor    = blue, 
-	citecolor   = red
-}
 \usepackage{amsthm,amssymb,amsfonts,amsmath}
 \usepackage{physics}
 \usepackage{xcolor}
@@ -85,6 +78,14 @@ list inside={def}]
 }
 {lemm}
 
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks   = true, 
+	urlcolor     = blue, 
+	linkcolor    = blue, 
+	citecolor   = red
+}
+
 % Непрерывное вложение
 \makeatletter
 \newcommand{\rightarrowhead}{\mathrel{%
@@ -102,6 +103,7 @@ list inside={def}]
 \newcommand{\Dto}{\overset{\mathcal{D}}{\to}}
 \newcommand{\nnorm}[1]{{\left\vert\kern-0.25ex\left\vert\kern-0.25ex\left\vert #1 
 		\right\vert\kern-0.25ex\right\vert\kern-0.25ex\right\vert}}
+\newcommand{\zeroW}[2]{\overset{\circ}{W}{}_{#1}^{#2}}
 \DeclareMathOperator\supp{supp}
 \DeclareMathOperator\dist{dist}
 \DeclareMathOperator\diam{diam}
@@ -187,9 +189,9 @@ $$c  = \frac{1}{\intset{B(0,1)}{e^{\frac{1}{|x|^2 - 1}}dx}}$$
 \begin{example}{}{exmpl:1}
 	$f \equiv c$, $f \notin L^1 (\Real)$, но $f \in L^1_{\text{loc}} (\Real)$
 \end{example}
-
+	
 \begin{lemma}{Дюбуа-Реймонда}{}
-	Пусть $u \in L^1_{\text{loc}} (\Omega)$ и $\intset{\Omega}{u\varphi dx}, \forall \varphi \in C^{\infty}_0 (\Omega)$, тогда $u = 0$ п.в. на $\Omega$ [Заметим что класс для $u$ очень широкий, а для $\varphi$ очень узкий]
+	Пусть $u \in L^1_{\text{loc}} (\Omega)$ и $\intset{\Omega}{u\varphi dx} = 0, \forall \varphi \in C^{\infty}_0 (\Omega)$, тогда $u = 0$ п.в. на $\Omega$ [Заметим что класс для $u$ очень широкий, а для $\varphi$ очень узкий]
 \end{lemma}
 
 \subsection{Критерий компактности в $L^p$}
@@ -263,7 +265,7 @@ $$c  = \frac{1}{\intset{B(0,1)}{e^{\frac{1}{|x|^2 - 1}}dx}}$$
 	$S = (-1)^{|\alpha|} (T \circ D^\alpha)$ -- это распределение (согласно следующему утверждению) называется частной производной распределения $T$, обозначается как $S = D^\alpha T$
 \end{definition}
 
-\begin{proposition}{}{prop:7}
+\begin{proposition}{}{prop:14}
 	$D^\alpha T \in D^* (\Omega)$
 \end{proposition}
 Любое распределение таким образом дифференцируемо любое число раз.
@@ -287,7 +289,7 @@ $$c  = \frac{1}{\intset{B(0,1)}{e^{\frac{1}{|x|^2 - 1}}dx}}$$
 \end{definition}
 Нетрудно показать что если $f \in C^{|\alpha|} (\overline{\Omega})$, то $D_c^\alpha f = D^\alpha f$, т.е. это действительно обобщение понятия производной.
 
-\begin{theorem}{О свойствах обобщенных производных}{th:2}
+\begin{theorem}{О свойствах обобщенных производных}{th:10}
 	Будем говорить что $u_m \to u$ в $L_{\text{loc}}^1 (\Omega)$ если $\forall \underset{\text{компакт}}{K} \subset \Omega: u_m \to u \text{ в } L^1 (\Omega)$. 
 	\begin{enumerate}
 		\item $u \in L_{\text{loc}}^1 (\Omega)$ и $\exists D_c^\alpha u$ в $\Omega$, тогда для $\Omega^\prime \subset \Omega$: $\exists D_c^\alpha (u|_{\Omega^\prime}) \text{ в } \Omega^\prime$ и \\ $D_c^\alpha (u|_{\Omega^\prime}) = (D_c^\alpha u)|_{\Omega^\prime}$
@@ -399,51 +401,52 @@ $$c  = \frac{1}{\intset{B(0,1)}{e^{\frac{1}{|x|^2 - 1}}dx}}$$
 	\end{enumerate}
 \end{proposition}
 
-\subsection{Пространства $\mathring{W_p^\ell}$}
+\subsection{Пространства $\zeroW{p}{\ell}$}
 
-\begin{definition}{Пространства $\mathring{W_p^\ell} (\Omega)$}{def:13}
+\begin{definition}{Пространства $\mathring{W}_p^\ell$}{def:13} 
 	Определим т.н. пространства Соболева с нулевыми граничными условиями:
 	\begin{equation*}
-		\mathring{W_p^\ell} (\Omega) = \overline{C_0^\infty (\Omega)} \text{ в } W_p^\ell
+		\zeroW{p}{\ell} (\Omega) = \overline{C_0^\infty (\Omega)} \text{ в } W_p^\ell
 	\end{equation*}
 \end{definition}
-Это замыкание линейного многообразия т.е. подпространство в $W_p^\ell (\Omega)$. Т.к. $W_p^\ell (\Omega)$ при $1 \leq p < \infty$ сепарабельны и при $1 < p < \infty$ рефлексивны, то для $\mathring{W_p^\ell} (\Omega)$ эти свойства сохраняются.
+
+Это замыкание линейного многообразия т.е. подпространство в $W_p^\ell (\Omega)$. Т.к. $W_p^\ell (\Omega)$ при $1 \leq p < \infty$ сепарабельны и при $1 < p < \infty$ рефлексивны, то для $\zeroW{p}{\ell} (\Omega)$ эти свойства сохраняются.
 
 \begin{proposition}{}{prop:10}
-	Пусть $u \in \mathring{W_p^\ell} (\Omega), \Omega \subset \tilde{\Omega}$ и пусть
+	Пусть $u \in \zeroW{p}{\ell} (\Omega), \Omega \subset \tilde{\Omega}$ и пусть
 	$\tilde{u} (x) = 
 		\begin{cases}
 			u(x), &x \in \Omega \\
 			0, &x \in \tilde{\Omega} \setminus \Omega
-	 	\end{cases}$ п.в., тогда $\tilde{u} \in \mathring{W_p^\ell} (\tilde{\Omega})$ и $\norm{\tilde{u}}_{p, \ell, \tilde{\Omega}} = \norm{u}_{p, \ell, \Omega}$
+	 	\end{cases}$ п.в., тогда $\tilde{u} \in \zeroW{p}{\ell} (\tilde{\Omega})$ и $\norm{\tilde{u}}_{p, \ell, \tilde{\Omega}} = \norm{u}_{p, \ell, \Omega}$
 \end{proposition}
 
 \begin{example}{}{exmpl:6}
-	Пусть $n = 1, \ell = 1, p = 1$ и $\Omega = (0, 1)$, зададим $u \equiv 1$, тогда $u \in W_1^1 (\Omega)$. Допустим $u \in \mathring{W_1^1}$, $\tilde{\Omega} = (0, 2)$ и 
+	Пусть $n = 1, \ell = 1, p = 1$ и $\Omega = (0, 1)$, зададим $u \equiv 1$, тогда $u \in W_1^1 (\Omega)$. Допустим $u \in \zeroW{1}{1}$, $\tilde{\Omega} = (0, 2)$ и 
 	$\tilde{u} = 
 		\begin{cases}
 			1, &x \in (0, 1) \\
 			0, &x \in [1, 2)
-		\end{cases}$, тогда \\ $\tilde{u} \in \mathring{W_1^1} (\tilde{\Omega}) \subset W_1^1 (\tilde{\Omega})$, но $\tilde{u}$ разрывна на $\tilde{\Omega} = (0, 2)$, а так не может быть согласно критерию существования 1-ой обобщенной производной.
+		\end{cases}$, тогда \\ $\tilde{u} \in \zeroW{1}{1}(\tilde{\Omega}) \subset W_1^1 (\tilde{\Omega})$, но $\tilde{u}$ разрывна на $\tilde{\Omega} = (0, 2)$, а так не может быть согласно критерию существования 1-ой обобщенной производной.
 \end{example}
-\textbf{Мораль:} $\mathring{W_p^\ell} (\Omega) \neq W_p^\ell (\Omega)$
+\textbf{Мораль:} $\zeroW{p}{\ell} (\Omega) \neq W_p^\ell (\Omega)$
 
 Рассмотрим несколько важных свойств этих пространств.
 \begin{proposition}{}{prop:11}
-	$u \in \mathring{W_p^\ell} (\Omega)$, тогда $u_\rho \to u$ в $W_p^\ell (\Omega)$
+	$u \in \zeroW{p}{\ell} (\Omega)$, тогда $u_\rho \to u$ в $W_p^\ell (\Omega)$
 \end{proposition}
 
 \begin{proposition}{}{prop:12}
-	Пусть $u \in W_p^\ell (\Omega)$ и $\supp{u} \ssubset \Omega$, тогда $u \in \mathring{W_p^\ell}$
+	Пусть $u \in W_p^\ell (\Omega)$ и $\supp{u} \ssubset \Omega$, тогда $u \in \zeroW{p}{\ell}$
 \end{proposition}
 
 \begin{proposition}{Интегрирование по частям}{prop:13}
 	\begin{enumerate}
-		\item Пусть $u \in W_p^1 (\Omega)$, $v \in \mathring{W_{p^*}^1} (\Omega)$, тогда
+		\item Пусть $u \in W_p^1 (\Omega)$, $v \in \zeroW{{p^*}}{1} (\Omega)$, тогда
 			\begin{equation*}
 			\intset{\Omega}{u \frac{\partial_c v}{\partial x_i} dx} = -\intset{\Omega}{\frac{\partial_c u}{\partial x_i} v dx}
 			\end{equation*}
-		\item Пусть $u \in W_p^\ell (\Omega)$, $v \in \mathring{W_{p^*}^\ell} (\Omega)$, тогда
+		\item Пусть $u \in W_p^\ell (\Omega)$, $v \in \zeroW{p^*}{\ell} (\Omega)$, тогда
 			\begin{equation*}
 			\intset{\Omega}{u D_c^\alpha v dx} = -\intset{\Omega}{v D_c^\alpha u dx}
 			\end{equation*}
@@ -452,21 +455,21 @@ $$c  = \frac{1}{\intset{B(0,1)}{e^{\frac{1}{|x|^2 - 1}}dx}}$$
 \end{proposition}
 
 \begin{theorem}{Неравенство Фридрихса}{th:7}
-	Для $u \in \mathring{W_p^\ell} (\Omega)$ определим 
+	Для $u \in \zeroW{p}{\ell} (\Omega)$ определим 
 	\begin{equation*}
 		|u|_{p, \ell, \Omega} = \left(\intset{\Omega}{\sum_{|\alpha| = \ell}{|D_c^\alpha u|^p} dx}\right)^{\frac{1}{p}}
 	\end{equation*}
 	это полунорма. Пусть $d = \diam{\Omega}$, тогда
 	\begin{equation*}
-		\norm{u}_{L^p (\Omega)} \leq d^\ell |u|_{p, \ell, \Omega}, \forall u \in \mathring{W_p^\ell} (\Omega)
+		\norm{u}_{L^p (\Omega)} \leq d^\ell |u|_{p, \ell, \Omega}, \forall u \in \zeroW{p}{\ell} (\Omega)
 	\end{equation*}
 \end{theorem}
-\textbf{Мораль:} в $\mathring{W_p^\ell} (\Omega)$: $|\cdot|_{p, \ell, \Omega}$ норма эквивалентная $\norm{\cdot}_{p, \ell, \Omega}$.
+\textbf{Мораль:} в $\zeroW{p}{\ell} (\Omega)$: $|\cdot|_{p, \ell, \Omega}$ норма эквивалентная $\norm{\cdot}_{p, \ell, \Omega}$.
 
 \begin{example}{Интересное скалярное произведение}{exmpl:7}
-	В $\mathring{W_2^2} (\Omega)$ можно ввести следующее скалярное произведение:
+	В $\zeroW{2}{2} (\Omega)$ можно ввести следующее скалярное произведение:
 	\begin{equation*}
-		(u, v)_{\mathring{W_2^2} (\Omega)} = \intset{\Omega}{\nabla^2 u \cdot \nabla^2 v dx}
+		(u, v)_{\zeroW{2}{2} (\Omega)} = \intset{\Omega}{\nabla^2 u \cdot \nabla^2 v dx}
 	\end{equation*}
 	где подразумевается $\nabla^2 = \sum\limits_{|\alpha| = 2}{D_c^\alpha}$ (это не лапласиан!)
 \end{example}
@@ -494,7 +497,7 @@ $$c  = \frac{1}{\intset{B(0,1)}{e^{\frac{1}{|x|^2 - 1}}dx}}$$
 В сущности $W_p^\ell (\Omega)$ состоит из первообразных функций из $L^p$ (т.к. существуют обобщенные производные), а $W_p^{-\ell} (\Omega)$ уже состоит из производных (в виде обобщенных функций).
 
 \begin{theorem}{}{th:9}
-	$\left(\mathring{W_{p^*}^\ell} (\Omega)\right)^*$ изометрически изоморфно $W_p^{-\ell} (\Omega)$
+	$\left(\zeroW{p^*}{\ell} (\Omega)\right)^*$ изометрически изоморфно $W_p^{-\ell} (\Omega)$
 \end{theorem}
 \begin{proof}
 	Пусть $T \in W_p^{-\ell} (\Omega)$, тогда по определению
@@ -505,9 +508,9 @@ $$c  = \frac{1}{\intset{B(0,1)}{e^{\frac{1}{|x|^2 - 1}}dx}}$$
 	\begin{multline*}
 		|T(\varphi)| \leq \sum\limits_{|\alpha| \leq \ell}{\intset{\Omega}{|v_\alpha D^\alpha \varphi| dx}} \leq \sum\limits_{|\alpha| \leq \ell}{\norm{v_\alpha}_{L^p (\Omega)} \cdot \norm{D^\alpha \varphi}_{L^{p^*} (\Omega)}} \leq \\ \leq \sum\limits_{|\alpha| \leq \ell}{\norm{v_\alpha}_{L^p (\Omega)}} \cdot \sum\limits_{|\alpha| \leq \ell}{\norm{D^\alpha \varphi}_{L^{p^*}}} = \nnorm{\underline{v}}_{[L^p]^N} \nnorm{\varphi}_{p^*, \ell, \Omega} \overset{\nnorm{\cdot} \sim \norm{\cdot}}{\leq} C \norm{\varphi}_{p^*, \ell, \Omega}
 	\end{multline*}
-	для некоторой $C \geq 0$, так что $T \in \bounded(\mathring{W}_{p^*}^\ell (\Omega), \Real)$ и его область определения $C_0^\infty(\Omega)$ всюду плотна в $\mathring{W}_{p^*}^\ell (\Omega)$ по определению этих пространств. Поэтому 
+	для некоторой $C \geq 0$, так что $T \in \bounded\left(\zeroW{p^*}{\ell} (\Omega), \Real\right)$ и его область определения $C_0^\infty(\Omega)$ всюду плотна в $\zeroW{p^*}{\ell} (\Omega)$ по определению этих пространств. Поэтому 
 	\begin{equation*}
-		\exists!{p (T)} \in \left(\mathring{W_{p^*}^\ell} (\Omega)\right)^*: \left( p(T) |_{C_0^\infty (\Omega)} = T \right) \wedge \left( \norm{p (T)} = \norm{T} \right)
+		\exists!{p (T)} \in \left(\zeroW{p^*}{\ell} (\Omega)\right)^*: \left( p(T) |_{C_0^\infty (\Omega)} = T \right) \wedge \left( \norm{p (T)} = \norm{T} \right)
 	\end{equation*}
 	Это и будет искомый изометрический изоморфизм. Линейность очевидна т.к. продолжение линейной комбинации функционалов это линейная комбинация их продолжений. Инъективность:
 	\begin{equation*}
@@ -569,7 +572,7 @@ $$c  = \frac{1}{\intset{B(0,1)}{e^{\frac{1}{|x|^2 - 1}}dx}}$$
 
 \subsection{Разбиения единицы}
 
-\begin{theorem}{О разбиении единицы}{}\label{th:3}
+\begin{theorem}{О разбиении единицы}{}\label{mth:3}
 	Пусть $K$ -- компакт, $K \subset \bigcup\limits_{i=1}^m {\Omega_i}$, где $\Omega_i$ -- открытое ограниченное множество, тогда $\exists \varphi_1, ..., \varphi_m \in C_0^\infty (\Real^n)$:
 	\begin{enumerate}
 		\item $\supp \varphi_i \ssubset \Omega_i$
@@ -596,7 +599,7 @@ $$c  = \frac{1}{\intset{B(0,1)}{e^{\frac{1}{|x|^2 - 1}}dx}}$$
 	\includegraphics[scale=0.3]{images/5.png}
 \end{example}
 
-\begin{theorem}{}{}\label{th:5}
+\begin{theorem}{}{}\label{mth:5}
 	$C^\infty (\overline{\Omega})$ плотно в $W_p^1 (\Omega)$ если $\Omega$ -- локально звездная область
 \end{theorem}
 
@@ -630,15 +633,15 @@ $$c  = \frac{1}{\intset{B(0,1)}{e^{\frac{1}{|x|^2 - 1}}dx}}$$
 	Пусть $k \in \Natural \cap \{+\infty\}$, $\Omega$ -- область класса $C^k$ если она липшицева и \\  $\varphi \in C^k (\overline{B^\prime})$
 \end{definition}
 
-\begin{theorem}{Радемахера}{}\label{th:2}
+\begin{theorem}{Радемахера}{}\label{mth:2}
 	Липшицева функция п.в. дифференцируема и производная ограничена константой Липшица.
 \end{theorem}
 Таким образом многие построения для областей класса $C^1$ справедливы и для липшицевых областей.
 
-\begin{theorem}{О продолжении}{}\label{th:1}
+\begin{theorem}{О продолжении}{}\label{mth:1}
 	Пусть $\Omega$ -- липшицева область, $\Omega \ssubset \Omega_0$, тогда $\exists C = C(n, p, \Omega, \Omega_0)$:
 	\begin{equation*}
-		\forall u \in \underset{1 \leq p < \infty}{W_p^1 (\Omega)} \ \exists u_0 \in \mathring{W_p^1} (\Omega_0): \left(u_0 |_\Omega = u\right) \wedge \left(\norm{u_0}_{1, p, \Omega_0} \leq C \norm{u}_{1, p, \Omega}\right)
+		\forall u \in \underset{1 \leq p < \infty}{W_p^1 (\Omega)} \ \exists u_0 \in \zeroW{p}{1} (\Omega_0): \left(u_0 |_\Omega = u\right) \wedge \left(\norm{u_0}_{1, p, \Omega_0} \leq C \norm{u}_{1, p, \Omega}\right)
 	\end{equation*}
 \end{theorem}
 \begin{proof}
@@ -651,7 +654,7 @@ $$c  = \frac{1}{\intset{B(0,1)}{e^{\frac{1}{|x|^2 - 1}}dx}}$$
 		\item $\Sigma \subset C_+: \dist(\Sigma, \partial_+ C_+) > 0$ (отделенное от границы подмножество $C_+$)
 		\item $u \in W_p^1 (C_+): \supp{u} \subset \Sigma$ (причем носитель $u$ лежит в этом подмножестве)
 	\end{enumerate}
-	Тогда $\exists v \in \mathring{W_p^1} (C): \left(v|_{C_+} = u\right) \wedge \left(\norm{v}_{1, p, C} = \norm{u}_{1, p, C_+}\right)$ \\ Иными словами с половины цилиндра $C_+$ можно продлить на весь $C$ с сохранением нормы, да еще и с нулевыми граничными условиями, при условии отделимости носителя функции $u$ заданной на $C_+$ от границы собственно $C$ (то самое упомянутое выше дно не принадлежит ей). \\
+	Тогда $\exists v \in \zeroW{p}{1} (C): \left(v|_{C_+} = u\right) \wedge \left(\norm{v}_{1, p, C} = \norm{u}_{1, p, C_+}\right)$ \\ Иными словами с половины цилиндра $C_+$ можно продлить на весь $C$ с сохранением нормы, да еще и с нулевыми граничными условиями, при условии отделимости носителя функции $u$ заданной на $C_+$ от границы собственно $C$ (то самое упомянутое выше дно не принадлежит ей). \\
 	\textbf{Утверждение 2.} Пусть
 	\begin{enumerate}
 		\item $\varphi \in C^1 (\overline{B_R})$, где $B_R = \{ y \in \Real^n \ | \ |y^\prime| < R\}$, причем $\varphi(0) = 0$
@@ -664,7 +667,7 @@ $$c  = \frac{1}{\intset{B(0,1)}{e^{\frac{1}{|x|^2 - 1}}dx}}$$
 		\item $\Sigma \subset \omega_+: \dist(\Sigma, \partial_+ \omega_+) > 0$ (отделенное от границы подмножество $\omega_+$)
 		\item $u \in W_p^1 (\omega_+): \supp{u} \subset \Sigma$ (причем носитель $u$ лежит в этом подмножестве) 
 	\end{enumerate}
-	Тогда $\exists v \in \mathring{W_p^1} (\omega): \left(v|_{\omega_+} = u\right) \wedge \left(\norm{v}_{1, p, \omega} \leq C \norm{u}_{1, p, \omega_+}\right)$, где $C = C(n, p, \varphi)$
+	Тогда $\exists v \in \zeroW{p}{1} (\omega): \left(v|_{\omega_+} = u\right) \wedge \left(\norm{v}_{1, p, \omega} \leq C \norm{u}_{1, p, \omega_+}\right)$, где $C = C(n, p, \varphi)$
 \end{proof}
 
 \section{Теоремы вложения в пространствах Соболева}
@@ -715,11 +718,11 @@ $$c  = \frac{1}{\intset{B(0,1)}{e^{\frac{1}{|x|^2 - 1}}dx}}$$
 
 Из этой леммы вытекает:
 \begin{proposition}{}{}\label{prop:1}
-	Пусть $u \in \mathring{W_p^1} (\Omega)$, тогда $u \in L^{\overline{p}} (\Omega)$ и $\norm{u}_{\overline{p}, \Omega} \leq \varkappa_p |u|_{1, p, \Omega}$
+	Пусть $u \in \zeroW{p}{1} (\Omega)$, тогда $u \in L^{\overline{p}} (\Omega)$ и $\norm{u}_{\overline{p}, \Omega} \leq \varkappa_p |u|_{1, p, \Omega}$
 \end{proposition}
 
 \begin{proposition}{Неравенство Пуанкаре}{}
-	Пусть $u \in \mathring{W_p^1}(\Omega)$, тогда $\exists C = C(n, p, \mu(\Omega))$:
+	Пусть $u \in \zeroW{p}{1}(\Omega)$, тогда $\exists C = C(n, p, \mu(\Omega))$:
 	\begin{equation*}
 		\norm{u}_{p, \Omega} \leq C |u|_{1, p, \Omega}
 	\end{equation*}
@@ -735,9 +738,9 @@ $$c  = \frac{1}{\intset{B(0,1)}{e^{\frac{1}{|x|^2 - 1}}dx}}$$
 \end{theorem}
 \begin{proof}
 	$ $ \\
-	\textbf{1.} Пусть $\Omega \ssubset \Omega_0$, тогда по \hyperref[th:1]{теореме о продолжении} $\exists C = C(n, p, \Omega, \Omega_0)$:
+	\textbf{1.} Пусть $\Omega \ssubset \Omega_0$, тогда по \hyperref[mth:1]{теореме о продолжении} $\exists C = C(n, p, \Omega, \Omega_0)$:
 	\begin{equation*}
-		\forall u \in W_p^1 (\Omega) \ \exists u_0 \in \mathring{W_p^1} (\Omega_0): \left(u_0 |_\Omega = u\right) \wedge \left(\norm{u_0}_{1, p, \Omega_0} \leq C\norm{u}_{1, p, \Omega}\right)
+		\forall u \in W_p^1 (\Omega) \ \exists u_0 \in \zeroW{p}{1} (\Omega_0): \left(u_0 |_\Omega = u\right) \wedge \left(\norm{u_0}_{1, p, \Omega_0} \leq C\norm{u}_{1, p, \Omega}\right)
 	\end{equation*}
 	Тогда по \hyperref[prop:1]{утверждению} $u_0 \in L^{\overline{p}} (\Omega)$ и
 	\begin{equation*}
@@ -1029,7 +1032,7 @@ E_\Omega = \{ x^\prime \in E \ | \ (x^\prime, \varphi(x^\prime) \in \Omega)\} \s
 
 \subsection{Интеграл Лебега по границе области}
 
-Пусть $\Omega$ -- ограниченная бласть в $\Real^n$, $\partial \Omega \in C^1$ (для $C^{0,1}$ с использованием \hyperref[th:2]{теоремы Радемахера} будет аналогично). Как следует из определения области класса $C^1$: $\forall x_0 \in \partial \Omega$
+Пусть $\Omega$ -- ограниченная бласть в $\Real^n$, $\partial \Omega \in C^1$ (для $C^{0,1}$ с использованием \hyperref[mth:2]{теоремы Радемахера} будет аналогично). Как следует из определения области класса $C^1$: $\forall x_0 \in \partial \Omega$
 \begin{equation*}
 	\exists R, L > 0 \ \exists \varphi \in C^{0, 1} (B^\prime) \ \exists Q_{x_0} \in \text{SO}(n)
 \end{equation*}
@@ -1044,7 +1047,7 @@ E_\Omega = \{ x^\prime \in E \ | \ (x^\prime, \varphi(x^\prime) \in \Omega)\} \s
 \begin{equation*}
 	\exists C_1 = C_{x_1}, ..., C_m = C_{x_m}: \ \partial \Omega \subset \bigcup\limits_{i=1}^{m}{C_m}
 \end{equation*}
-значит по \hyperref[th:3]{теореме о разбиении единицы} получаем что $\exists \psi_1, ..., \psi_m \in C^\infty (\Real^n)$:
+значит по \hyperref[mth:3]{теореме о разбиении единицы} получаем что $\exists \psi_1, ..., \psi_m \in C^\infty (\Real^n)$:
 \begin{enumerate}
 	\item $0 \leq \psi_i \leq 1$
 	\item $\supp \psi_i \ssubset C_i, \forall i \in \{1, ..., m\}$
@@ -1087,7 +1090,7 @@ E_\Omega = \{ x^\prime \in E \ | \ (x^\prime, \varphi(x^\prime) \in \Omega)\} \s
 
 \subsection{Оператор следа}
 
-\begin{theorem}{}{}\label{th:4}
+\begin{theorem}{}{}\label{mth:4}
 	Пусть $\Omega$ -- ограниченная область, $\partial \Omega \in C^{0, 1}$ и $1 \leq p < \infty$.  Тогда \\ $\exists C = C(n, p, \Omega)$:
 	\begin{equation*}
 		\norm{u}_{L^p (\partial \Omega)} \leq C \norm{u}_{1, p, \Omega}, \forall u \in C^1 (\overline{\Omega})
@@ -1095,7 +1098,7 @@ E_\Omega = \{ x^\prime \in E \ | \ (x^\prime, \varphi(x^\prime) \in \Omega)\} \s
 \end{theorem}
 Следствием этой теоремы является
 \begin{proposition}{}{}
-	Пусть выполнены условия \hyperref[th:4]{теоремы}, тогда $\forall \varepsilon > 0 \exists C = C(\varepsilon, n, p, \Omega)$:
+	Пусть выполнены условия \hyperref[mth:4]{теоремы}, тогда $\forall \varepsilon > 0 \exists C = C(\varepsilon, n, p, \Omega)$:
 	\begin{equation*}
 		\norm{u}_{L^p (\partial \Omega)} \leq \varepsilon |u|_{1, p, \Omega} + C\norm{u}_{L^p (\Omega)}, \forall u \in C^1 (\overline{\Omega})
 	\end{equation*}
@@ -1105,7 +1108,7 @@ E_\Omega = \{ x^\prime \in E \ | \ (x^\prime, \varphi(x^\prime) \in \Omega)\} \s
 \begin{equation*}
 	\gamma_0 u = u|_{\partial \Omega}
 \end{equation*}
-т.е. это оператор сужения, так что он линеен, к тому же ограничен по теореме из начала параграфа, а т.к. $C^\infty (\overline{\Omega}) \subset C^1 (\overline{\Omega})$, то по \hyperref[th:5]{теореме} -- $C^1 (\overline{\Omega}) = D(\gamma_0)$ всюду плотное в $W_p^1 (\Omega)$ множество и по теореме о продолжении оператора со всюду-плотной областью определения (применима ведь $L^p (\partial \Omega)$ банаховы) получаем
+т.е. это оператор сужения, так что он линеен, к тому же ограничен по теореме из начала параграфа, а т.к. $C^\infty (\overline{\Omega}) \subset C^1 (\overline{\Omega})$, то по \hyperref[mth:5]{теореме} -- $C^1 (\overline{\Omega}) = D(\gamma_0)$ всюду плотное в $W_p^1 (\Omega)$ множество и по теореме о продолжении оператора со всюду-плотной областью определения (применима ведь $L^p (\partial \Omega)$ банаховы) получаем
 
 \begin{definition}{Оператор следа}{}
 	Пусть $\Omega$ -- ограниченная липшицева область, оператором следа \\ $\gamma: W_p^1 (\Omega) \to L^p (\partial \Omega)$ называется продолжение оператора $\gamma_0$ на $W_p^1 (\Omega)$	
