@@ -9,12 +9,13 @@ top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 \usepackage{subfiles} % Best loaded last in the preamble
 
 \theoremstyle{definition}
-\newtheorem{example}{Пример}
+\newtheorem{example}{Пример}[subsection]
 
 \DeclareMathOperator{\codim}{codim}
 
 \newcommand{\Cn}{\mathbb{C}}
 \newcommand{\N}{\mathbb{N}}
+\newcommand{\norm}[1]{\left\| #1 \right\|}
 
 \title{Заметки по курсу Функционального Анализа}
 \author{Самутичев Е. Р.}
@@ -27,6 +28,6 @@ top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 \section{Нормированные пространства и ограниченные операторы.}
 
 \subfile{chapters/1-1-n-1}
-
+\subfile{chapters/1-1-n-2}
 
 \end{document}
