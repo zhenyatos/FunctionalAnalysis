@@ -48,18 +48,18 @@ top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 			e_2 &= (0, 1, ..., 0, 0, 0, ...) 	\\
 				&\cdots						\\
 			e_k &= (0, 0, ..., 0, 1, 0, ...)	\\
-				&\cdots						\\
+				&\cdots 
 		\end{align*}
-		, т.е. для $k \in \Natural$ в $e_k$ - на $k$-ой позиции 1, на остальных 0. Нетрудно видеть что $\forall k \in \Natural: (e_k \in l^1) \wedge (e_k \in l^\infty)$, это нам пригодится в дальнейшем.
+		Т.е. для $k \in \Natural$ в $e_k$ - на $k$-ой позиции 1, на остальных 0. Нетрудно видеть что $\forall k \in \Natural: (e_k \in l^1) \wedge (e_k \in l^\infty)$, это нам пригодится в дальнейшем.
 		
 		\begin{align*}
 			e_1^\prime 	&= \left(1, 1, ..., 1, 1, 1, ...\right) \\
 			e_2^\prime 	&= \left(0, 1, ..., 1, 1, 1, ...\right) 			\\
 						&\cdots 				\\
 			e_k^\prime 	&= \left(0, 0, ..., 1, 1, 1, ...,\right) \\
-						&\cdots
+						&\cdots 
 		\end{align*}
-		, т.е. 0 до $(k-1)$-ой позиции включительно, а после 1. Опять же совершенно очевидно что $e_k^\prime \in l^\infty$, причем $\norm{e_k^\prime}_{l^\infty} = 1$. В тоже время $e_k^\prime \notin l^1$ т.к. ряд имеющий вид $\sum\limits_{i=1}^\infty{1}$ очевидно расходится (обращаем внимание на индекс - это ряд из констант).
+		Т.е. 0 до $(k-1)$-ой позиции включительно, а после 1. Опять же совершенно очевидно что $e_k^\prime \in l^\infty$, причем $\norm{e_k^\prime}_{l^\infty} = 1$. В тоже время $e_k^\prime \notin l^1$ т.к. ряд имеющий вид $\sum\limits_{i=1}^\infty{1}$ очевидно расходится (обращаем внимание на индекс - это ряд из констант).
 		
 		Заметим связь введенных векторов (работаем в пространстве $l^\infty$ которому все они принадлежат):
 		\begin{align}\label{eq:2}
@@ -74,29 +74,29 @@ top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 		
 		Теперь мы можем приступить к построению функционала $f$ на линейном многообразии $L = \Lin\{e_1^\prime, ..., e_k^\prime, ...\} \subset l^\infty$. Причем наличие связи между $e_k$ и $e_k^\prime$ говорит о том что $e_k \in L, \forall k \in \Natural$. Достаточно определить $f$ на $e_k^\prime, \forall k \in \Natural$:
 		\begin{equation}\label{eq:3}
-			f(e_k^\prime) = 1
+			f(e_k^\prime) = 1 ,
 		\end{equation}
-		, а на остальных элементах $L$:
+		А на остальных элементах $L$
 		$$f(x) = f\left(\sum_{i=1}^{n}{\alpha_i e_i^\prime}\right) = \sum_{i=1}^{n}{\alpha_i f(e_i^\prime)} = \sum_{i=1}^{n}{\alpha_i}, \forall x \in L$$
 		т.е. $f \in \linear{l^\infty}{\Real}, D(f) = L$ по построению. Докажем ограниченность:
 		\begin{equation}\label{eq:1}
 			|f(x)| = \left|\sum_{i=1}^{n}{\alpha_i}\right| \leq \norm{x}_{l^\infty}, \forall x \in L
 		\end{equation}
-		, где 
+		где 
 		\begin{align*}
 			x &= \sum\limits_{i=1}^{n}{\alpha_i e_i^\prime} =
 			\left(\alpha_1, \alpha_1 + \alpha_2, ..., \sum_{i=1}^{k}{\alpha_i} ..., \sum_{i=1}^{n}{\alpha_i}, \sum_{i=1}^{n}{\alpha_i}, ... \right) \\
 			&\Rightarrow \\
 			\norm{x}_{l^\infty} &= \sup_{k \in \Natural}{|x_k|} = \max_{k = 1, ..., n}{\left| \sum_{i=1}^{k}{\alpha_i} \right|}
 		\end{align*}
-		, последнее верно т.к. $x_k$ при $k \geq n$ принимает одно и тоже значение. Теперь \eqref{eq:1} очевидно и можно заключить $f \in \bounded{l^\infty}{\Real}, D(f) = L, \norm{f}_{\bounded{l^\infty}{\Real}} \leq 1$. 
+		Последнее верно т.к. $x_k$ при $k \geq n$ принимает одно и тоже значение. Теперь \eqref{eq:1} очевидно и можно заключить $f \in \bounded{l^\infty}{\Real}, D(f) = L, \norm{f}_{\bounded{l^\infty}{\Real}} \leq 1$. 
 		
 		Воспользуемся теоремой Хана-Банаха и получим $F \in \conj{l^\infty}$ - продолжение $f$. Это и есть искомый функционал т.к. пусть $F(x) = \sum\limits_{i=1}^{\infty}{\xi_i x_i}, \forall x \in l^\infty$ для некоторого $\xi \in l^1$. Но тогда:
 		\begin{align*}
 			F(e_k) &= f(e_k) \overset{\eqref{eq:2}}{=} f( e_{k}^\prime - e_{k+1}^\prime) = f(e_{k} ^\prime) - f(e_{k+1}^\prime)  \overset{\eqref{eq:3}}{=} 1 - 1 = 0 \\
 			F(e_k) &= \sum\limits_{i=1}^{\infty}{\xi_i (e_k)_{i}} = \xi_k
 		\end{align*}
-		, таким образом $\xi_k = 0, \forall k \in \Natural$ и $F$ - нулевой функционал, но это не так по построению. 
+		Таким образом $\xi_k = 0, \forall k \in \Natural$ и $F$ - нулевой функционал, но это не так по построению. 
 	\end{solution}
 
 	\newpage

@@ -1,0 +1,32 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[left=3cm,right=3cm,
+top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage{graphicx}
+\usepackage{amsthm,amssymb,amsfonts,amsmath}
+
+\usepackage{subfiles} % Best loaded last in the preamble
+
+\theoremstyle{definition}
+\newtheorem{example}{Пример}
+
+\DeclareMathOperator{\codim}{codim}
+
+\newcommand{\Cn}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+
+\title{Заметки по курсу Функционального Анализа}
+\author{Самутичев Е. Р.}
+\date{05.10.2021 -- \today{}}
+
+\begin{document}
+
+\maketitle
+
+\section{Нормированные пространства и ограниченные операторы.}
+
+\subfile{chapters/1-1-n-1}
+
+
+\end{document}
