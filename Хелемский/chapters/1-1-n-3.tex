@@ -1,0 +1,60 @@
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+
+\subsection{[Измеримые пространства]}
+
+Хелемский определяет измеримые пространства следующим образом. Пусть:
+\begin{enumerate}
+	\item $X$ -- некоторое множество
+	\item $\mathcal{M} \subset 2^X$ -- $\sigma$-кольцо его подмножеств
+	\item $\mu : \mathcal{M} \to [0, +\infty]$ -- $\sigma$-аддитивная функция, т.н. мера\footnote{соглашение: $+\infty + a = +\infty, \forall a \in [0, +\infty]$}
+\end{enumerate}
+
+Тогда $(X, \mathcal{M}, \mu)$ -- измеримое пространство. 
+
+\begin{example}
+	Пусть $X = \N$, $\mathcal{M} = 2^\N$. Определим функцию $\bullet : \mathcal{M} \to [0, +\infty]$ следующим образом:
+	\begin{equation}
+		\bullet (A) = \begin{cases}|A|, &A - \text{конечное} \\ +\infty, &A - \text{бесконечное}\end{cases}
+	\end{equation}
+	Покажем, что $\bullet$ -- мера. Пусть $\{A_n\}_{n \in \N} \subset \mathcal{M}$ и $A \in \mathcal{M}$, при этом \\ $A_i \cap A_j = \varnothing, i \neq j$ и:
+	$$A = \bigcup_{i=1}^{\infty}{A_i}$$
+	Пусть $I = \{i \in \N \ | \ A_i \neq \varnothing \}$. Возможно два случая:
+	
+	\begin{enumerate}
+		\item $I$ -- счетно, тогда $A \supset \bigcup\limits_{i \in I}{A_i}$ -- бесконечное и $|A_i| \geq 1, \forall i \in I$, поэтому:
+		$$\sum_{i=1}^{\infty}{\bullet(A_i)} \geq \sum_{i \in I}{1} = +\infty$$
+		Т.е.:
+		$$\bullet(A) = +\infty = \sum_{i=1}^{\infty}{\bullet(A_i)}$$
+		\item $I$ -- конечно, тогда $A$ -- конечное как объединение конечного числа конечных множеств и т.к. $|A_j| = |\varnothing| = 0, \forall j \in \N \setminus I$, имеем:
+		$$\bullet(A) = |A| = \sum\limits_{i \in I}{|A_i|} = \sum\limits_{i=1}^{\infty}{\bullet(A_i)}$$
+	\end{enumerate}
+	
+	Итак, $\sigma$--аддитивность доказана. $(\N, 2^\N, \bullet)$ -- измеримое пространство и $\bullet$ известна как считающая мера.
+\end{example}
+
+Почему Хелемский выбрал $\sigma$-кольца, а не $\sigma$-алгебры в определении измеримого пространства? Во-первых, дело в том, что для определения меры на $\mathcal{M}$ имеет значение лишь следующее\footnote{хотя можно определить меру и на полукольцах, но это чуть более заморочно}:
+\begin{equation*}
+	A_1, ..., A_n, ... \in \mathcal{M} \Rightarrow \bigcup_{i=1}^{\infty}{A_i} \in \mathcal{M}
+\end{equation*}
+Во-вторых, можно построить разумный пример измеримого пространства, такого что $X \notin \mathcal{M}$ т.е. $\mathcal{M}$ -- не $\sigma$-алгебра.
+
+\begin{example}
+	Пусть $X = \R$, $\mu^* : 2^\R \to [0, +\infty]$ -- стандартная внешняя мера (Лебега) и:
+	$$\mathcal{M} = \{A \subset 2^\R \ | \ \mu^* (A) = 0\}$$
+	Понятно, что $\mathcal{M}$ -- $\sigma$-кольцо, в силу полуаддитивности $\mu^*$. Пусть $E \in \mathcal{M}$ -- единица нашего $\sigma$-кольца, тогда, поскольку $\{x\} \in \mathcal{M}, \forall x \in \R$, по определению единицы имеем:
+	$$\{x\} \subset E \Leftrightarrow, \forall x \in \R$$
+	Т.е.:
+	$$x \in E, \forall x \in \R$$
+	И $E = \R$, но $\mu^* (\R) = +\infty \neq 0$ т.е. $E \notin \mathcal{M}$, противоречие. Значит, в $\mathcal{M}$ нет единицы и это не $\sigma$-алгебра.
+	
+	Нетрудно видеть, что $\mu^*$ -- $\sigma$-аддитивна на множествах из $\mathcal{M}$ т.к.:
+	\begin{equation*}
+		\mu^* \left(\bigcup_{i=1}^{\infty}{A_i}\right) = 0 = \sum_{i=1}^{\infty}{\mu^* (A_i)}, \forall \{A_i\}_{i \in \N} \subset \mathcal{M}
+	\end{equation*}
+	Итого, $(\R, \mathcal{M}, \mu^* |_{\mathcal{M}})$ -- измеримое пространство множеств нулевой меры на вещественной прямой. 
+\end{example}
+
+
+\end{document}
