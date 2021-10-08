@@ -33,12 +33,12 @@
 		|x(t) - x(t_0)| \leq |x(t) - x_N (t)| + |x_N (t) - x_N (t_0)| + |x_N(t_0) - x(t_0)|
 	\end{equation*}
 	Отсюда:
-	\begin{equation}\label{eq:1:1:1:3}
+	\begin{equation}\label{eq:1:1:2:1}
 		|x(t) - x(t_0)| \leq 2\norm{x_N - x}_\infty + |x_N (t) - x_N (t_0)|
 	\end{equation}
 	Поскольку $x_N$ -- непрерывна, то $\exists U_{t_0} \subset \Omega$ -- окрестность точки $t_0$ т.ч. 
 	$$|x_N (t) - x_N (t_0)| < \frac{\varepsilon}{2}, \forall t \in U_{t_0}$$
-	Теперь, из \eqref{eq:1:1:1:3}, с учетом оценки на $\norm{x_N - x}$, получаем:
+	Теперь, из \eqref{eq:1:1:2:1}, с учетом оценки на $\norm{x_N - x}$, получаем:
 	\begin{equation*}
 		|x(t) - x(t_0)| < 2 \cdot \frac{\varepsilon}{4} + \frac{\varepsilon}{2} = \varepsilon, \forall t \in U_{t_0}
 	\end{equation*}
