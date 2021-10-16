@@ -1,0 +1,97 @@
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+
+\subsection{[Интеграл Лебега]}
+
+Напомним одно важное определение из теории меры. Опять же, если оно пугает, то можно сначала посмотреть примеры.
+
+\begin{definition}
+	Говорят, что какое-то свойство функции $P(f)$, где $P$ -- некоторый предикат, выполнено почти всюду, если:
+	\begin{equation}
+		\mu\{t \in X \ | \ \neg P(f(t)) \} = 0
+	\end{equation}
+	При этом, предполагается, что $\{t \in X \ | \ \neg P(f(t))\} \in \mathcal{M}$.
+\end{definition}
+
+Приведем несколько примеров. Пусть $f : X \to \R$ и $g : X \to \R$ -- некоторые функции. 
+
+\begin{example}
+	Говорят, что  $f \geq 0$ почти всюду если:
+	\begin{equation*}
+		\mu\{t \in X \ | \ f(t) < 0 \} = 0
+	\end{equation*}
+	В этом случае, $P(f(t)) = (f(t) \geq 0)$. 
+\end{example}
+
+\begin{example}
+	Говорят, что $f = g$ почти всюду, если:
+	\begin{equation*}
+		\mu\{t \in X \ | \ f(t) \neq g(t)\} = 0
+	\end{equation*}
+	В этом случае, $P_g (f(t)) = (f(t) = g(t))$ если рассматривать одноместный предикат, но тогда между $f$ и $g$ ощущается некая ассиметрия. Поэтому, можно взять двуместный предикат $P(x, y) = (x = y)$ и определить равенство почти всюду как:
+	\begin{equation*}
+		\mu\{t \in X \ | \ \neg P(f(t), g(t))\} = 0
+	\end{equation*}
+\end{example}
+
+\begin{claim}
+	Пусть $f : X \to \R$ и $g : X \to \R$ -- интегрируемые простые функции, тогда:
+	\begin{enumerate}
+		\item $f \geq 0$ почти всюду $\Rightarrow$ $\int_{X}{f (t) d\mu(t)} \geq 0$
+		\item $\forall a \in \R : \int_{X}{a f (t) d\mu (t)} = a \int_{X}{f(t) d\mu(t)}$
+		\item Сумма $f + g$ -- интегрируема и:
+		$$\int_{X}{(f(t) + g(t))d\mu(t)} = \int_{X}{f(t) d\mu(t)} + \int_{X}{g(t)d\mu(t)}$$
+	\end{enumerate}
+\end{claim}
+\begin{proof}
+	$ $ \\
+	1. Если $f \geq 0$ п. в., то в каноническом представлении, для множеств $E_i$ соответствующих $c_i < 0$ справедливо $\mu(E_i) = 0$. Значит:
+	\begin{equation*}
+		\int_{X}{f(t) d\mu(t)} = \sum_{i=1}^{n}{c_i \mu(E_i)} = \sum_{i : \ c_i < 0}{c_i \mu(E_i)} + \sum_{i : \ c_i > 0}{c_i \mu(E_i)} = 0 + \sum_{i : \ c_i > 0}{c_i \mu(E_i)} \geq 0
+	\end{equation*}
+	2. При $a = 0$ утверждение очевидно. Теперь, при $a \neq 0$, если для $f$ каноническое представление:
+	\begin{equation*}
+		f(t) = \sum_{i=1}^{n}{c_i \Ind_{E_i} (t)}
+	\end{equation*}
+	То для $a f$ имеет место представление:
+	\begin{equation*}
+		af(t) = \sum_{i=1}^{n}{a c_i \Ind_{E_i} (t)}
+	\end{equation*}
+	В котором $E_i \cap E_j = \varnothing, \forall i \neq j$
+	Тогда:
+	\begin{equation*}
+		\int_{X}{a f(t) d\mu(t)} = \sum_{i=1}^{n}{a c_i \mu(E_i)} = a \sum_{i=1}^{n}{c_i \mu(E_i)} = a \int_{X}{f(t) d\mu(t)}
+	\end{equation*}
+	3. Если для $f$ каноническое представление:
+	\begin{equation*}
+		f(t) = \sum_{i=1}^{n}{a_i \Ind_{A_i} (t)}
+	\end{equation*}
+	И для $g$ каноническое представление:
+	\begin{equation*}
+		g(t) = \sum_{j=1}^{m}{b_i \Ind_{B_i} (t)}
+	\end{equation*}
+	Пусть $C_{i, j} = A_i \cap B_j \in \mathcal{M}$. Положим $c_{i, j} = a_i + b_j$. Представление функции $f + g$ не исчерпывается указанными множествами и вещественными числами, поэтому требуется добавить множества:
+	\begin{align*}
+		C_{0, j} &= B_j \setminus \bigcup_{i=1}^{n}{A_i} \in \mathcal{M} \\
+		C_{i, 0} &= A_i \setminus \bigcup_{j=1}^{m}{B_j} \in \mathcal{M}
+	\end{align*}
+	Соответствующие им числа: $c_{0, j} = b_j$ и $c_{i, 0} = a_i$. Для удобства введем $a_0 = 0, b_0 = 0$, тогда $c_{i, j} = a_i + b_j$ и при $i = 0$ или $j = 0$. Итак, нетрудно проверить, что:
+	\begin{equation*}
+		(f + g)(t) = \sum_{i=0}^{n}{\sum_{j=0}^{m}{c_{i,j} \Ind_{C_{i, j}} (t)}}
+	\end{equation*}
+	Суммируемость функции $f + g$ проверяется теперь непосредственным вычислением. Прежде заметим, что:
+	\begin{align}\label{1:1:5:1}
+		\begin{split}
+			A_i &= \bigcup_{j=0}^{m}{C_{i, j}} \\
+			B_j &= \bigcup_{i=0}^{n}{C_{i, j}}
+		\end{split}
+	\end{align}
+	Из \eqref{1:1:5:1} и аддитивности меры, имеем:
+	\begin{multline*}
+		\int_{X}{(f(t) + g(t)) d\mu(t)} = \sum_{i=0}^{n}{\sum_{j=0}^{m}{(a_i + b_j)\mu(C_{i, j})}} = \sum_{i=0}^{n}{\sum_{j=0}^{m}{a_i \mu(C_{i, j})}} + \sum_{j=0}^{m}{\sum_{i=0}^{n}{b_j \mu(C_{i, j})}} = \\ = \sum_{i=0}^{n}{a_i \mu(A_i)} + \sum_{j=0}^{m}{b_j \mu(B_j)} = \int_{X}{f(t) d\mu(t)} + \int_{X}{g(t) d\mu(t)}
+	\end{multline*}
+	Что и требовалось доказать.
+\end{proof}
+
+\end{document}
