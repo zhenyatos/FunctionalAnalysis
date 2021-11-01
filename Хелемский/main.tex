@@ -1,0 +1,41 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[left=3cm,right=3cm,
+top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage{graphicx}
+\usepackage{amsthm,amssymb,amsfonts,amsmath}
+
+\usepackage{subfiles} % Best loaded last in the preamble
+
+\theoremstyle{definition}
+\newtheorem{example}{Пример}[subsection]
+\newtheorem{definition}{Определение}[subsection]
+\newtheorem{lemma}{Лемма}[subsection]
+\newtheorem{claim}{Утверждение}[subsection]
+
+\DeclareMathOperator{\codim}{codim}
+
+\newcommand{\Cn}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\norm}[1]{\left\| #1 \right\|}
+\newcommand{\Ind}{\mathbf{1}}
+
+\title{Заметки по курсу Функционального Анализа}
+\author{Самутичев Е. Р.}
+\date{5 октября 2021 -- \today{}}
+
+\begin{document}
+
+\maketitle
+
+\section{Нормированные пространства и ограниченные операторы.}
+
+\subfile{chapters/1-1-n-1}
+\subfile{chapters/1-1-n-2}
+\subfile{chapters/1-1-n-3}
+\subfile{chapters/1-1-n-4}
+\subfile{chapters/1-1-n-5}
+
+\end{document}

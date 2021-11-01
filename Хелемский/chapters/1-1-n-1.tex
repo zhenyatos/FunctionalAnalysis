@@ -1,0 +1,67 @@
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+
+\subsection{Примеры вычисления коразмерности}
+
+По определению: $\codim_E F = \dim{E / F}$. 
+
+\begin{example}
+	Пусть $c$ -- пространство сходящихся последовательностей комплексных чисел, а $c_0$ -- его подпространство, состоящее из последовательностей, сходящихся к нулю. Покажем, что
+	\begin{equation}
+		\codim_{c}{c_0} = 1
+	\end{equation}
+	
+	Пусть $\xi \in c$, введем обозначение для его класса смежности:
+	$$\tilde{\xi} := \{\xi + \xi^0 \ | \ \xi^0 \in c_0\} \in c / c_0$$
+	По определению факторпространства, $\{\tilde{\xi}\}_{\xi \in c}$ и являются элементами $c / c_0$. 
+	
+	Пусть $\xi, \eta \in c$. Пределы последовательностей обозначим как: $a_\xi \in \Cn$ и $a_\eta \in \Cn$ соответсвенно. Заметим, что:
+	\begin{equation}\label{eq:1:1:1:1}
+		a_\xi = a_\eta \Leftrightarrow \xi - \eta \in c_0 \Leftrightarrow \tilde{\xi} = \tilde{\eta}
+	\end{equation}
+	Введем отображение $\varphi : c / c_0 \to \Cn$, заданное как:
+	$$\varphi(\tilde{\xi}) = a_\xi$$
+	Оно задано корректно в силу \eqref{eq:1:1:1:1}, т.е. не зависит от выбора конкретного представителя класса смежности. Теперь заметим, что оно биективно т.к. каждому $z \in \Cn$ сопоставлен один и только один класс, а именно $\tilde{i^z}$, где $i^z = (z, z, z, ..., z, ...)$. И линейно, в силу линейности предела. Значит, оно устанавливает изоморфизм т.е.:
+	$$c / c_0 \simeq \Cn$$
+	Отсюда и следует, что $\codim_{c}{c_0} = \dim c / c_0 = \dim \Cn = 1$.
+\end{example}
+
+\begin{example}
+	Пусть $c_0$ -- пространство сходящихся к нулю последовательностей комплексных чисел, а $c_{00}$ -- его подпространство, состоящее из финитных\footnote{конечное число элементов отлично от нуля} последовательностей. Покажем, что:
+	\begin{equation}
+		\codim_{c_0}{c_{00}} = \infty
+	\end{equation}
+	Иначе говоря, в $c_0 / c_{00}$ нет конечного базиса.
+	
+	Покажем, что $\forall n \in \N$ найдутся такие $\tilde{\xi^1}, ..., \tilde{\xi^n} \in c_0 / c_{00}$, что они линейно независимы, иначе говоря:
+	\begin{equation}\label{eq:1:1:1:2}
+		\lambda_1 \tilde{\xi^1} + \cdots + \lambda_n \tilde{\xi^n} = \tilde{0} = c_{00}
+	\end{equation}
+	только при $\lambda_1 = \cdots = \lambda_n = 0$. 
+	
+	Возьмем $\xi^m = (1, \frac{1}{m+1}, ..., \frac{1}{(m+1)^k}, ...) \in c_0$ для $m \in \N$. Предположим, что $\xi^1, ..., \xi^n$ удовлетворяют \eqref{eq:1:1:1:2}, т.е.:
+	$$\xi = \lambda_1 \xi^1 + \cdots + \lambda_n \xi^n \in c_{00}$$
+	Значит, $\exists N \in N$ т.ч. $\forall k \geq N: \xi_k = 0$. По построению $\xi^1, ..., \xi^n$ это означает, что $\lambda_1, ..., \lambda_n$ являются решением системы:
+	\begin{align*}
+		\begin{cases}
+			\lambda_1 \frac{1}{2^N} + \cdots + \lambda_n \frac{1}{(n + 1)^N} = 0 \\
+			\cdots \\
+			\lambda_1 \frac{1}{2^{N+n-1}} + \cdots + \lambda_n \frac{1}{(n + 1)^{N+n-1}} = 0
+		\end{cases}
+	\end{align*}
+	Дабы упростить себе жизнь, введем обозначения $\lambda_i^\prime = \frac{\lambda_i}{(i+1)^N}$, в них система примет вид:
+	\begin{align*}
+		\begin{cases}
+			\lambda_1^\prime \cdot 1 + \cdots + \lambda_n^\prime \cdot 1 = 0 \\
+			\cdots \\
+			\lambda_1^\prime \cdot \frac{1}{2^{n-1}} + \cdots + \lambda_n^\prime \frac{1}{(n+1)^{n-1}} = 0
+		\end{cases}
+	\end{align*}
+	Её определитель -- это определитель Вандермонда $n \times n$ при $x_1 = \frac{1}{2}, ..., x_n = \frac{1}{n+1}$. Он, как известно, не равен нулю если $x_i \neq x_j, \forall i \neq j$, а значит система имеет только тривиальное решение, а именно $\lambda_1 = \cdots = \lambda_n = 0$.
+	
+	Таким образом, мы доказали, что $\tilde{\xi^1}, ..., \tilde{\xi^n}$ линейно независимы. В силу произвольности $n \in \N$, мы доказали, что в $c_0 / c_{00}$ нет конечного базиса, что и требовалось.
+\end{example}
+
+
+\end{document}

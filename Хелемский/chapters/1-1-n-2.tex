@@ -1,0 +1,52 @@
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+
+\subsection{Пространства $l_\infty (X)$}
+
+Пусть $X$ -- произвольное множество, тогда определим $l_\infty (X)$ как пространство всех ограниченных функций из $\Cn^X$ и снабдим его т.н. sup-нормой:
+
+\begin{equation}
+	\norm{x}_\infty = \sup_{t \in X}{|x(t)|}
+\end{equation}
+
+Введем обозначение $l_\infty = l_\infty (\N)$ для пространства ограниченных последовательностей. Заметим, что пространства последовательностей вложены друг в друга:
+\begin{equation*}
+	c_{00} \subset c_0 \subset c \subset l_\infty (\N)
+\end{equation*}
+
+Посмотрим, какие еще пространства можно ввести, взяв за основу $l_\infty (X)$.
+
+\begin{example}
+	Пусть $\Omega$ -- топологическое пространство. Тогда в $l_\infty (\Omega)$ можно выделить подпространство $C_b (\Omega)$ ограниченных непрерывных функций. 
+	
+	Заметим, что непрерывность вовсе не обязательно влечет ограниченность, поэтому нижний индекс $b$ (от англ. <<boundary>>) важен. К примеру, если взять $\Omega = (0, 1)$ со стандартной топологией, то функция $x(t) = \frac{1}{t}$ является непрерывной, но не является ограниченной, поэтому $x \notin C_b (\Omega)$.
+	
+	Теперь покажем, что это подпространство замкнуто. Пусть $\{x_n\}_{n\in\N} \subset C_b (\Omega)$ т.ч. $x_n \to x$ для некоторого $x \in l^\infty (\Omega)$. Это означает, что:
+	\begin{equation*}
+		\norm{x_n - x} \to 0, n \to \infty
+	\end{equation*}
+	Фиксируем $\varepsilon > 0$, тогда $\exists N \in \N: \norm{x_n - x}_\infty < \frac{\varepsilon}{4}, \forall n \geq N$. Выбор $\frac{\varepsilon}{4}$ для оценки вместо $\varepsilon$ будет понятен из дальнейших выкладок. 
+	
+	Пусть $t_0 \in \Omega$, тогда $\forall t \in \Omega$:
+	\begin{equation*}
+		|x(t) - x(t_0)| \leq |x(t) - x_N (t)| + |x_N (t) - x_N (t_0)| + |x_N(t_0) - x(t_0)|
+	\end{equation*}
+	Отсюда:
+	\begin{equation}\label{eq:1:1:2:1}
+		|x(t) - x(t_0)| \leq 2\norm{x_N - x}_\infty + |x_N (t) - x_N (t_0)|
+	\end{equation}
+	Поскольку $x_N$ -- непрерывна, то $\exists U_{t_0} \subset \Omega$ -- окрестность точки $t_0$ т.ч. 
+	$$|x_N (t) - x_N (t_0)| < \frac{\varepsilon}{2}, \forall t \in U_{t_0}$$
+	Теперь, из \eqref{eq:1:1:2:1}, с учетом оценки на $\norm{x_N - x}$, получаем:
+	\begin{equation*}
+		|x(t) - x(t_0)| < 2 \cdot \frac{\varepsilon}{4} + \frac{\varepsilon}{2} = \varepsilon, \forall t \in U_{t_0}
+	\end{equation*}
+	В силу произвольности $\varepsilon > 0$ мы доказали, что $x$ -- непрерывна в $t_0$. В силу произвольности $t_0 \in \Omega$, доказана непрерывность $x$, т.е., что $x \in C_b (\Omega)$, что и требовалось.
+\end{example}
+
+\begin{example}
+	$C[a, b] = C_b ([a, b])$ -- пространство непрерывных функций на отрезке $[a, b]$ числовой прямой. Ограниченность опускается, ведь, как известно, функция непрерывная на компакте является ограниченной.
+\end{example}
+
+\end{document}
